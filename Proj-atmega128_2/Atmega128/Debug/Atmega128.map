@@ -285,7 +285,7 @@ Discarded input sections
                 0x00000000       0x70 Librarias/clock.o
  .debug_ranges  0x00000000       0x60 Librarias/clock.o
  .debug_line    0x00000000      0x3da Librarias/clock.o
- .debug_str     0x00000000      0x331 Librarias/clock.o
+ .debug_str     0x00000000      0x340 Librarias/clock.o
  .comment       0x00000000       0x31 Librarias/clock.o
  .debug_frame   0x00000000       0xec Librarias/clock.o
  COMMON         0x00000000       0x14 Librarias/clock.o
@@ -300,7 +300,7 @@ Discarded input sections
                 0x00000000       0x20 Librarias/eeprom.o
  .debug_ranges  0x00000000       0x10 Librarias/eeprom.o
  .debug_line    0x00000000      0x12d Librarias/eeprom.o
- .debug_str     0x00000000      0x262 Librarias/eeprom.o
+ .debug_str     0x00000000      0x271 Librarias/eeprom.o
  .comment       0x00000000       0x31 Librarias/eeprom.o
  .debug_frame   0x00000000       0x24 Librarias/eeprom.o
  .text          0x00000000        0x0 Librarias/function.o
@@ -386,7 +386,7 @@ Discarded input sections
                 0x00000000       0x88 Librarias/lfsm.o
  .debug_ranges  0x00000000       0x78 Librarias/lfsm.o
  .debug_line    0x00000000      0x700 Librarias/lfsm.o
- .debug_str     0x00000000      0x3e1 Librarias/lfsm.o
+ .debug_str     0x00000000      0x3f0 Librarias/lfsm.o
  .comment       0x00000000       0x31 Librarias/lfsm.o
  .debug_frame   0x00000000      0x258 Librarias/lfsm.o
  COMMON         0x00000000        0xe Librarias/lfsm.o
@@ -416,7 +416,7 @@ Discarded input sections
                 0x00000000       0x48 Librarias/mm74c923.o
  .debug_ranges  0x00000000       0x38 Librarias/mm74c923.o
  .debug_line    0x00000000      0x2aa Librarias/mm74c923.o
- .debug_str     0x00000000      0x436 Librarias/mm74c923.o
+ .debug_str     0x00000000      0x445 Librarias/mm74c923.o
  .comment       0x00000000       0x31 Librarias/mm74c923.o
  .debug_frame   0x00000000       0xb4 Librarias/mm74c923.o
  COMMON         0x00000000       0x66 Librarias/mm74c923.o
@@ -1375,19 +1375,19 @@ END GROUP
  .debug_frame   0x00000ae8      0x28c Librarias/lcd.o
  .debug_frame   0x00000d74       0x48 main.o
 
-.debug_str      0x00000000     0x11ed
+.debug_str      0x00000000     0x11fc
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega128/avr51/crtatmega128.o
- .debug_str     0x0000027d      0x970 Librarias/Atmega128API.o
-                                0xabb (size before relaxing)
- .debug_str     0x00000bed      0x280 Librarias/function.o
-                                0x52f (size before relaxing)
- .debug_str     0x00000e6d      0x109 Librarias/keypad.o
-                                0x29f (size before relaxing)
- .debug_str     0x00000f76      0x23b Librarias/lcd.o
-                                0x3ff (size before relaxing)
- .debug_str     0x000011b1       0x3c main.o
-                                0x3aa (size before relaxing)
+ .debug_str     0x0000027d      0x97f Librarias/Atmega128API.o
+                                0xaca (size before relaxing)
+ .debug_str     0x00000bfc      0x280 Librarias/function.o
+                                0x53e (size before relaxing)
+ .debug_str     0x00000e7c      0x109 Librarias/keypad.o
+                                0x2ae (size before relaxing)
+ .debug_str     0x00000f85      0x23b Librarias/lcd.o
+                                0x40e (size before relaxing)
+ .debug_str     0x000011c0       0x3c main.o
+                                0x3b9 (size before relaxing)
 
 .debug_loc      0x00000000     0x4e3e
  *(.debug_loc)

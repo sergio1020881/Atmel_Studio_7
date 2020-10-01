@@ -55,7 +55,6 @@ lcd0_PIN            0x2               Librarias/lcd.o
 FUNCstr             0x10              Librarias/function.o
 ADC_SELECTOR        0x2               Librarias/atmega324analog.o
 adc_sample          0x2               Librarias/atmega324analog.o
-keypadstring        0xf               Librarias/keypad.o
 keypad_dataf        0x4               Librarias/keypad.o
 lcd1_DDR            0x2               Librarias/lcd.o
 keypad_datai        0x4               Librarias/keypad.o
@@ -69,7 +68,7 @@ adc_n_sample        0x1               Librarias/atmega324analog.o
 KEYPADSTRINGINDEX   0x1               Librarias/keypad.o
 lcd0_detect         0x1               Librarias/lcd.o
 keypad_PIN          0x2               Librarias/keypad.o
-data                0x7               Librarias/lfsm.o
+data                0x16              Librarias/keypad.o
 adc_tmp             0x2               Librarias/atmega324analog.o
 lcd0_PORT           0x2               Librarias/lcd.o
 lcd1_PORT           0x2               Librarias/lcd.o
@@ -110,7 +109,7 @@ Discarded input sections
                 0x00000000       0x48 Librarias/atmega324preamble.o
  .debug_ranges  0x00000000       0x38 Librarias/atmega324preamble.o
  .debug_line    0x00000000      0x2a8 Librarias/atmega324preamble.o
- .debug_str     0x00000000      0x208 Librarias/atmega324preamble.o
+ .debug_str     0x00000000      0x20f Librarias/atmega324preamble.o
  .comment       0x00000000       0x31 Librarias/atmega324preamble.o
  .debug_frame   0x00000000       0x74 Librarias/atmega324preamble.o
  .text          0x00000000        0x0 Librarias/atmega324timer.o
@@ -177,7 +176,7 @@ Discarded input sections
                 0x00000000       0xc0 Librarias/atmega324timer.o
  .debug_ranges  0x00000000       0xb0 Librarias/atmega324timer.o
  .debug_line    0x00000000      0x7ec Librarias/atmega324timer.o
- .debug_str     0x00000000      0x483 Librarias/atmega324timer.o
+ .debug_str     0x00000000      0x48a Librarias/atmega324timer.o
  .comment       0x00000000       0x31 Librarias/atmega324timer.o
  .debug_frame   0x00000000      0x190 Librarias/atmega324timer.o
  .text          0x00000000        0x0 Librarias/eeprom.o
@@ -213,14 +212,14 @@ Discarded input sections
                 0x00000000       0x66 Librarias/lcd.o
  .text.LCD1_hspace
                 0x00000000       0x1e Librarias/lcd.o
- .text.LCD1_clear
-                0x00000000       0x10 Librarias/lcd.o
  .text.LCD1_gotoxy
                 0x00000000       0x5e Librarias/lcd.o
+ .text.LCD1_clear
+                0x00000000       0x18 Librarias/lcd.o
  .text.LCD0_strobe
                 0x00000000       0x1e Librarias/lcd.o
  .text.LCD1_inic
-                0x00000000       0xb4 Librarias/lcd.o
+                0x00000000       0x98 Librarias/lcd.o
  .text.LCD1enable
                 0x00000000       0xb0 Librarias/lcd.o
  .text.LCD1_reboot
@@ -483,6 +482,8 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/b
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/../../../../avr/lib/avr5\libc.a
 LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a
 END GROUP
+                0x00000000                __TEXT_REGION_ORIGIN__ = DEFINED (__TEXT_REGION_ORIGIN__)?__TEXT_REGION_ORIGIN__:0x0
+                0x00800060                __DATA_REGION_ORIGIN__ = DEFINED (__DATA_REGION_ORIGIN__)?__DATA_REGION_ORIGIN__:0x800060
                 0x00020000                __TEXT_REGION_LENGTH__ = DEFINED (__TEXT_REGION_LENGTH__)?__TEXT_REGION_LENGTH__:0x20000
                 0x0000ffa0                __DATA_REGION_LENGTH__ = DEFINED (__DATA_REGION_LENGTH__)?__DATA_REGION_LENGTH__:0xffa0
                 0x00010000                __EEPROM_REGION_LENGTH__ = DEFINED (__EEPROM_REGION_LENGTH__)?__EEPROM_REGION_LENGTH__:0x10000
@@ -581,7 +582,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000     0x26da
+.text           0x00000000     0x262c
  *(.vectors)
  .vectors       0x00000000       0x7c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5/crtatmega324a.o
                 0x00000000                __vector_default
@@ -788,17 +789,17 @@ END GROUP
                 0x00000abc      0x14e Librarias/function.o
                 0x00000abc                FUNCenable
  .text.KEYPAD_flush
-                0x00000c0a       0x12 Librarias/keypad.o
+                0x00000c0a       0x1c Librarias/keypad.o
                 0x00000c0a                KEYPAD_flush
  .text.KEYPAD_getkey
-                0x00000c1c      0x25a Librarias/keypad.o
-                0x00000c1c                KEYPAD_getkey
+                0x00000c26      0x25a Librarias/keypad.o
+                0x00000c26                KEYPAD_getkey
  .text.KEYPAD_get
-                0x00000e76       0x58 Librarias/keypad.o
-                0x00000e76                KEYPAD_get
+                0x00000e80       0x48 Librarias/keypad.o
+                0x00000e80                KEYPAD_get
  .text.KEYPADenable
-                0x00000ece       0xaa Librarias/keypad.o
-                0x00000ece                KEYPADenable
+                0x00000ec8       0xb0 Librarias/keypad.o
+                0x00000ec8                KEYPADenable
  .text.LCD0_write
                 0x00000f78      0x188 Librarias/lcd.o
                 0x00000f78                LCD0_write
@@ -822,129 +823,129 @@ END GROUP
  .text.LCD0_hspace
                 0x000012ce       0x1e Librarias/lcd.o
                 0x000012ce                LCD0_hspace
- .text.LCD0_clear
-                0x000012ec       0x10 Librarias/lcd.o
-                0x000012ec                LCD0_clear
  .text.LCD0_gotoxy
-                0x000012fc       0x5e Librarias/lcd.o
-                0x000012fc                LCD0_gotoxy
+                0x000012ec       0x5e Librarias/lcd.o
+                0x000012ec                LCD0_gotoxy
+ .text.LCD0_clear
+                0x0000134a       0x18 Librarias/lcd.o
+                0x0000134a                LCD0_clear
  .text.LCD0_inic
-                0x0000135a       0xb4 Librarias/lcd.o
-                0x0000135a                LCD0_inic
+                0x00001362       0x98 Librarias/lcd.o
+                0x00001362                LCD0_inic
  .text.LCD0enable
-                0x0000140e       0xb0 Librarias/lcd.o
-                0x0000140e                LCD0enable
+                0x000013fa       0xb0 Librarias/lcd.o
+                0x000013fa                LCD0enable
  .text.LCD0_reboot
-                0x000014be       0x24 Librarias/lcd.o
-                0x000014be                LCD0_reboot
+                0x000014aa       0x24 Librarias/lcd.o
+                0x000014aa                LCD0_reboot
  .text.LFSMquant
-                0x000014e2       0x68 Librarias/lfsm.o
-                0x000014e2                LFSMquant
+                0x000014ce       0x68 Librarias/lfsm.o
+                0x000014ce                LFSMquant
  .text.LFSMdeleteall
-                0x0000154a       0xa0 Librarias/lfsm.o
-                0x0000154a                LFSMdeleteall
+                0x00001536       0xa0 Librarias/lfsm.o
+                0x00001536                LFSMdeleteall
  .text.LFSMgetoutput
-                0x000015ea        0x6 Librarias/lfsm.o
-                0x000015ea                LFSMgetoutput
+                0x000015d6        0x6 Librarias/lfsm.o
+                0x000015d6                LFSMgetoutput
  .text.LFSMgetstatus
-                0x000015f0        0x6 Librarias/lfsm.o
-                0x000015f0                LFSMgetstatus
+                0x000015dc        0x6 Librarias/lfsm.o
+                0x000015dc                LFSMgetstatus
  .text.LFSMsetoutput
-                0x000015f6        0x8 Librarias/lfsm.o
-                0x000015f6                LFSMsetoutput
+                0x000015e2        0x8 Librarias/lfsm.o
+                0x000015e2                LFSMsetoutput
  .text.LFSMgetpage
-                0x000015fe        0x6 Librarias/lfsm.o
-                0x000015fe                LFSMgetpage
+                0x000015ea        0x6 Librarias/lfsm.o
+                0x000015ea                LFSMgetpage
  .text.LFSMsetpage
-                0x00001604        0x6 Librarias/lfsm.o
-                0x00001604                LFSMsetpage
+                0x000015f0        0x6 Librarias/lfsm.o
+                0x000015f0                LFSMsetpage
  .text.LFSMread
-                0x0000160a      0x280 Librarias/lfsm.o
-                0x0000160a                LFSMread
+                0x000015f6      0x280 Librarias/lfsm.o
+                0x000015f6                LFSMread
  .text.LFSMremove
-                0x0000188a      0x25e Librarias/lfsm.o
-                0x0000188a                LFSMremove
+                0x00001876      0x25e Librarias/lfsm.o
+                0x00001876                LFSMremove
  .text.LFSMlearn
-                0x00001ae8      0x186 Librarias/lfsm.o
-                0x00001ae8                LFSMlearn
+                0x00001ad4      0x186 Librarias/lfsm.o
+                0x00001ad4                LFSMlearn
  .text.LFSMenable
-                0x00001c6e       0x66 Librarias/lfsm.o
-                0x00001c6e                LFSMenable
+                0x00001c5a       0x66 Librarias/lfsm.o
+                0x00001c5a                LFSMenable
  .text.PORTINIT
-                0x00001cd4        0xc main.o
-                0x00001cd4                PORTINIT
- .text.main     0x00001ce0      0x7d6 main.o
-                0x00001ce0                main
+                0x00001cc0        0xc main.o
+                0x00001cc0                PORTINIT
+ .text.main     0x00001ccc      0x73c main.o
+                0x00001ccc                main
  .text.libgcc.mul
-                0x000024b6       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_mulsi3.o)
-                0x000024b6                __mulsi3
+                0x00002408       0x20 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_mulsi3.o)
+                0x00002408                __mulsi3
  .text.libgcc.div
-                0x000024d6       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
-                0x000024d6                _div
-                0x000024d6                __divmodhi4
+                0x00002428       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodhi4.o)
+                0x00002428                _div
+                0x00002428                __divmodhi4
  .text.libgcc.div
-                0x000024fe       0x2e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
-                0x000024fe                __divmodsi4
+                0x00002450       0x2e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_divmodsi4.o)
+                0x00002450                __divmodsi4
  .text.libgcc.div
-                0x0000252c       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_negsi2.o)
-                0x0000252c                __negsi2
- .text.libgcc   0x0000253c        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
-                0x0000253c                __tablejump2__
+                0x0000247e       0x10 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_negsi2.o)
+                0x0000247e                __negsi2
+ .text.libgcc   0x0000248e        0xc c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_tablejump2.o)
+                0x0000248e                __tablejump2__
  .text.libgcc.mul
-                0x00002548       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
-                0x00002548                __umulhisi3
+                0x0000249a       0x1e c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_umulhisi3.o)
+                0x0000249a                __umulhisi3
  .text.libgcc.mul
-                0x00002566       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_muluhisi3.o)
-                0x00002566                __muluhisi3
+                0x000024b8       0x16 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_muluhisi3.o)
+                0x000024b8                __muluhisi3
  .text.libgcc.div
-                0x0000257c       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
-                0x0000257c                __udivmodhi4
+                0x000024ce       0x28 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodhi4.o)
+                0x000024ce                __udivmodhi4
  .text.libgcc.div
-                0x000025a4       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
-                0x000025a4                __udivmodsi4
+                0x000024f6       0x44 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_udivmodsi4.o)
+                0x000024f6                __udivmodsi4
  .text.avr-libc
-                0x000025e8       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
-                0x000025e8                eeprom_read_block
-                0x000025ec                eeprom_read_blraw
+                0x0000253a       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
+                0x0000253a                eeprom_read_block
+                0x0000253e                eeprom_read_blraw
  .text.avr-libc
-                0x00002608       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
-                0x00002608                eeprom_read_byte
+                0x0000255a       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
+                0x0000255a                eeprom_read_byte
  .text.avr-libc
-                0x00002618        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
-                0x00002618                eeprom_read_word
+                0x0000256a        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
+                0x0000256a                eeprom_read_word
  .text.avr-libc
-                0x00002624       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
-                0x00002624                eeprom_update_block
+                0x00002576       0x20 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
+                0x00002576                eeprom_update_block
  .text.avr-libc
-                0x00002644       0x24 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
-                0x00002644                eeprom_update_byte
-                0x00002646                eeprom_update_r18
+                0x00002596       0x24 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
+                0x00002596                eeprom_update_byte
+                0x00002598                eeprom_update_r18
  .text.avr-libc
-                0x00002668       0x18 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
-                0x00002668                eeprom_update_float
-                0x00002668                eeprom_update_dword
+                0x000025ba       0x18 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
+                0x000025ba                eeprom_update_float
+                0x000025ba                eeprom_update_dword
  .text.avr-libc
-                0x00002680        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
-                0x00002680                eeprom_update_word
+                0x000025d2        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
+                0x000025d2                eeprom_update_word
  .text.avr-libc
-                0x0000268c       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
-                0x0000268c                eeprom_write_block
+                0x000025de       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
+                0x000025de                eeprom_write_block
  .text.avr-libc
-                0x000026a0       0x1c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
-                0x000026a0                eeprom_write_byte
-                0x000026a2                eeprom_write_r18
+                0x000025f2       0x1c C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
+                0x000025f2                eeprom_write_byte
+                0x000025f4                eeprom_write_r18
  .text.avr-libc
-                0x000026bc       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
-                0x000026bc                eeprom_write_dword
-                0x000026bc                eeprom_write_float
+                0x0000260e       0x10 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
+                0x0000260e                eeprom_write_dword
+                0x0000260e                eeprom_write_float
  .text.avr-libc
-                0x000026cc        0xa C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
-                0x000026cc                eeprom_write_word
-                0x000026d6                . = ALIGN (0x2)
+                0x0000261e        0xa C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
+                0x0000261e                eeprom_write_word
+                0x00002628                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000026d6        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
-                0x000026d6                _exit
-                0x000026d6                exit
+ .fini9         0x00002628        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+                0x00002628                _exit
+                0x00002628                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -963,11 +964,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000026d6        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
+ .fini0         0x00002628        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/5.4.0/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000026da                _etext = .
+                0x0000262c                _etext = .
 
-.data           0x00800100       0xca load address 0x000026da
+.data           0x00800100       0xca load address 0x0000262c
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -1002,32 +1003,31 @@ END GROUP
                 0x008001f1                adc_tmp
  COMMON         0x008001f3       0x10 Librarias/function.o
                 0x008001f3                FUNCstr
- COMMON         0x00800203       0x1e Librarias/keypad.o
+ COMMON         0x00800203       0x25 Librarias/keypad.o
                 0x00800203                keypad_PORT
-                0x00800205                keypadstring
-                0x00800214                keypad_dataf
-                0x00800218                keypad_datai
-                0x0080021c                KEYPADSTRINGINDEX
-                0x0080021d                keypad_PIN
-                0x0080021f                keypad_DDR
- COMMON         0x00800221        0xe Librarias/lcd.o
-                0x00800221                lcd0_PIN
-                0x00800223                lcd1_DDR
-                0x00800225                lcd1_detect
-                0x00800226                lcd1_PIN
-                0x00800228                lcd0_DDR
-                0x0080022a                lcd0_detect
-                0x0080022b                lcd0_PORT
-                0x0080022d                lcd1_PORT
- COMMON         0x0080022f       0x15 Librarias/lfsm.o
-                0x0080022f                tmp2
-                0x00800236                data
+                0x00800205                keypad_dataf
+                0x00800209                keypad_datai
+                0x0080020d                KEYPADSTRINGINDEX
+                0x0080020e                keypad_PIN
+                0x00800210                data
+                0x00800226                keypad_DDR
+ COMMON         0x00800228        0xe Librarias/lcd.o
+                0x00800228                lcd0_PIN
+                0x0080022a                lcd1_DDR
+                0x0080022c                lcd1_detect
+                0x0080022d                lcd1_PIN
+                0x0080022f                lcd0_DDR
+                0x00800231                lcd0_detect
+                0x00800232                lcd0_PORT
+                0x00800234                lcd1_PORT
+ COMMON         0x00800236        0xe Librarias/lfsm.o
+                0x00800236                tmp2
                 0x0080023d                tmp1
  COMMON         0x00800244       0x14 main.o
                 0x00800244                string
                 0x00800258                PROVIDE (__bss_end, .)
-                0x000026da                __data_load_start = LOADADDR (.data)
-                0x000027a4                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000262c                __data_load_start = LOADADDR (.data)
+                0x000026f6                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800258        0x0
                 [!provide]                PROVIDE (__noinit_start, .)
@@ -1146,108 +1146,108 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x643b
+.debug_info     0x00000000     0x6473
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x6cc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5/crtatmega324a.o
  .debug_info    0x000006cc      0x25f Librarias/atmega324analog.o
  .debug_info    0x0000092b      0x2de Librarias/eeprom.o
  .debug_info    0x00000c09     0x11ed Librarias/function.o
- .debug_info    0x00001df6      0x49f Librarias/keypad.o
- .debug_info    0x00002295     0x11e5 Librarias/lcd.o
- .debug_info    0x0000347a      0xf0e Librarias/lfsm.o
- .debug_info    0x00004388     0x1946 main.o
- .debug_info    0x00005cce       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
- .debug_info    0x00005d7b       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
- .debug_info    0x00005e27       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
- .debug_info    0x00005ed3       0xae C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
- .debug_info    0x00005f81       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
- .debug_info    0x0000602e       0xae C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
- .debug_info    0x000060dc       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
- .debug_info    0x00006189       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
- .debug_info    0x00006236       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
- .debug_info    0x000062e2       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
- .debug_info    0x0000638f       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
+ .debug_info    0x00001df6      0x49c Librarias/keypad.o
+ .debug_info    0x00002292     0x119e Librarias/lcd.o
+ .debug_info    0x00003430      0xf0e Librarias/lfsm.o
+ .debug_info    0x0000433e     0x19c8 main.o
+ .debug_info    0x00005d06       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
+ .debug_info    0x00005db3       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
+ .debug_info    0x00005e5f       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
+ .debug_info    0x00005f0b       0xae C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
+ .debug_info    0x00005fb9       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
+ .debug_info    0x00006066       0xae C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
+ .debug_info    0x00006114       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
+ .debug_info    0x000061c1       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
+ .debug_info    0x0000626e       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
+ .debug_info    0x0000631a       0xad C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
+ .debug_info    0x000063c7       0xac C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
 
-.debug_abbrev   0x00000000     0x158f
+.debug_abbrev   0x00000000     0x157b
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x66e C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5/crtatmega324a.o
  .debug_abbrev  0x0000066e      0x145 Librarias/atmega324analog.o
  .debug_abbrev  0x000007b3       0xb5 Librarias/eeprom.o
  .debug_abbrev  0x00000868      0x2f4 Librarias/function.o
- .debug_abbrev  0x00000b5c      0x1d8 Librarias/keypad.o
- .debug_abbrev  0x00000d34      0x2ed Librarias/lcd.o
- .debug_abbrev  0x00001021      0x2e4 Librarias/lfsm.o
- .debug_abbrev  0x00001305      0x1ae main.o
- .debug_abbrev  0x000014b3       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
- .debug_abbrev  0x000014c7       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
- .debug_abbrev  0x000014db       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
- .debug_abbrev  0x000014ef       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
- .debug_abbrev  0x00001503       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
- .debug_abbrev  0x00001517       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
- .debug_abbrev  0x0000152b       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
- .debug_abbrev  0x0000153f       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
- .debug_abbrev  0x00001553       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
- .debug_abbrev  0x00001567       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
- .debug_abbrev  0x0000157b       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
+ .debug_abbrev  0x00000b5c      0x1da Librarias/keypad.o
+ .debug_abbrev  0x00000d36      0x2ed Librarias/lcd.o
+ .debug_abbrev  0x00001023      0x2e4 Librarias/lfsm.o
+ .debug_abbrev  0x00001307      0x198 main.o
+ .debug_abbrev  0x0000149f       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
+ .debug_abbrev  0x000014b3       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
+ .debug_abbrev  0x000014c7       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
+ .debug_abbrev  0x000014db       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
+ .debug_abbrev  0x000014ef       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
+ .debug_abbrev  0x00001503       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
+ .debug_abbrev  0x00001517       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
+ .debug_abbrev  0x0000152b       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
+ .debug_abbrev  0x0000153f       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
+ .debug_abbrev  0x00001553       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
+ .debug_abbrev  0x00001567       0x14 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
 
-.debug_line     0x00000000     0x2fa0
+.debug_line     0x00000000     0x2f6c
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x151 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5/crtatmega324a.o
  .debug_line    0x00000151      0x314 Librarias/atmega324analog.o
  .debug_line    0x00000465      0x12d Librarias/eeprom.o
  .debug_line    0x00000592      0x800 Librarias/function.o
- .debug_line    0x00000d92      0x3b4 Librarias/keypad.o
- .debug_line    0x00001146      0xbfb Librarias/lcd.o
- .debug_line    0x00001d41      0x700 Librarias/lfsm.o
- .debug_line    0x00002441      0x5ba main.o
- .debug_line    0x000029fb       0xab C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
- .debug_line    0x00002aa6       0x7a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
- .debug_line    0x00002b20       0x67 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
- .debug_line    0x00002b87       0xa5 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
- .debug_line    0x00002c2c       0xb6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
- .debug_line    0x00002ce2       0x7b C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
- .debug_line    0x00002d5d       0x62 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
- .debug_line    0x00002dbf       0x80 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
- .debug_line    0x00002e3f       0x9e C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
- .debug_line    0x00002edd       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
- .debug_line    0x00002f45       0x5b C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
+ .debug_line    0x00000d92      0x3c0 Librarias/keypad.o
+ .debug_line    0x00001152      0xbc9 Librarias/lcd.o
+ .debug_line    0x00001d1b      0x700 Librarias/lfsm.o
+ .debug_line    0x0000241b      0x5ac main.o
+ .debug_line    0x000029c7       0xab C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_block.o)
+ .debug_line    0x00002a72       0x7a C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_byte.o)
+ .debug_line    0x00002aec       0x67 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eerd_word.o)
+ .debug_line    0x00002b53       0xa5 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_block.o)
+ .debug_line    0x00002bf8       0xb6 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_byte.o)
+ .debug_line    0x00002cae       0x7b C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_dword.o)
+ .debug_line    0x00002d29       0x62 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eeupd_word.o)
+ .debug_line    0x00002d8b       0x80 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_block.o)
+ .debug_line    0x00002e0b       0x9e C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_byte.o)
+ .debug_line    0x00002ea9       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_dword.o)
+ .debug_line    0x00002f11       0x5b C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5\libatmega324a.a(eewr_word.o)
 
-.debug_frame    0x00000000      0xa80
+.debug_frame    0x00000000      0xa8c
  *(.debug_frame)
  .debug_frame   0x00000000       0x90 Librarias/atmega324analog.o
  .debug_frame   0x00000090       0x24 Librarias/eeprom.o
  .debug_frame   0x000000b4      0x410 Librarias/function.o
- .debug_frame   0x000004c4       0x90 Librarias/keypad.o
- .debug_frame   0x00000554      0x28c Librarias/lcd.o
- .debug_frame   0x000007e0      0x258 Librarias/lfsm.o
- .debug_frame   0x00000a38       0x48 main.o
+ .debug_frame   0x000004c4       0x9c Librarias/keypad.o
+ .debug_frame   0x00000560      0x28c Librarias/lcd.o
+ .debug_frame   0x000007ec      0x258 Librarias/lfsm.o
+ .debug_frame   0x00000a44       0x48 main.o
 
-.debug_str      0x00000000      0xcb2
+.debug_str      0x00000000      0xcac
  *(.debug_str)
  .debug_str     0x00000000      0x255 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.2.209/gcc/dev/atmega324a/avr5/crtatmega324a.o
- .debug_str     0x00000255      0x24b Librarias/atmega324analog.o
-                                0x291 (size before relaxing)
- .debug_str     0x000004a0       0xf1 Librarias/eeprom.o
-                                0x261 (size before relaxing)
- .debug_str     0x00000591      0x287 Librarias/function.o
-                                0x52e (size before relaxing)
- .debug_str     0x00000818      0x116 Librarias/keypad.o
-                                0x2ab (size before relaxing)
- .debug_str     0x0000092e      0x232 Librarias/lcd.o
-                                0x3fe (size before relaxing)
- .debug_str     0x00000b60      0x122 Librarias/lfsm.o
-                                0x3e0 (size before relaxing)
- .debug_str     0x00000c82       0x30 main.o
-                                0x504 (size before relaxing)
+ .debug_str     0x00000255      0x252 Librarias/atmega324analog.o
+                                0x298 (size before relaxing)
+ .debug_str     0x000004a7       0xf1 Librarias/eeprom.o
+                                0x268 (size before relaxing)
+ .debug_str     0x00000598      0x287 Librarias/function.o
+                                0x535 (size before relaxing)
+ .debug_str     0x0000081f      0x109 Librarias/keypad.o
+                                0x2a5 (size before relaxing)
+ .debug_str     0x00000928      0x232 Librarias/lcd.o
+                                0x405 (size before relaxing)
+ .debug_str     0x00000b5a      0x122 Librarias/lfsm.o
+                                0x3e7 (size before relaxing)
+ .debug_str     0x00000c7c       0x30 main.o
+                                0x50b (size before relaxing)
 
-.debug_loc      0x00000000     0x4512
+.debug_loc      0x00000000     0x4609
  *(.debug_loc)
  .debug_loc     0x00000000      0x30b Librarias/atmega324analog.o
  .debug_loc     0x0000030b     0x1770 Librarias/function.o
- .debug_loc     0x00001a7b      0x3b3 Librarias/keypad.o
- .debug_loc     0x00001e2e     0x1062 Librarias/lcd.o
- .debug_loc     0x00002e90     0x1222 Librarias/lfsm.o
- .debug_loc     0x000040b2      0x460 main.o
+ .debug_loc     0x00001a7b      0x401 Librarias/keypad.o
+ .debug_loc     0x00001e7c     0x10ee Librarias/lcd.o
+ .debug_loc     0x00002f6a     0x1222 Librarias/lfsm.o
+ .debug_loc     0x0000418c      0x47d main.o
 
 .debug_macinfo
  *(.debug_macinfo)

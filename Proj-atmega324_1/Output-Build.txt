@@ -1,22 +1,84 @@
-﻿------ Build started: Project: atmega324, Configuration: Debug AVR ------
+﻿------ Rebuild All started: Project: atmega324, Configuration: Debug AVR ------
+Build started.
+Project "atmega324.cproj" (Clean target(s)):
+Target "Clean" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Compiler.targets" from project "C:\Users\sergi\Documents\GITHUB\Atmel_Studio_7\Proj-atmega324_1\atmega324\atmega324.cproj" (entry point):
+	Task "RunCompilerTask"
+		Shell Utils Path C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils
+		C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils\make.exe clean 
+		rm -rf  Librarias/atmega324analog.o Librarias/atmega324preamble.o Librarias/atmega324timer.o Librarias/eeprom.o Librarias/function.o Librarias/keypad.o Librarias/lcd.o Librarias/lfsm.o main.o   
+		rm -rf  Librarias/atmega324analog.d Librarias/atmega324preamble.d Librarias/atmega324timer.d Librarias/eeprom.d Librarias/function.d Librarias/keypad.d Librarias/lcd.d Librarias/lfsm.d main.d   
+		rm -rf "atmega324.elf" "atmega324.a" "atmega324.hex" "atmega324.lss" "atmega324.eep" "atmega324.map" "atmega324.srec" "atmega324.usersignatures"
+	Done executing task "RunCompilerTask".
+Done building target "Clean" in project "atmega324.cproj".
+Done building project "atmega324.cproj".
+
+Build succeeded.
+------ Rebuild All started: Project: atmega324, Configuration: Debug AVR ------
 Build started.
 Project "atmega324.cproj" (default targets):
 Target "PreBuildEvent" skipped, due to false condition; ('$(PreBuildEvent)'!='') was evaluated as (''!='').
-Target "CoreBuild" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Compiler.targets" from project "C:\Users\Sergio Santos\Documents\GitHub\Proj-atmega324_1\atmega324\atmega324.cproj" (target "Build" depends on it):
+Target "CoreBuild" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Compiler.targets" from project "C:\Users\sergi\Documents\GITHUB\Atmel_Studio_7\Proj-atmega324_1\atmega324\atmega324.cproj" (target "Build" depends on it):
 	Task "RunCompilerTask"
 		Shell Utils Path C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils
 		C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils\make.exe all --jobs 4 --output-sync 
-		make: Nothing to be done for 'all'.
+		Building file: ../Librarias/atmega324preamble.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/atmega324preamble.d" -MT"Librarias/atmega324preamble.d" -MT"Librarias/atmega324preamble.o"   -o "Librarias/atmega324preamble.o" "../Librarias/atmega324preamble.c" 
+		Finished building: ../Librarias/atmega324preamble.c
+		Building file: ../Librarias/atmega324analog.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/atmega324analog.d" -MT"Librarias/atmega324analog.d" -MT"Librarias/atmega324analog.o"   -o "Librarias/atmega324analog.o" "../Librarias/atmega324analog.c" 
+		Finished building: ../Librarias/atmega324analog.c
+		Building file: ../Librarias/atmega324timer.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/atmega324timer.d" -MT"Librarias/atmega324timer.d" -MT"Librarias/atmega324timer.o"   -o "Librarias/atmega324timer.o" "../Librarias/atmega324timer.c" 
+		Finished building: ../Librarias/atmega324timer.c
+		Building file: ../Librarias/eeprom.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/eeprom.d" -MT"Librarias/eeprom.d" -MT"Librarias/eeprom.o"   -o "Librarias/eeprom.o" "../Librarias/eeprom.c" 
+		Finished building: ../Librarias/eeprom.c
+		Building file: ../Librarias/keypad.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/keypad.d" -MT"Librarias/keypad.d" -MT"Librarias/keypad.o"   -o "Librarias/keypad.o" "../Librarias/keypad.c" 
+		Finished building: ../Librarias/keypad.c
+		Building file: ../Librarias/function.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/function.d" -MT"Librarias/function.d" -MT"Librarias/function.o"   -o "Librarias/function.o" "../Librarias/function.c" 
+		Finished building: ../Librarias/function.c
+		Building file: ../Librarias/lfsm.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/lfsm.d" -MT"Librarias/lfsm.d" -MT"Librarias/lfsm.o"   -o "Librarias/lfsm.o" "../Librarias/lfsm.c" 
+		Finished building: ../Librarias/lfsm.c
+		Building file: ../Librarias/lcd.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "Librarias/lcd.d" -MT"Librarias/lcd.d" -MT"Librarias/lcd.o"   -o "Librarias/lcd.o" "../Librarias/lcd.c" 
+		Finished building: ../Librarias/lcd.c
+		Building file: .././main.c
+		Invoking: AVR/GNU C Compiler : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe"  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\include" -I"../Librarias"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -g2 -Wall -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a" -c -std=gnu99 -MD -MP -MF "main.d" -MT"main.d" -MT"main.o"   -o "main.o" ".././main.c" 
+		Finished building: .././main.c
+		Building target: atmega324.elf
+		Invoking: AVR/GNU Linker : 5.4.0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe" -o atmega324.elf  Librarias/atmega324analog.o Librarias/atmega324preamble.o Librarias/atmega324timer.o Librarias/eeprom.o Librarias/function.o Librarias/keypad.o Librarias/lcd.o Librarias/lfsm.o main.o   -Wl,-Map="atmega324.map" -Wl,--start-group -Wl,-lm  -Wl,--end-group -Wl,--gc-sections -mmcu=atmega324a -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.2.209\gcc\dev\atmega324a"  
+		Finished building target: atmega324.elf
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O ihex -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures  "atmega324.elf" "atmega324.hex"
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -j .eeprom  --set-section-flags=.eeprom=alloc,load --change-section-lma .eeprom=0  --no-change-warnings -O ihex "atmega324.elf" "atmega324.eep" || exit 0
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objdump.exe" -h -S "atmega324.elf" > "atmega324.lss"
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-objcopy.exe" -O srec -R .eeprom -R .fuse -R .lock -R .signature -R .user_signatures "atmega324.elf" "atmega324.srec"
+		"C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-size.exe" "atmega324.elf"
+		   text	   data	    bss	    dec	    hex	filename
+		   9772	    202	    142	  10116	   2784	atmega324.elf
 	Done executing task "RunCompilerTask".
 	Task "RunOutputFileVerifyTask"
-				Program Memory Usage 	:	10148 bytes   31.0 % Full
+				Program Memory Usage 	:	9974 bytes   30.4 % Full
 				Data Memory Usage 		:	344 bytes   16.8 % Full
+				Warning: Memory Usage estimation may not be accurate if there are sections other than .text sections in ELF file
 	Done executing task "RunOutputFileVerifyTask".
 Done building target "CoreBuild" in project "atmega324.cproj".
 Target "PostBuildEvent" skipped, due to false condition; ('$(PostBuildEvent)' != '') was evaluated as ('' != '').
-Target "Build" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Avr.common.targets" from project "C:\Users\Sergio Santos\Documents\GitHub\Proj-atmega324_1\atmega324\atmega324.cproj" (entry point):
+Target "Build" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Avr.common.targets" from project "C:\Users\sergi\Documents\GITHUB\Atmel_Studio_7\Proj-atmega324_1\atmega324\atmega324.cproj" (entry point):
 Done building target "Build" in project "atmega324.cproj".
 Done building project "atmega324.cproj".
 
 Build succeeded.
-========== Build: 1 succeeded or up-to-date, 0 failed, 0 skipped ==========
+========== Rebuild All: 1 succeeded, 0 failed, 0 skipped ==========

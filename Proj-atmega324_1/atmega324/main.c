@@ -19,7 +19,6 @@
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <inttypes.h>
-#include "Atmega128API.h"
 #include "lcd.h"
 #include "function.h"
 #include "keypad.h"
@@ -32,7 +31,7 @@ int main(void)
 	PORTINIT();
 	uint8_t option=0;
 	uint8_t input_tmp=0;
-	struct keypadata keypadinput={"",'0'};
+	struct keypadata keypadinput;
 	uint8_t output=0;
 	uint8_t mask=0;
 	uint8_t page=0;

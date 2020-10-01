@@ -1,0 +1,16 @@
+﻿------ Clean started: Project: Atmega128, Configuration: Debug AVR ------
+Build started.
+Project "Atmega128.cproj" (Clean target(s)):
+Target "Clean" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Compiler.targets" from project "C:\Users\Sergio Santos\Documents\GitHub\Proj-atmega128_2\Atmega128\Atmega128.cproj" (entry point):
+	Task "RunCompilerTask"
+		Shell Utils Path C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils
+		C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils\make.exe clean 
+		rm -rf  Librarias/Atmega128API.o Librarias/clock.o Librarias/eeprom.o Librarias/function.o Librarias/keypad.o Librarias/lcd.o Librarias/lfsm.o Librarias/mm74c923.o main.o   
+		rm -rf  Librarias/Atmega128API.d Librarias/clock.d Librarias/eeprom.d Librarias/function.d Librarias/keypad.d Librarias/lcd.d Librarias/lfsm.d Librarias/mm74c923.d main.d   
+		rm -rf "Atmega128.elf" "Atmega128.a" "Atmega128.hex" "Atmega128.lss" "Atmega128.eep" "Atmega128.map" "Atmega128.srec" "Atmega128.usersignatures"
+	Done executing task "RunCompilerTask".
+Done building target "Clean" in project "Atmega128.cproj".
+Done building project "Atmega128.cproj".
+
+Build succeeded.
+========== Clean: 1 succeeded, 0 failed, 0 skipped ==========

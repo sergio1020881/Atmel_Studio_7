@@ -64,10 +64,6 @@ int main(void)
 		keypadinput=keypad.get();
 		n=PINB;
 		/******/
-		if(keypadinput.character){
-			lcd.gotoxy(0,12);
-			lcd.putch(keypadinput.character);
-		}
 		lcd.gotoxy(0,16);
 		string=func.ui16toa(n);
 		lcd.string_size(string,4);

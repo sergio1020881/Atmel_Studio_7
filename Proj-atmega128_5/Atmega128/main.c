@@ -69,7 +69,7 @@ int main(void)
 		lcd.string_size(string,4);
 		/******/
 		switch(option){
-			case 0:
+			case 0: // Main Menu
 				lcd.gotoxy(0,0);
 				lcd.string_size("Running ",8);
 				string=func.ui16toa(lfsm.getpage(&lfsm));
@@ -91,7 +91,7 @@ int main(void)
 				}
 				lfsm.read(&lfsm,n);
 				break;
-			case 1:
+			case 1: // New Entry Menu
 				// Menu
 				lcd.gotoxy(0,0);
 				lcd.string_size("Enter: ",12);
@@ -189,15 +189,15 @@ int main(void)
 					option=5;
 				}
 				break;
-			case 6:
+			case 6: // Delete or Remove or No action Menu
 				lcd.gotoxy(1,0);
 				lcd.string_size("Delete - 1",10);
 				lcd.gotoxy(2,0);
 				lcd.string_size("Remove - 2 No - 3",17);
 				option=7;
 				break;
-			case 7:
-				if(keypadinput.character == '1'){//Clear eeprom
+			case 7: // Delete or Remove or No action choice
+				if(keypadinput.character == '1'){ // Delete
 					lcd.gotoxy(1,0);
 					lcd.hspace(10);
 					lcd.gotoxy(2,0);
@@ -209,14 +209,14 @@ int main(void)
 					lcd.gotoxy(3,12);
 					lcd.string_size("deleted",7);
 					option=0;
-				}else if(keypadinput.character == '2'){//Remove one entry
+				}else if(keypadinput.character == '2'){ // Remove
 					lcd.gotoxy(1,0);
 					lcd.hspace(10);
 					lcd.gotoxy(2,0);
 					lcd.hspace(17);
 					keypad.flush();
 					option=8;
-				}else if(keypadinput.character == '3'){//Exit
+				}else if(keypadinput.character == '3'){ // No action
 					lcd.gotoxy(1,0);
 					lcd.hspace(10);
 					lcd.gotoxy(2,0);
@@ -225,14 +225,14 @@ int main(void)
 					option=0;
 				}
 				break;
-			case 8:
+			case 8: // Remove Entry Data
 				lcd.gotoxy(0,0);
 				lcd.string_size("Enter: ",12);
 				lcd.gotoxy(1,0);
 				lcd.string_size("Input",20);
 				option=9;
 				break;
-			case 9:
+			case 9: // Remove Entry from EEprom
 				lcd.gotoxy(0,7);
 				lcd.string_size(keypadinput.string,4);
 				if(keypadinput.character == 'D'){
@@ -278,7 +278,7 @@ int main(void)
 					keypad.flush();
 					option=0;
 				}//End if
-				if(keypadinput.character == 'C'){
+				if(keypadinput.character == 'C'){ // Repeat Remove Data Entry
 					keypad.flush();
 					option=8;
 				}

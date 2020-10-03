@@ -5563,7 +5563,7 @@ int main(void)
 					keypad.flush();
 					option=0;
 				}//End if
-				if(keypadinput.character == 'C'){
+				if(keypadinput.character == 'C'){ // Repeat Remove Data Entry
 					keypad.flush();
 					option=8;
     1f7c:	68 94       	set
@@ -5631,7 +5631,7 @@ int main(void)
     1fd6:	ea 5b       	subi	r30, 0xBA	; 186
     1fd8:	ff 4f       	sbci	r31, 0xFF	; 255
     1fda:	85 c3       	rjmp	.+1802   	; 0x26e6 <__tablejump2__>
-			case 0:
+			case 0: // Main Menu
 				lcd.gotoxy(0,0);
     1fdc:	60 e0       	ldi	r22, 0x00	; 0
     1fde:	70 e0       	ldi	r23, 0x00	; 0
@@ -5732,7 +5732,7 @@ int main(void)
     207a:	09 95       	icall
 				break;
     207c:	99 c2       	rjmp	.+1330   	; 0x25b0 <main+0x716>
-			case 1:
+			case 1: // New Entry Menu
 				// Menu
 				lcd.gotoxy(0,0);
     207e:	60 e0       	ldi	r22, 0x00	; 0
@@ -6166,7 +6166,7 @@ int main(void)
 					option=5;
 				}
 				break;
-			case 6:
+			case 6: // Delete or Remove or No action Menu
 				lcd.gotoxy(1,0);
     2330:	60 e0       	ldi	r22, 0x00	; 0
     2332:	70 e0       	ldi	r23, 0x00	; 0
@@ -6200,8 +6200,8 @@ int main(void)
     2362:	f0 2d       	mov	r31, r0
 				break;
     2364:	25 c1       	rjmp	.+586    	; 0x25b0 <main+0x716>
-			case 7:
-				if(keypadinput.character == '1'){//Clear eeprom
+			case 7: // Delete or Remove or No action choice
+				if(keypadinput.character == '1'){ // Delete
     2366:	89 81       	ldd	r24, Y+1	; 0x01
     2368:	81 33       	cpi	r24, 0x31	; 49
     236a:	91 f5       	brne	.+100    	; 0x23d0 <main+0x536>
@@ -6266,7 +6266,7 @@ int main(void)
 					option=0;
     23cc:	91 2c       	mov	r9, r1
     23ce:	f0 c0       	rjmp	.+480    	; 0x25b0 <main+0x716>
-				}else if(keypadinput.character == '2'){//Remove one entry
+				}else if(keypadinput.character == '2'){ // Remove
     23d0:	82 33       	cpi	r24, 0x32	; 50
     23d2:	b1 f4       	brne	.+44     	; 0x2400 <main+0x566>
 					lcd.gotoxy(1,0);
@@ -6297,7 +6297,7 @@ int main(void)
 					option=8;
     23fc:	98 2c       	mov	r9, r8
     23fe:	d8 c0       	rjmp	.+432    	; 0x25b0 <main+0x716>
-				}else if(keypadinput.character == '3'){//Exit
+				}else if(keypadinput.character == '3'){ // No action
     2400:	83 33       	cpi	r24, 0x33	; 51
     2402:	09 f0       	breq	.+2      	; 0x2406 <main+0x56c>
     2404:	d5 c0       	rjmp	.+426    	; 0x25b0 <main+0x716>
@@ -6331,7 +6331,7 @@ int main(void)
     2430:	bf c0       	rjmp	.+382    	; 0x25b0 <main+0x716>
 				}
 				break;
-			case 8:
+			case 8: // Remove Entry Data
 				lcd.gotoxy(0,0);
     2432:	60 e0       	ldi	r22, 0x00	; 0
     2434:	70 e0       	ldi	r23, 0x00	; 0
@@ -6365,7 +6365,7 @@ int main(void)
     2464:	f0 2d       	mov	r31, r0
 				break;
     2466:	a4 c0       	rjmp	.+328    	; 0x25b0 <main+0x716>
-			case 9:
+			case 9: // Remove Entry from EEprom
 				lcd.gotoxy(0,7);
     2468:	67 e0       	ldi	r22, 0x07	; 7
     246a:	70 e0       	ldi	r23, 0x00	; 0
@@ -6557,7 +6557,7 @@ int main(void)
 					option=0;
     2592:	91 2c       	mov	r9, r1
 				}//End if
-				if(keypadinput.character == 'C'){
+				if(keypadinput.character == 'C'){ // Repeat Remove Data Entry
     2594:	89 81       	ldd	r24, Y+1	; 0x01
     2596:	83 34       	cpi	r24, 0x43	; 67
     2598:	59 f4       	brne	.+22     	; 0x25b0 <main+0x716>

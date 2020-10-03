@@ -56,7 +56,7 @@ LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
 	r.sizeeeprom=sizeeeprom;
 	r.sizeblock=sizeblock;
 	r.page=ZERO;
-	r.output=0;//Output
+	r.output=ZERO;//Output
 	//Function V table
 	r.read=LFSMread;
 	r.learn=LFSMlearn;

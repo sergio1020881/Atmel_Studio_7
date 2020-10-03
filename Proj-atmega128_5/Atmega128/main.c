@@ -74,22 +74,22 @@ int main(void)
 				lcd.string_size("Running ",8);
 				string=func.ui16toa(lfsm.getpage(&lfsm));
 				lcd.string_size(string,3);
-				if(keypadinput.character == 'A'){//Clear screen and empty buffer
+				if(keypadinput.character == 'A'){ // Clear screen and empty buffer
 					lcd.clear();
 					keypad.flush();
 					continue;
 				}
-				if(keypadinput.character == 'B'){//Learn
+				if(keypadinput.character == 'B'){ // Learn
 					lcd.clear();
 					keypad.flush();
 					option=1;
 				}
-				if(keypadinput.character == 'C'){//Delete or remove
+				if(keypadinput.character == 'C'){ // Delete or remove
 					lcd.clear();
 					keypad.flush();
 					option=6;
 				}
-				lfsm.read(&lfsm,n);
+				lfsm.read(&lfsm,n); // Getting answer
 				break;
 			case 1: // New Entry Menu
 				// Menu
@@ -99,7 +99,7 @@ int main(void)
 				lcd.string_size("In   Out  Mask Page",20);
 				option=2;
 				break;
-			case 2:
+			case 2: // First entry [input]
 				lcd.gotoxy(0,7);
 				lcd.string_size(keypadinput.string,4);
 				if(keypadinput.character == 'D'){
@@ -115,7 +115,7 @@ int main(void)
 					option=2;
 				}
 				break;
-			case 3:
+			case 3: // Second Entry [output]
 				lcd.gotoxy(0,7);
 				lcd.string_size(keypadinput.string,4);
 				if(keypadinput.character == 'D'){
@@ -131,7 +131,7 @@ int main(void)
 					option=3;
 				}
 				break;
-			case 4:
+			case 4: // Third Entry [mask]
 				lcd.gotoxy(0,7);
 				lcd.string_size(keypadinput.string,4);
 				if(keypadinput.character == 'D'){
@@ -147,32 +147,32 @@ int main(void)
 					option=4;
 				}
 				break;
-			case 5:
+			case 5: // Fourth entry [page] and upload with reply
 				lcd.gotoxy(0,7);
 				lcd.string_size(keypadinput.string,4);
-				if(keypadinput.character == 'D'){
+				if(keypadinput.character == 'D'){ // D is the enter key on the keyboard
 					page=func.strToInt(keypadinput.string);
 					lcd.gotoxy(2,15);
 					string=func.ui16toa(page);
 					lcd.string(string);
 					switch(lfsm.learn(&lfsm,input_tmp,output,mask,page)){
-						case 0:
+						case 0: // Not used
 							lcd.gotoxy(3,12);
 							lcd.string_size("disabled",7);
 							break;
-						case 1:
+						case 1: // already programmed
 							lcd.gotoxy(3,12);
 							lcd.string_size("exists",7);
 							break;
-						case 2:
+						case 2: // new entry edded
 							lcd.gotoxy(3,12);
 							lcd.string_size("upload",7);
 							break;
-						case 3:
+						case 3: // new entry added
 							lcd.gotoxy(3,12);
 							lcd.string_size("upload",7);
 							break;
-						case 4:
+						case 4: // eeprom is full reject entry
 							lcd.gotoxy(3,12);
 							lcd.string_size("full",7);
 							break;
@@ -184,7 +184,7 @@ int main(void)
 				keypad.flush();
 				option=0;
 				}//End if
-				if(keypadinput.character == 'C'){
+				if(keypadinput.character == 'C'){ // re-enter value [page] 
 					keypad.flush();
 					option=5;
 				}
@@ -235,12 +235,12 @@ int main(void)
 			case 9: // Remove Entry from EEprom
 				lcd.gotoxy(0,7);
 				lcd.string_size(keypadinput.string,4);
-				if(keypadinput.character == 'D'){
+				if(keypadinput.character == 'D'){ // D is the enter key on the keyboard
 					input_tmp=func.strToInt(keypadinput.string);
 					lcd.gotoxy(2,0);
 					string=func.ui16toa(input_tmp);
 					lcd.string(string);
-					switch(lfsm.remove(&lfsm,input_tmp)){
+					switch(lfsm.remove(&lfsm,input_tmp)){ // feedback reply
 						case 0:
 							lcd.gotoxy(3,12);
 							lcd.string_size("No entry",7);

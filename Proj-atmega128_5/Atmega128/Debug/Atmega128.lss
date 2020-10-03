@@ -2829,25 +2829,25 @@ uint8_t KEYPADhl(uint8_t xi, uint8_t xf)
      fba:	94 30       	cpi	r25, 0x04	; 4
      fbc:	19 f4       	brne	.+6      	; 0xfc4 <KEYPAD_getkey+0x214>
 						c=keypadvalue[3][0];
-     fbe:	80 91 0c 01 	lds	r24, 0x010C	; 0x80010c <__DATA_REGION_ORIGIN__+0xc>
+     fbe:	80 91 0c 01 	lds	r24, 0x010C	; 0x80010c <__data_start+0xc>
      fc2:	0a c0       	rjmp	.+20     	; 0xfd8 <KEYPAD_getkey+0x228>
 					if(HL == (1<<KEYPADDATA_2))
      fc4:	90 31       	cpi	r25, 0x10	; 16
      fc6:	19 f4       	brne	.+6      	; 0xfce <KEYPAD_getkey+0x21e>
 						c=keypadvalue[3][1];
-     fc8:	80 91 0d 01 	lds	r24, 0x010D	; 0x80010d <__DATA_REGION_ORIGIN__+0xd>
+     fc8:	80 91 0d 01 	lds	r24, 0x010D	; 0x80010d <__data_start+0xd>
      fcc:	09 c0       	rjmp	.+18     	; 0xfe0 <KEYPAD_getkey+0x230>
 					if(HL == (1<<KEYPADDATA_3))
      fce:	90 32       	cpi	r25, 0x20	; 32
      fd0:	19 f4       	brne	.+6      	; 0xfd8 <KEYPAD_getkey+0x228>
 						c=keypadvalue[3][2];
-     fd2:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <__DATA_REGION_ORIGIN__+0xe>
+     fd2:	80 91 0e 01 	lds	r24, 0x010E	; 0x80010e <__data_start+0xe>
      fd6:	04 c0       	rjmp	.+8      	; 0xfe0 <KEYPAD_getkey+0x230>
 					if(HL == (1<<KEYPADDATA_4))
      fd8:	90 34       	cpi	r25, 0x40	; 64
      fda:	11 f4       	brne	.+4      	; 0xfe0 <KEYPAD_getkey+0x230>
 						c=keypadvalue[3][3];
-     fdc:	80 91 0f 01 	lds	r24, 0x010F	; 0x80010f <__DATA_REGION_ORIGIN__+0xf>
+     fdc:	80 91 0f 01 	lds	r24, 0x010F	; 0x80010f <__data_start+0xf>
 				}
 				*keypad_DDR&=~(1<<KEYPADLINE_4);
      fe0:	e0 91 b6 02 	lds	r30, 0x02B6	; 0x8002b6 <keypad_DDR>
@@ -5571,7 +5571,7 @@ int main(void)
     1f80:	83 f8       	bld	r8, 3
 					continue;
 				}
-				if(keypadinput.character == 'B'){//Learn
+				if(keypadinput.character == 'B'){ // Learn
 					lcd.clear();
 					keypad.flush();
 					option=1;
@@ -5663,7 +5663,7 @@ int main(void)
     2010:	63 e0       	ldi	r22, 0x03	; 3
     2012:	f7 01       	movw	r30, r14
     2014:	09 95       	icall
-				if(keypadinput.character == 'A'){//Clear screen and empty buffer
+				if(keypadinput.character == 'A'){ // Clear screen and empty buffer
     2016:	89 81       	ldd	r24, Y+1	; 0x01
     2018:	81 34       	cpi	r24, 0x41	; 65
     201a:	51 f4       	brne	.+20     	; 0x2030 <main+0x196>
@@ -5681,7 +5681,7 @@ int main(void)
 					continue;
     202e:	aa cf       	rjmp	.-172    	; 0x1f84 <main+0xea>
 				}
-				if(keypadinput.character == 'B'){//Learn
+				if(keypadinput.character == 'B'){ // Learn
     2030:	82 34       	cpi	r24, 0x42	; 66
     2032:	59 f4       	brne	.+22     	; 0x204a <main+0x1b0>
 					lcd.clear();
@@ -5699,7 +5699,7 @@ int main(void)
     2046:	99 24       	eor	r9, r9
     2048:	93 94       	inc	r9
 				}
-				if(keypadinput.character == 'C'){//Delete or remove
+				if(keypadinput.character == 'C'){ // Delete or remove
     204a:	89 81       	ldd	r24, Y+1	; 0x01
     204c:	83 34       	cpi	r24, 0x43	; 67
     204e:	69 f4       	brne	.+26     	; 0x206a <main+0x1d0>
@@ -5720,7 +5720,7 @@ int main(void)
     2066:	9f 2e       	mov	r9, r31
     2068:	f0 2d       	mov	r31, r0
 				}
-				lfsm.read(&lfsm,n);
+				lfsm.read(&lfsm,n); // Getting answer
     206a:	6c 96       	adiw	r28, 0x1c	; 28
     206c:	ee ad       	ldd	r30, Y+62	; 0x3e
     206e:	ff ad       	ldd	r31, Y+63	; 0x3f
@@ -5766,7 +5766,7 @@ int main(void)
     20ae:	91 f8       	bld	r9, 1
 				break;
     20b0:	7f c2       	rjmp	.+1278   	; 0x25b0 <main+0x716>
-			case 2:
+			case 2: // First entry [input]
 				lcd.gotoxy(0,7);
     20b2:	67 e0       	ldi	r22, 0x07	; 7
     20b4:	70 e0       	ldi	r23, 0x00	; 0
@@ -5837,7 +5837,7 @@ int main(void)
 					option=2;
 				}
 				break;
-			case 3:
+			case 3: // Second Entry [output]
 				lcd.gotoxy(0,7);
     2124:	67 e0       	ldi	r22, 0x07	; 7
     2126:	70 e0       	ldi	r23, 0x00	; 0
@@ -5908,7 +5908,7 @@ int main(void)
 					option=3;
 				}
 				break;
-			case 4:
+			case 4: // Third Entry [mask]
 				lcd.gotoxy(0,7);
     2196:	67 e0       	ldi	r22, 0x07	; 7
     2198:	70 e0       	ldi	r23, 0x00	; 0
@@ -5979,7 +5979,7 @@ int main(void)
 					option=4;
 				}
 				break;
-			case 5:
+			case 5: // Fourth entry [page] and upload with reply
 				lcd.gotoxy(0,7);
     2208:	67 e0       	ldi	r22, 0x07	; 7
     220a:	70 e0       	ldi	r23, 0x00	; 0
@@ -5993,7 +5993,7 @@ int main(void)
     2218:	02 96       	adiw	r24, 0x02	; 2
     221a:	f7 01       	movw	r30, r14
     221c:	09 95       	icall
-				if(keypadinput.character == 'D'){
+				if(keypadinput.character == 'D'){ // D is the enter key on the keyboard
     221e:	89 81       	ldd	r24, Y+1	; 0x01
     2220:	84 34       	cpi	r24, 0x44	; 68
     2222:	09 f0       	breq	.+2      	; 0x2226 <main+0x38c>
@@ -6063,7 +6063,7 @@ int main(void)
     229c:	84 30       	cpi	r24, 0x04	; 4
     229e:	89 f1       	breq	.+98     	; 0x2302 <main+0x468>
     22a0:	3b c0       	rjmp	.+118    	; 0x2318 <main+0x47e>
-						case 0:
+						case 0: // Not used
 							lcd.gotoxy(3,12);
     22a2:	6c e0       	ldi	r22, 0x0C	; 12
     22a4:	70 e0       	ldi	r23, 0x00	; 0
@@ -6079,7 +6079,7 @@ int main(void)
     22b6:	09 95       	icall
 							break;
     22b8:	2f c0       	rjmp	.+94     	; 0x2318 <main+0x47e>
-						case 1:
+						case 1: // already programmed
 							lcd.gotoxy(3,12);
     22ba:	6c e0       	ldi	r22, 0x0C	; 12
     22bc:	70 e0       	ldi	r23, 0x00	; 0
@@ -6095,7 +6095,7 @@ int main(void)
     22ce:	09 95       	icall
 							break;
     22d0:	23 c0       	rjmp	.+70     	; 0x2318 <main+0x47e>
-						case 2:
+						case 2: // new entry edded
 							lcd.gotoxy(3,12);
     22d2:	6c e0       	ldi	r22, 0x0C	; 12
     22d4:	70 e0       	ldi	r23, 0x00	; 0
@@ -6111,7 +6111,7 @@ int main(void)
     22e6:	09 95       	icall
 							break;
     22e8:	17 c0       	rjmp	.+46     	; 0x2318 <main+0x47e>
-						case 3:
+						case 3: // new entry added
 							lcd.gotoxy(3,12);
     22ea:	6c e0       	ldi	r22, 0x0C	; 12
     22ec:	70 e0       	ldi	r23, 0x00	; 0
@@ -6127,7 +6127,7 @@ int main(void)
     22fe:	09 95       	icall
 							break;
     2300:	0b c0       	rjmp	.+22     	; 0x2318 <main+0x47e>
-						case 4:
+						case 4: // eeprom is full reject entry
 							lcd.gotoxy(3,12);
     2302:	6c e0       	ldi	r22, 0x0C	; 12
     2304:	70 e0       	ldi	r23, 0x00	; 0
@@ -6154,7 +6154,7 @@ int main(void)
     231e:	01 c0       	rjmp	.+2      	; 0x2322 <main+0x488>
     2320:	99 2d       	mov	r25, r9
 				}//End if
-				if(keypadinput.character == 'C'){
+				if(keypadinput.character == 'C'){ // re-enter value [page] 
     2322:	89 81       	ldd	r24, Y+1	; 0x01
     2324:	83 34       	cpi	r24, 0x43	; 67
     2326:	09 f0       	breq	.+2      	; 0x232a <main+0x490>
@@ -6379,7 +6379,7 @@ int main(void)
     2478:	02 96       	adiw	r24, 0x02	; 2
     247a:	f7 01       	movw	r30, r14
     247c:	09 95       	icall
-				if(keypadinput.character == 'D'){
+				if(keypadinput.character == 'D'){ // D is the enter key on the keyboard
     247e:	89 81       	ldd	r24, Y+1	; 0x01
     2480:	84 34       	cpi	r24, 0x44	; 68
     2482:	09 f0       	breq	.+2      	; 0x2486 <main+0x5ec>
@@ -6417,7 +6417,7 @@ int main(void)
 					lcd.string(string);
     24c0:	f1 01       	movw	r30, r2
     24c2:	09 95       	icall
-					switch(lfsm.remove(&lfsm,input_tmp)){
+					switch(lfsm.remove(&lfsm,input_tmp)){ // feedback reply
     24c4:	a2 96       	adiw	r28, 0x22	; 34
     24c6:	ee ad       	ldd	r30, Y+62	; 0x3e
     24c8:	ff ad       	ldd	r31, Y+63	; 0x3f

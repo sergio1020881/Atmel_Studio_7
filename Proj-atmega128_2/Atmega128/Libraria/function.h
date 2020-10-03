@@ -1,6 +1,7 @@
 /************************************************************************
 FUNCTION API START
-Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+Author: Sergio Manuel Santos
+	<sergio.salazar.santos@gmail.com>
 ************************************************************************/
 /***preamble inic***/
 #ifndef _FUNCTION_H_

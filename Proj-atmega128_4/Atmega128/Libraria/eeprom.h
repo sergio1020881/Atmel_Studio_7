@@ -1,13 +1,13 @@
 /*************************************************************************
 Title: eeprom wrapper
 Author: Sergio Manuel Santos
- * <sergio.salazar.santos@gmail.com>
+	<sergio.salazar.santos@gmail.com>
 File: $Id: eeprom.h,v 0.2 01/10/2020 Exp $
 Software: AVR-GCC 4.1, AVR Libc 1.4.6 or higher
 Hardware: ATmega 
 License: GNU General Public License
 Comment:
-   Very Stable
+	Very Stable
 *************************************************************************/
 #ifndef EEPROM_H
 	#define EEPROM_H

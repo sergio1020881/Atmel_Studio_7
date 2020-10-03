@@ -5,22 +5,7 @@ File:     $Id: lfsm.c, v 0.1 2018/08/18 13:00:00 Sergio Exp $
 Software: GCC
 Hardware:
 License:  GNU General Public License
-DESCRIPTION:
-	Learning Finite State Machine, with very easy user friendly interface.
-USAGE:
-	Micro controller Atmel, the library is mcu independent, but in this case using Atmega324A.
-NOTES:
-	Soon Will not share this code.
-LICENSE:
-    Copyright (C) 2018
-    This program is free software; you can redistribute it and/or modify
-    it under the consent of the code developer, in case of commercial use
-    need license.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-COMMENT:
+Comment:
 	page=1 is dedicated for global logic, if page>1 is for local logic.
 	purpose is for machine programming, and encoders. General purpose algorithm.
 *************************************************************************/

@@ -6,18 +6,7 @@ Software: GCC
 Hardware:
 	Atmel MCU (Atmega324A)
 License:  GNU General Public License
-Usage:
-	Micro controller Atmel, the library is mcu independent, but in this case using Atmega324A.
-LICENSE:
-    Copyright (C) 2018
-    This program is free software; you can redistribute it and/or modify
-    it under the consent of the code developer, in case of commercial use
-    need license.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-COMMENT:
+Comment:
 	very stable
 ************************************************************************/
 #ifndef _LFSM_H_

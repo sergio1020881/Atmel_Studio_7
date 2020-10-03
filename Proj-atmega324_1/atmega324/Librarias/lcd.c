@@ -1,13 +1,9 @@
 /*************************************************************************
-Title:		
-	LCD API
-Author:		
-	Sergio Santos 
+Title: LCD API
+Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-File:		
-	$Id: lcd.c, v 27/09/2020 Exp $
-License:	
-	GNU General Public License        
+File: $Id: lcd.c, v 27/09/2020 Exp $
+License: GNU General Public License        
 Comment:
 	Tested Atemga128 16Mhz and Atmega328 8Mhz
 	reviewed 29/09/2020                    

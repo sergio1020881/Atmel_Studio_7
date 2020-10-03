@@ -1,6 +1,7 @@
 /*************************************************************************
 EEPROM API START (wrapper)
-Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+Author: Sergio Manuel Santos
+	<sergio.salazar.santos@gmail.com>
 *************************************************************************/
 /***preamble inic***/
 #ifndef _EEPROM_H_

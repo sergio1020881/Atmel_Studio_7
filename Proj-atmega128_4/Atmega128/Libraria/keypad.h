@@ -1,6 +1,6 @@
 /************************************************************************
 KEYPAD API START
-Author:mSergio Santos 
+Author: Sergio Santos 
    <sergio.salazar.santos@gmail.com>
 Date: 29092020
 Comment:

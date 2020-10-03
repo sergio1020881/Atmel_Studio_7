@@ -1,6 +1,7 @@
 /************************************************************************
 CLOCK API START
-Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+Author: Sergio Manuel Santos
+	<sergio.salazar.santos@gmail.com>
 ************************************************************************/
 /***preamble inic***/
 #ifndef _CLOCK_H_

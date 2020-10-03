@@ -1,6 +1,7 @@
 /*************************************************************************
 LFSM API START
-Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+Author: Sergio Manuel Santos
+	<sergio.salazar.santos@gmail.com>
 page = 1 => Global Logic
 page > 1 => Local Logic
 *************************************************************************/

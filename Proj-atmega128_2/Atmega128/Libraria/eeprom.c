@@ -1,6 +1,7 @@
 /*************************************************************************
-2-EEPROM API START (wrapper)
-Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+EEPROM API START (wrapper)
+Author: Sergio Manuel Santos
+	<sergio.salazar.santos@gmail.com>
 *************************************************************************/
 /***preamble inic***/
 /*

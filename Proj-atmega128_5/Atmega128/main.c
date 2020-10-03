@@ -46,14 +46,14 @@ int main(void)
 	uint8_t option=0; //Menu Jumper
 	uint8_t input_tmp=0;
 	struct keypadata keypadinput;
-	uint8_t output=0;
-	uint8_t mask=0;
+	uint16_t output=0;
+	uint16_t mask=0;
 	uint8_t page=0;
 	uint8_t n;
 	KEYPAD keypad = KEYPADenable(&DDRE,&PINE,&PORTE);
 	LCD0 lcd = LCD0enable(&DDRA,&PINA,&PORTA);
 	EEPROM eeprom = EEPROMenable();
-	LFSM lfsm = LFSMenable(&eeprom,571);
+	LFSM lfsm = LFSMenable(&eeprom,363);
 	FUNC func = FUNCenable();
 	/**************************************/
 	lfsm.setoutput(&lfsm,0);

@@ -27,6 +27,7 @@ Comment:
 #include "function.h"
 #include "keypad.h"
 #include "lfsm.h"
+#include "rotenc.h"
 /*
  ** Constant and Macro
  */
@@ -49,12 +50,13 @@ int main(void)
 	uint16_t output=0;
 	uint16_t mask=0;
 	uint8_t page=0;
-	uint8_t n;
+	uint16_t n;
 	KEYPAD keypad = KEYPADenable(&DDRE,&PINE,&PORTE);
 	LCD0 lcd = LCD0enable(&DDRA,&PINA,&PORTA);
 	EEPROM eeprom = EEPROMenable();
 	LFSM lfsm = LFSMenable(&eeprom,363);
 	FUNC func = FUNCenable();
+	//ROTENC potenc = ROTENCenable(0,1);
 	/**************************************/
 	lfsm.setoutput(&lfsm,0);
 	/*** Replace with your application code ***/
@@ -62,11 +64,12 @@ int main(void)
 	{
 		/******/
 		keypadinput=keypad.get();
+		//n=potenc.rte(&potenc,PINB).num;
 		n=PINB;
 		/******/
-		lcd.gotoxy(0,16);
+		lcd.gotoxy(0,14);
 		string=func.ui16toa(n);
-		lcd.string_size(string,4);
+		lcd.string_size(string,5);
 		/******/
 		switch(option){
 			case 0: // Main Menu

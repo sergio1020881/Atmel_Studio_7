@@ -15,19 +15,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000728  00000000  00000000  00002b08  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00007c92  00000000  00000000  00003230  2**0
+  6 .debug_info   00007c93  00000000  00000000  00003230  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00001867  00000000  00000000  0000aec2  2**0
+  7 .debug_abbrev 00001858  00000000  00000000  0000aec3  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00004857  00000000  00000000  0000c729  2**0
+  8 .debug_line   00004857  00000000  00000000  0000c71b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00001038  00000000  00000000  00010f80  2**2
+  9 .debug_frame  00001038  00000000  00000000  00010f74  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001412  00000000  00000000  00011fb8  2**0
+ 10 .debug_str    00001412  00000000  00000000  00011fac  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000063a5  00000000  00000000  000133ca  2**0
+ 11 .debug_loc    000063bd  00000000  00000000  000133be  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000588  00000000  00000000  0001976f  2**0
+ 12 .debug_ranges 00000588  00000000  00000000  0001977b  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -5362,9 +5362,9 @@ uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, cons
     1e92:	f2 e0       	ldi	r31, 0x02	; 2
     1e94:	c2 01       	movw	r24, r4
     1e96:	80 95       	com	r24
-    1e98:	88 21       	and	r24, r8
-    1e9a:	99 21       	and	r25, r9
-    1e9c:	99 27       	eor	r25, r25
+    1e98:	90 95       	com	r25
+    1e9a:	88 21       	and	r24, r8
+    1e9c:	99 21       	and	r25, r9
     1e9e:	90 87       	std	Z+8, r25	; 0x08
     1ea0:	87 83       	std	Z+7, r24	; 0x07
 				ptmp1->outlh=LFSMlh(BYTEL,next) & mask;
@@ -5594,7 +5594,7 @@ int main(void)
 	uint16_t output=0;
 	uint16_t mask=0;
 	uint8_t page=0;
-	uint8_t n;
+	uint16_t n;
 	KEYPAD keypad = KEYPADenable(&DDRE,&PINE,&PORTE);
     1fdc:	43 e2       	ldi	r20, 0x23	; 35
     1fde:	50 e0       	ldi	r21, 0x00	; 0
@@ -5674,6 +5674,7 @@ int main(void)
     206e:	e8 83       	st	Y, r30
     2070:	cf 5c       	subi	r28, 0xCF	; 207
     2072:	d0 40       	sbci	r29, 0x00	; 0
+	//ROTENC potenc = ROTENCenable(0,1);
 	/**************************************/
 	lfsm.setoutput(&lfsm,0);
     2074:	ab 96       	adiw	r28, 0x2b	; 43
@@ -5759,11 +5760,12 @@ int main(void)
     20cc:	0d 92       	st	X+, r0
     20ce:	8a 95       	dec	r24
     20d0:	e1 f7       	brne	.-8      	; 0x20ca <main+0x106>
+		//n=potenc.rte(&potenc,PINB).num;
 		n=PINB;
     20d2:	16 b3       	in	r17, 0x16	; 22
 		/******/
-		lcd.gotoxy(0,16);
-    20d4:	60 e1       	ldi	r22, 0x10	; 16
+		lcd.gotoxy(0,14);
+    20d4:	6e e0       	ldi	r22, 0x0E	; 14
     20d6:	70 e0       	ldi	r23, 0x00	; 0
     20d8:	80 e0       	ldi	r24, 0x00	; 0
     20da:	90 e0       	ldi	r25, 0x00	; 0
@@ -5776,8 +5778,8 @@ int main(void)
     20e6:	09 95       	icall
     20e8:	90 93 7e 02 	sts	0x027E, r25	; 0x80027e <string+0x1>
     20ec:	80 93 7d 02 	sts	0x027D, r24	; 0x80027d <string>
-		lcd.string_size(string,4);
-    20f0:	64 e0       	ldi	r22, 0x04	; 4
+		lcd.string_size(string,5);
+    20f0:	65 e0       	ldi	r22, 0x05	; 5
     20f2:	f7 01       	movw	r30, r14
     20f4:	09 95       	icall
 		/******/

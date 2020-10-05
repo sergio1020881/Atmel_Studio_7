@@ -31,13 +31,15 @@ Comment:
  ** Constant and Macro
  */
 #define True 1
-#define PinChnA 0
-#define PinChnB 1
+//#define PinChnA 0
+//#define PinChnB 1
 /*
  ** Global Variable
  */
 char* string=NULL;
 struct Rtnc{
+	uint8_t PinChnA;
+	uint8_t PinChnB;
 	uint8_t pchn;
 	uint8_t chn;
 	uint8_t num;
@@ -51,9 +53,12 @@ struct Rtnc RotEnc_rte(struct Rtnc *self, uint8_t data);
 /***MAIN***/
 int main(void)
 {
-	RotEnc.pchn=(1<<PinChnB)|(1<<PinChnA);
-	RotEnc.chn=(1<<PinChnB)|(1<<PinChnA);
+	RotEnc.PinChnA=0;
+	RotEnc.PinChnB=1;
+	RotEnc.pchn=(1<<RotEnc.PinChnB)|(1<<RotEnc.PinChnA);
+	RotEnc.chn=(1<<RotEnc.PinChnB)|(1<<RotEnc.PinChnA);
 	RotEnc.rte=RotEnc_rte;
+	
 	PORTINIT();
 	uint8_t m;
 	//KEYPAD keypad = KEYPADenable(&DDRE,&PINE,&PORTE);
@@ -97,13 +102,13 @@ void PORTINIT(void)
 struct Rtnc RotEnc_rte(struct Rtnc *self, uint8_t data)
 {
 	uint8_t hl;
-	self->chn=data & ((1<<PinChnB)|(1<<PinChnA));
+	self->chn=data & ((1<<self->PinChnB)|(1<<self->PinChnA));
 	hl=self->chn ^ self->pchn;
 	hl&=self->pchn;
 	if(self->pchn != self->chn){
-		if((self->pchn == ((1<<PinChnB)|(1<<PinChnA))) && (hl & (1<<PinChnA)))
+		if((self->pchn == ((1<<self->PinChnB)|(1<<self->PinChnA))) && (hl & (1<<self->PinChnA)))
 			self->num++;
-		if((self->pchn == ((1<<PinChnB)|(1<<PinChnA))) && (hl & (1<<PinChnB)))
+		if((self->pchn == ((1<<self->PinChnB)|(1<<self->PinChnA))) && (hl & (1<<self->PinChnB)))
 			self->num--;
 	}
 	self->pchn=self->chn;

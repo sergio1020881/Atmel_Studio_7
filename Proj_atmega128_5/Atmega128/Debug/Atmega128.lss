@@ -13,21 +13,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00002acc  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000728  00000000  00000000  00002b08  2**3
+  5 .debug_aranges 000005d0  00000000  00000000  00002b08  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00007c93  00000000  00000000  00003230  2**0
+  6 .debug_info   00006d16  00000000  00000000  000030d8  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00001858  00000000  00000000  0000aec3  2**0
+  7 .debug_abbrev 00001876  00000000  00000000  00009dee  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00004857  00000000  00000000  0000c71b  2**0
+  8 .debug_line   0000376e  00000000  00000000  0000b664  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00001038  00000000  00000000  00010f74  2**2
+  9 .debug_frame  00000d14  00000000  00000000  0000edd4  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00001412  00000000  00000000  00011fac  2**0
+ 10 .debug_str    00000f52  00000000  00000000  0000fae8  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000063bd  00000000  00000000  000133be  2**0
+ 11 .debug_loc    0000549e  00000000  00000000  00010a3a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000588  00000000  00000000  0001977b  2**0
+ 12 .debug_ranges 00000420  00000000  00000000  00015ed8  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -200,12 +200,12 @@ Disassembly of section .text:
      134:	65 cf       	rjmp	.-310    	; 0x0 <__vectors>
 
 00000136 <__vector_21>:
-void uart1_puts_p(const char *progmem_s )
+ISR(ANALOG_INTERRUPT)
+/*************************************************************************
+Function: ANALOG interrupt
+Purpose:  Read Analog Input
+**************************************************************************/
 {
-    register char c;
-    while ( (c = pgm_read_byte(progmem_s++)) ) 
-      uart1_putc(c);
-}/* uart1_puts_p */
      136:	1f 92       	push	r1
      138:	0f 92       	push	r0
      13a:	0f b6       	in	r0, 0x3f	; 63
@@ -219,72 +219,88 @@ void uart1_puts_p(const char *progmem_s )
      14a:	9f 93       	push	r25
      14c:	ef 93       	push	r30
      14e:	ff 93       	push	r31
+	/******/
+	adc_tmp=ADCL;
      150:	84 b1       	in	r24, 0x04	; 4
      152:	90 e0       	ldi	r25, 0x00	; 0
-     154:	90 93 56 02 	sts	0x0256, r25	; 0x800256 <adc_tmp+0x1>
-     158:	80 93 55 02 	sts	0x0255, r24	; 0x800255 <adc_tmp>
+     154:	90 93 cc 01 	sts	0x01CC, r25	; 0x8001cc <adc_tmp+0x1>
+     158:	80 93 cb 01 	sts	0x01CB, r24	; 0x8001cb <adc_tmp>
+	adc_tmp|=(ADCH<<8);
      15c:	25 b1       	in	r18, 0x05	; 5
-     15e:	80 91 55 02 	lds	r24, 0x0255	; 0x800255 <adc_tmp>
-     162:	90 91 56 02 	lds	r25, 0x0256	; 0x800256 <adc_tmp+0x1>
+     15e:	80 91 cb 01 	lds	r24, 0x01CB	; 0x8001cb <adc_tmp>
+     162:	90 91 cc 01 	lds	r25, 0x01CC	; 0x8001cc <adc_tmp+0x1>
      166:	92 2b       	or	r25, r18
-     168:	90 93 56 02 	sts	0x0256, r25	; 0x800256 <adc_tmp+0x1>
-     16c:	80 93 55 02 	sts	0x0255, r24	; 0x800255 <adc_tmp>
-     170:	80 91 54 02 	lds	r24, 0x0254	; 0x800254 <adc_n_sample>
+     168:	90 93 cc 01 	sts	0x01CC, r25	; 0x8001cc <adc_tmp+0x1>
+     16c:	80 93 cb 01 	sts	0x01CB, r24	; 0x8001cb <adc_tmp>
+	if(adc_n_sample < (1<<ADC_NUMBER_SAMPLE)){
+     170:	80 91 ca 01 	lds	r24, 0x01CA	; 0x8001ca <__data_end>
      174:	84 30       	cpi	r24, 0x04	; 4
      176:	a0 f4       	brcc	.+40     	; 0x1a0 <__vector_21+0x6a>
-     178:	80 91 54 02 	lds	r24, 0x0254	; 0x800254 <adc_n_sample>
+		adc_n_sample++;
+     178:	80 91 ca 01 	lds	r24, 0x01CA	; 0x8001ca <__data_end>
      17c:	8f 5f       	subi	r24, 0xFF	; 255
-     17e:	80 93 54 02 	sts	0x0254, r24	; 0x800254 <adc_n_sample>
-     182:	20 91 55 02 	lds	r18, 0x0255	; 0x800255 <adc_tmp>
-     186:	30 91 56 02 	lds	r19, 0x0256	; 0x800256 <adc_tmp+0x1>
-     18a:	80 91 57 02 	lds	r24, 0x0257	; 0x800257 <adc_sample>
-     18e:	90 91 58 02 	lds	r25, 0x0258	; 0x800258 <adc_sample+0x1>
+     17e:	80 93 ca 01 	sts	0x01CA, r24	; 0x8001ca <__data_end>
+		adc_sample+=adc_tmp;
+     182:	20 91 cb 01 	lds	r18, 0x01CB	; 0x8001cb <adc_tmp>
+     186:	30 91 cc 01 	lds	r19, 0x01CC	; 0x8001cc <adc_tmp+0x1>
+     18a:	80 91 cd 01 	lds	r24, 0x01CD	; 0x8001cd <adc_sample>
+     18e:	90 91 ce 01 	lds	r25, 0x01CE	; 0x8001ce <adc_sample+0x1>
      192:	82 0f       	add	r24, r18
      194:	93 1f       	adc	r25, r19
-     196:	90 93 58 02 	sts	0x0258, r25	; 0x800258 <adc_sample+0x1>
-     19a:	80 93 57 02 	sts	0x0257, r24	; 0x800257 <adc_sample>
+     196:	90 93 ce 01 	sts	0x01CE, r25	; 0x8001ce <adc_sample+0x1>
+     19a:	80 93 cd 01 	sts	0x01CD, r24	; 0x8001cd <adc_sample>
      19e:	43 c0       	rjmp	.+134    	; 0x226 <__vector_21+0xf0>
-     1a0:	e0 91 59 02 	lds	r30, 0x0259	; 0x800259 <ADC_SELECTOR>
-     1a4:	f0 91 5a 02 	lds	r31, 0x025A	; 0x80025a <ADC_SELECTOR+0x1>
-     1a8:	80 91 57 02 	lds	r24, 0x0257	; 0x800257 <adc_sample>
-     1ac:	90 91 58 02 	lds	r25, 0x0258	; 0x800258 <adc_sample+0x1>
+	}else{
+		ADC_VALUE[ADC_SELECTOR]=adc_sample>>ADC_NUMBER_SAMPLE;
+     1a0:	e0 91 cf 01 	lds	r30, 0x01CF	; 0x8001cf <ADC_SELECTOR>
+     1a4:	f0 91 d0 01 	lds	r31, 0x01D0	; 0x8001d0 <ADC_SELECTOR+0x1>
+     1a8:	80 91 cd 01 	lds	r24, 0x01CD	; 0x8001cd <adc_sample>
+     1ac:	90 91 ce 01 	lds	r25, 0x01CE	; 0x8001ce <adc_sample+0x1>
      1b0:	95 95       	asr	r25
      1b2:	87 95       	ror	r24
      1b4:	95 95       	asr	r25
      1b6:	87 95       	ror	r24
      1b8:	ee 0f       	add	r30, r30
      1ba:	ff 1f       	adc	r31, r31
-     1bc:	e3 59       	subi	r30, 0x93	; 147
-     1be:	fd 4f       	sbci	r31, 0xFD	; 253
+     1bc:	ed 51       	subi	r30, 0x1D	; 29
+     1be:	fe 4f       	sbci	r31, 0xFE	; 254
      1c0:	91 83       	std	Z+1, r25	; 0x01
      1c2:	80 83       	st	Z, r24
-     1c4:	10 92 58 02 	sts	0x0258, r1	; 0x800258 <adc_sample+0x1>
-     1c8:	10 92 57 02 	sts	0x0257, r1	; 0x800257 <adc_sample>
-     1cc:	10 92 54 02 	sts	0x0254, r1	; 0x800254 <adc_n_sample>
-     1d0:	20 91 59 02 	lds	r18, 0x0259	; 0x800259 <ADC_SELECTOR>
-     1d4:	30 91 5a 02 	lds	r19, 0x025A	; 0x80025a <ADC_SELECTOR+0x1>
-     1d8:	80 91 5b 02 	lds	r24, 0x025B	; 0x80025b <ADC_N_CHANNEL>
-     1dc:	90 91 5c 02 	lds	r25, 0x025C	; 0x80025c <ADC_N_CHANNEL+0x1>
+		adc_n_sample=adc_sample=0;
+     1c4:	10 92 ce 01 	sts	0x01CE, r1	; 0x8001ce <adc_sample+0x1>
+     1c8:	10 92 cd 01 	sts	0x01CD, r1	; 0x8001cd <adc_sample>
+     1cc:	10 92 ca 01 	sts	0x01CA, r1	; 0x8001ca <__data_end>
+		/******/
+		if(ADC_SELECTOR < ADC_N_CHANNEL)
+     1d0:	20 91 cf 01 	lds	r18, 0x01CF	; 0x8001cf <ADC_SELECTOR>
+     1d4:	30 91 d0 01 	lds	r19, 0x01D0	; 0x8001d0 <ADC_SELECTOR+0x1>
+     1d8:	80 91 d1 01 	lds	r24, 0x01D1	; 0x8001d1 <ADC_N_CHANNEL>
+     1dc:	90 91 d2 01 	lds	r25, 0x01D2	; 0x8001d2 <ADC_N_CHANNEL+0x1>
      1e0:	28 17       	cp	r18, r24
      1e2:	39 07       	cpc	r19, r25
      1e4:	54 f4       	brge	.+20     	; 0x1fa <__vector_21+0xc4>
-     1e6:	80 91 59 02 	lds	r24, 0x0259	; 0x800259 <ADC_SELECTOR>
-     1ea:	90 91 5a 02 	lds	r25, 0x025A	; 0x80025a <ADC_SELECTOR+0x1>
+			ADC_SELECTOR++;
+     1e6:	80 91 cf 01 	lds	r24, 0x01CF	; 0x8001cf <ADC_SELECTOR>
+     1ea:	90 91 d0 01 	lds	r25, 0x01D0	; 0x8001d0 <ADC_SELECTOR+0x1>
      1ee:	01 96       	adiw	r24, 0x01	; 1
-     1f0:	90 93 5a 02 	sts	0x025A, r25	; 0x80025a <ADC_SELECTOR+0x1>
-     1f4:	80 93 59 02 	sts	0x0259, r24	; 0x800259 <ADC_SELECTOR>
+     1f0:	90 93 d0 01 	sts	0x01D0, r25	; 0x8001d0 <ADC_SELECTOR+0x1>
+     1f4:	80 93 cf 01 	sts	0x01CF, r24	; 0x8001cf <ADC_SELECTOR>
      1f8:	04 c0       	rjmp	.+8      	; 0x202 <__vector_21+0xcc>
-     1fa:	10 92 5a 02 	sts	0x025A, r1	; 0x80025a <ADC_SELECTOR+0x1>
-     1fe:	10 92 59 02 	sts	0x0259, r1	; 0x800259 <ADC_SELECTOR>
+		else
+			ADC_SELECTOR=0;
+     1fa:	10 92 d0 01 	sts	0x01D0, r1	; 0x8001d0 <ADC_SELECTOR+0x1>
+     1fe:	10 92 cf 01 	sts	0x01CF, r1	; 0x8001cf <ADC_SELECTOR>
+		ADC_SELECT &= ~MUX_MASK;
      202:	87 b1       	in	r24, 0x07	; 7
      204:	80 7e       	andi	r24, 0xE0	; 224
      206:	87 b9       	out	0x07, r24	; 7
-     208:	e0 91 59 02 	lds	r30, 0x0259	; 0x800259 <ADC_SELECTOR>
-     20c:	f0 91 5a 02 	lds	r31, 0x025A	; 0x80025a <ADC_SELECTOR+0x1>
+		ADC_SELECT |= (ADC_CHANNEL_GAIN[ADC_SELECTOR] & MUX_MASK);
+     208:	e0 91 cf 01 	lds	r30, 0x01CF	; 0x8001cf <ADC_SELECTOR>
+     20c:	f0 91 d0 01 	lds	r31, 0x01D0	; 0x8001d0 <ADC_SELECTOR+0x1>
      210:	ee 0f       	add	r30, r30
      212:	ff 1f       	adc	r31, r31
-     214:	e3 5a       	subi	r30, 0xA3	; 163
-     216:	fd 4f       	sbci	r31, 0xFD	; 253
+     214:	ed 52       	subi	r30, 0x2D	; 45
+     216:	fe 4f       	sbci	r31, 0xFE	; 254
      218:	80 81       	ld	r24, Z
      21a:	91 81       	ldd	r25, Z+1	; 0x01
      21c:	27 b1       	in	r18, 0x07	; 7
@@ -292,6 +308,8 @@ void uart1_puts_p(const char *progmem_s )
      220:	99 27       	eor	r25, r25
      222:	82 2b       	or	r24, r18
      224:	87 b9       	out	0x07, r24	; 7
+	}		
+}
      226:	ff 91       	pop	r31
      228:	ef 91       	pop	r30
      22a:	9f 91       	pop	r25
@@ -307,6 +325,12 @@ void uart1_puts_p(const char *progmem_s )
      23e:	18 95       	reti
 
 00000240 <__vector_18>:
+void uart1_puts_p(const char *progmem_s )
+{
+    register char c;
+    while ( (c = pgm_read_byte(progmem_s++)) ) 
+      uart1_putc(c);
+}/* uart1_puts_p */
      240:	1f 92       	push	r1
      242:	0f 92       	push	r0
      244:	0f b6       	in	r0, 0x3f	; 63
@@ -321,29 +345,29 @@ void uart1_puts_p(const char *progmem_s )
      256:	8b b1       	in	r24, 0x0b	; 11
      258:	9a b1       	in	r25, 0x0a	; 10
      25a:	88 71       	andi	r24, 0x18	; 24
-     25c:	80 93 0f 02 	sts	0x020F, r24	; 0x80020f <UART_LastRxError>
-     260:	e0 91 11 02 	lds	r30, 0x0211	; 0x800211 <UART_RxHead>
+     25c:	80 93 38 02 	sts	0x0238, r24	; 0x800238 <UART_LastRxError>
+     260:	e0 91 3a 02 	lds	r30, 0x023A	; 0x80023a <UART_RxHead>
      264:	ef 5f       	subi	r30, 0xFF	; 255
      266:	ef 71       	andi	r30, 0x1F	; 31
-     268:	80 91 10 02 	lds	r24, 0x0210	; 0x800210 <UART_RxTail>
+     268:	80 91 39 02 	lds	r24, 0x0239	; 0x800239 <UART_RxTail>
      26c:	e8 13       	cpse	r30, r24
      26e:	04 c0       	rjmp	.+8      	; 0x278 <__vector_18+0x38>
      270:	82 e0       	ldi	r24, 0x02	; 2
-     272:	80 93 0f 02 	sts	0x020F, r24	; 0x80020f <UART_LastRxError>
+     272:	80 93 38 02 	sts	0x0238, r24	; 0x800238 <UART_LastRxError>
      276:	11 c0       	rjmp	.+34     	; 0x29a <__vector_18+0x5a>
      278:	9c b1       	in	r25, 0x0c	; 12
-     27a:	e0 93 11 02 	sts	0x0211, r30	; 0x800211 <UART_RxHead>
-     27e:	80 91 0f 02 	lds	r24, 0x020F	; 0x80020f <UART_LastRxError>
+     27a:	e0 93 3a 02 	sts	0x023A, r30	; 0x80023a <UART_RxHead>
+     27e:	80 91 38 02 	lds	r24, 0x0238	; 0x800238 <UART_LastRxError>
      282:	88 23       	and	r24, r24
      284:	31 f0       	breq	.+12     	; 0x292 <__vector_18+0x52>
      286:	f0 e0       	ldi	r31, 0x00	; 0
-     288:	ec 5e       	subi	r30, 0xEC	; 236
+     288:	e3 5c       	subi	r30, 0xC3	; 195
      28a:	fd 4f       	sbci	r31, 0xFD	; 253
      28c:	88 e5       	ldi	r24, 0x58	; 88
      28e:	80 83       	st	Z, r24
      290:	04 c0       	rjmp	.+8      	; 0x29a <__vector_18+0x5a>
      292:	f0 e0       	ldi	r31, 0x00	; 0
-     294:	ec 5e       	subi	r30, 0xEC	; 236
+     294:	e3 5c       	subi	r30, 0xC3	; 195
      296:	fd 4f       	sbci	r31, 0xFD	; 253
      298:	90 83       	st	Z, r25
      29a:	ff 91       	pop	r31
@@ -370,18 +394,18 @@ void uart1_puts_p(const char *progmem_s )
      2c0:	9f 93       	push	r25
      2c2:	ef 93       	push	r30
      2c4:	ff 93       	push	r31
-     2c6:	90 91 13 02 	lds	r25, 0x0213	; 0x800213 <UART_TxHead>
-     2ca:	80 91 12 02 	lds	r24, 0x0212	; 0x800212 <UART_TxTail>
+     2c6:	90 91 3c 02 	lds	r25, 0x023C	; 0x80023c <UART_TxHead>
+     2ca:	80 91 3b 02 	lds	r24, 0x023B	; 0x80023b <UART_TxTail>
      2ce:	98 13       	cpse	r25, r24
      2d0:	02 c0       	rjmp	.+4      	; 0x2d6 <__vector_19+0x26>
      2d2:	55 98       	cbi	0x0a, 5	; 10
      2d4:	0b c0       	rjmp	.+22     	; 0x2ec <__vector_19+0x3c>
-     2d6:	e0 91 12 02 	lds	r30, 0x0212	; 0x800212 <UART_TxTail>
+     2d6:	e0 91 3b 02 	lds	r30, 0x023B	; 0x80023b <UART_TxTail>
      2da:	ef 5f       	subi	r30, 0xFF	; 255
      2dc:	ef 71       	andi	r30, 0x1F	; 31
-     2de:	e0 93 12 02 	sts	0x0212, r30	; 0x800212 <UART_TxTail>
+     2de:	e0 93 3b 02 	sts	0x023B, r30	; 0x80023b <UART_TxTail>
      2e2:	f0 e0       	ldi	r31, 0x00	; 0
-     2e4:	ec 5c       	subi	r30, 0xCC	; 204
+     2e4:	e3 5a       	subi	r30, 0xA3	; 163
      2e6:	fd 4f       	sbci	r31, 0xFD	; 253
      2e8:	80 81       	ld	r24, Z
      2ea:	8c b9       	out	0x0c, r24	; 12
@@ -428,35 +452,35 @@ Purpose:  called when the UART1 has received a character
     /* */
     UART1_LastRxError = (usr & (_BV(FE1)|_BV(DOR1)));
      320:	88 71       	andi	r24, 0x18	; 24
-     322:	80 93 ca 01 	sts	0x01CA, r24	; 0x8001ca <__data_end>
+     322:	80 93 f3 01 	sts	0x01F3, r24	; 0x8001f3 <UART1_LastRxError>
 	/* calculate buffer index */ 
     tmphead = ( UART1_RxHead + 1) & UART_RX_BUFFER_MASK;
-     326:	e0 91 cc 01 	lds	r30, 0x01CC	; 0x8001cc <UART1_RxHead>
+     326:	e0 91 f5 01 	lds	r30, 0x01F5	; 0x8001f5 <UART1_RxHead>
      32a:	ef 5f       	subi	r30, 0xFF	; 255
      32c:	ef 71       	andi	r30, 0x1F	; 31
     if ( tmphead == UART1_RxTail ) {	
-     32e:	80 91 cb 01 	lds	r24, 0x01CB	; 0x8001cb <UART1_RxTail>
+     32e:	80 91 f4 01 	lds	r24, 0x01F4	; 0x8001f4 <UART1_RxTail>
      332:	e8 13       	cpse	r30, r24
      334:	04 c0       	rjmp	.+8      	; 0x33e <__vector_30+0x3c>
         /* error: receive buffer overflow, caracter is lost*/
         UART1_LastRxError = UART_BUFFER_OVERFLOW >> 8; 
      336:	82 e0       	ldi	r24, 0x02	; 2
-     338:	80 93 ca 01 	sts	0x01CA, r24	; 0x8001ca <__data_end>
+     338:	80 93 f3 01 	sts	0x01F3, r24	; 0x8001f3 <UART1_LastRxError>
      33c:	12 c0       	rjmp	.+36     	; 0x362 <__vector_30+0x60>
 	}else{
 		data = UART1_DATA;
      33e:	90 91 9c 00 	lds	r25, 0x009C	; 0x80009c <__TEXT_REGION_LENGTH__+0x7e009c>
         /* store new index */
         UART1_RxHead = tmphead;
-     342:	e0 93 cc 01 	sts	0x01CC, r30	; 0x8001cc <UART1_RxHead>
+     342:	e0 93 f5 01 	sts	0x01F5, r30	; 0x8001f5 <UART1_RxHead>
 		if(UART1_LastRxError){
-     346:	80 91 ca 01 	lds	r24, 0x01CA	; 0x8001ca <__data_end>
+     346:	80 91 f3 01 	lds	r24, 0x01F3	; 0x8001f3 <UART1_LastRxError>
      34a:	88 23       	and	r24, r24
      34c:	31 f0       	breq	.+12     	; 0x35a <__vector_30+0x58>
 			/* store indication data error in buffer */
 			UART1_RxBuf[tmphead] = 'X';
      34e:	f0 e0       	ldi	r31, 0x00	; 0
-     350:	e1 53       	subi	r30, 0x31	; 49
+     350:	e8 50       	subi	r30, 0x08	; 8
      352:	fe 4f       	sbci	r31, 0xFE	; 254
      354:	88 e5       	ldi	r24, 0x58	; 88
      356:	80 83       	st	Z, r24
@@ -465,7 +489,7 @@ Purpose:  called when the UART1 has received a character
 			/* store received data in buffer */
 			UART1_RxBuf[tmphead] = data;
      35a:	f0 e0       	ldi	r31, 0x00	; 0
-     35c:	e1 53       	subi	r30, 0x31	; 49
+     35c:	e8 50       	subi	r30, 0x08	; 8
      35e:	fe 4f       	sbci	r31, 0xFE	; 254
      360:	90 83       	st	Z, r25
 		}
@@ -502,8 +526,8 @@ Purpose:  called when the UART1 is ready to transmit the next byte
      38a:	ef 93       	push	r30
      38c:	ff 93       	push	r31
     if ( UART1_TxHead == UART1_TxTail ) {
-     38e:	90 91 ce 01 	lds	r25, 0x01CE	; 0x8001ce <UART1_TxHead>
-     392:	80 91 cd 01 	lds	r24, 0x01CD	; 0x8001cd <UART1_TxTail>
+     38e:	90 91 f7 01 	lds	r25, 0x01F7	; 0x8001f7 <UART1_TxHead>
+     392:	80 91 f6 01 	lds	r24, 0x01F6	; 0x8001f6 <UART1_TxTail>
      396:	98 13       	cpse	r25, r24
      398:	06 c0       	rjmp	.+12     	; 0x3a6 <__vector_31+0x2e>
         /* tx buffer empty, disable UDRE interrupt */
@@ -517,16 +541,16 @@ Purpose:  called when the UART1 is ready to transmit the next byte
     }else{
 		/* calculate and store new buffer index */
         UART1_TxTail = (UART1_TxTail + 1) & UART_TX_BUFFER_MASK;
-     3a6:	80 91 cd 01 	lds	r24, 0x01CD	; 0x8001cd <UART1_TxTail>
+     3a6:	80 91 f6 01 	lds	r24, 0x01F6	; 0x8001f6 <UART1_TxTail>
      3aa:	8f 5f       	subi	r24, 0xFF	; 255
      3ac:	8f 71       	andi	r24, 0x1F	; 31
-     3ae:	80 93 cd 01 	sts	0x01CD, r24	; 0x8001cd <UART1_TxTail>
+     3ae:	80 93 f6 01 	sts	0x01F6, r24	; 0x8001f6 <UART1_TxTail>
         /* get one byte from buffer and write it to UART */
 		UART1_DATA = UART1_TxBuf[UART1_TxTail];  /* start transmission */
-     3b2:	e0 91 cd 01 	lds	r30, 0x01CD	; 0x8001cd <UART1_TxTail>
+     3b2:	e0 91 f6 01 	lds	r30, 0x01F6	; 0x8001f6 <UART1_TxTail>
      3b6:	f0 e0       	ldi	r31, 0x00	; 0
-     3b8:	e1 51       	subi	r30, 0x11	; 17
-     3ba:	fe 4f       	sbci	r31, 0xFE	; 254
+     3b8:	e8 5e       	subi	r30, 0xE8	; 232
+     3ba:	fd 4f       	sbci	r31, 0xFD	; 253
      3bc:	80 81       	ld	r24, Z
      3be:	80 93 9c 00 	sts	0x009C, r24	; 0x80009c <__TEXT_REGION_LENGTH__+0x7e009c>
 	}	

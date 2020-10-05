@@ -1,12 +1,12 @@
 /************************************************************************
-ATMEGA128 API START
+ATMEGA128 UART API START
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 	28092020
 ************************************************************************/
 /***preamble inic***/
-#ifndef _ATMEGA128API_H_
-	#define _ATMEGA128API_H_
+#ifndef _ATMEGA128UART_H_
+	#define _ATMEGA128UART_H_
 /**@{*/
 #if (__GNUC__ * 100 + __GNUC_MINOR__) < 304
 	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
@@ -15,196 +15,6 @@ Author: Sergio Santos
 ** Library
 */
 #include <inttypes.h>
-/***preamble inic***/
-/************************************************************************
-ANALOG API START
-************************************************************************/
-/*
-** constant and macro
-*/
-#define ADC_NUMBER_SAMPLE 2 // ADC_NUMBER_SAMPLE^2 gives number of samples, note values can only range from 0 to 4.
-/*
-** variable
-*/
-struct nlg{
-	/***Parameters***/
-	uint8_t VREFF;
-	uint8_t DIVISION_FACTOR;
-	//prototype pointers
-	int (*read)(int selection);
-};
-typedef struct nlg ANALOG;
-/*
-** procedure and function header
-*/
-ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... );
-/*************************************************************************
-ANALOG API END
-*************************************************************************/
-/************************************************************************
-INTERRUPT API START
-************************************************************************/
-/*
-** constant and macro
-*/
-/*
-** variable
-*/
-struct ntrrpt{
-	void (*set)(uint8_t channel, uint8_t sense);
-	void (*off)(uint8_t channel);
-	uint8_t (*reset_status)(void);
-};
-typedef struct ntrrpt INTERRUPT;
-/*
-** procedure and function header
-*/
-INTERRUPT INTERRUPTenable(void);
-/************************************************************************
-INTERRUPT API END
-************************************************************************/
-/*************************************************************************
-SPI API START
-*************************************************************************/
-/*
-** constant and macro
-*/
-#define SPI_LSB_DATA_ORDER 1
-#define SPI_MSB_DATA_ORDER 0
-#define SPI_MASTER_MODE 1
-#define SPI_SLAVE_MODE 0
-/*
-** variable
-*/
-struct sp{
-	/***/
-	void (*transfer_sync) (uint8_t * dataout, uint8_t * datain, uint8_t len);
-	void (*transmit_sync) (uint8_t * dataout, uint8_t len);
-	uint8_t (*fast_shift) (uint8_t data);
-};
-typedef struct sp SPI;
-/*
-** procedure and function header
-*/
-SPI SPIenable(uint8_t master_slave_select, uint8_t data_order,  uint8_t data_modes, uint8_t prescaler);
-/*************************************************************************
-SPI API END
-*************************************************************************/
-/*************************************************************************
-TIMER API START
-*************************************************************************/
-/*
-** constant and macro
-*/
-/*
-** variable
-*/
-struct tmr_cntr0{
-	// prototype pointers
-	void (*compoutmode)(unsigned char compoutmode);
-	void (*compoutmodeA)(unsigned char compoutmode);
-	void (*compoutmodeB)(unsigned char compoutmode);
-	void (*compare)(unsigned char compare);
-	void (*compareA)(unsigned char compare);
-	void (*compareB)(unsigned char compare);
-	void (*start)(unsigned int prescaler);
-	void (*stop)(void);
-};
-typedef struct tmr_cntr0 TIMER_COUNTER0;
-/**/
-struct tmr_cntr1{
-	// prototype pointers
-	void (*compoutmodeA)(unsigned char compoutmode);
-	void (*compoutmodeB)(unsigned char compoutmode);
-	void (*compoutmodeC)(unsigned char compoutmode);
-	void (*compareA)(uint16_t compareA);
-	void (*compareB)(uint16_t compareB);
-	void (*compareC)(uint16_t compareC);
-	void (*start)(unsigned int prescaler);
-	void (*stop)(void);
-};
-typedef struct tmr_cntr1 TIMER_COUNTER1;
-/**/
-struct tmr_cntr2{
-	// prototype pointers
-	void (*compoutmode)(unsigned char compoutmode);
-	void (*compoutmodeA)(unsigned char compoutmode);
-	void (*compoutmodeB)(unsigned char compoutmode);
-	void (*compare)(unsigned char compare);
-	void (*compareA)(unsigned char compare);
-	void (*compareB)(unsigned char compare);
-	void (*start)(unsigned int prescaler);
-	void (*stop)(void);
-};
-typedef struct tmr_cntr2 TIMER_COUNTER2;
-/**/
-struct tmr_cntr3{
-	// prototype pointers
-	void (*compoutmodeA)(unsigned char compoutmode);
-	void (*compoutmodeB)(unsigned char compoutmode);
-	void (*compoutmodeC)(unsigned char compoutmode);
-	void (*compareA)(uint16_t compareA);
-	void (*compareB)(uint16_t compareB);
-	void (*compareC)(uint16_t compareC);
-	void (*start)(unsigned int prescaler);
-	void (*stop)(void);
-};
-typedef struct tmr_cntr3 TIMER_COUNTER3;
-/*
-** procedure and function header
-*/
-TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char interrupt);
-TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char interrupt);
-TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char interrupt);
-TIMER_COUNTER3 TIMER_COUNTER3enable(unsigned char wavegenmode, unsigned char interrupt);
-/***EOF***/
-/*************************************************************************
-TIMER API END
-*************************************************************************/
-/************************************************************************
-I2C API START
-testing phase
-************************************************************************/
-/*
-** constant and macro
-*/
-// devices
-#define DS1307_ID 0xD0			// I2C DS1307 Device Identifier
-#define DS1307_ADDR 0X00		// I2C DS1307 Device Address offset
-#define TC74_ID 0x9A			// device address of TC74
-#define TC74_ADDR 0X00
-#define Dev24C02_ID 0xA2		//device address 24C02
-#define Dev24C02_ADDR 0x00
-#define LM73_ID 0x90			//LM73 address temperature sensor
-/***/
-#define TWI_WRITE 0
-#define TWI_READ 1
-#define TWI_ACK 1
-#define TWI_NACK 0
-#define TWI_MASTER_MODE 0
-#define TWI_SLAVE_MODE 1
-/*
-** variable
-*/
-unsigned char i2c_output;
-struct tw{
-	/***PROTOTYPES VTABLE***/
-	void (*start)(unsigned char mode);
-	void (*master_connect)(unsigned char addr, unsigned char rw);
-	void (*master_write)(unsigned char data);
-	unsigned char (*master_read)(unsigned char request);
-	void (*stop)(void);
-};
-typedef struct tw I2C;
-/*
-** procedure and function header
-*/
-I2C I2Cenable(unsigned char device_id, unsigned char prescaler);
-/***EOF***/
-/************************************************************************
-I2C API END
-testing phase
-************************************************************************/
 /************************************************************************
 UART API START
 ************************************************************************/
@@ -379,9 +189,5 @@ extern void uart1_puts_p(const char *s );
 /************************************************************************
 UART API END
 ************************************************************************/
-/***preamble inic***/
 #endif
-/***preamble inic***/
-/************************************************************************
-ATMEGA128 API END
-************************************************************************/
+/***EOF***/

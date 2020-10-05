@@ -22,7 +22,12 @@ Comment:
 #include <avr/interrupt.h>
 #include <inttypes.h>
 #include "eeprom.h"
-#include "Atmega128API.h"
+#include "atmega128analog.h"
+#include "atmega128interrupt.h"
+#include "atmega128spi.h"
+#include "atmega128timer.h"
+#include "atmega128twi.h"
+#include "atmega128uart.h"
 #include "lcd.h"
 #include "function.h"
 #include "keypad.h"

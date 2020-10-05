@@ -2,7 +2,17 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-Libraria\Atmega128API.c
+Libraria\atmega128analog.c
+
+Libraria\atmega128interrupt.c
+
+Libraria\atmega128spi.c
+
+Libraria\atmega128timer.c
+
+Libraria\atmega128twi.c
+
+Libraria\atmega128uart.c
 
 Libraria\clock.c
 

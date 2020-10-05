@@ -1389,15 +1389,15 @@ END GROUP
  .debug_str     0x00001452       0x21 main.o
                                 0x501 (size before relaxing)
 
-.debug_loc      0x00000000     0x60a6
+.debug_loc      0x00000000     0x60aa
  *(.debug_loc)
  .debug_loc     0x00000000     0x20b9 Libraria/Atmega128API.o
  .debug_loc     0x000020b9     0x1680 Libraria/function.o
  .debug_loc     0x00003739      0x401 Libraria/keypad.o
  .debug_loc     0x00003b3a     0x10ee Libraria/lcd.o
  .debug_loc     0x00004c28     0x124e Libraria/lfsm.o
- .debug_loc     0x00005e76      0x1b0 Libraria/rotenc.o
- .debug_loc     0x00006026       0x80 main.o
+ .debug_loc     0x00005e76      0x1b4 Libraria/rotenc.o
+ .debug_loc     0x0000602a       0x80 main.o
 
 .debug_macinfo
  *(.debug_macinfo)

@@ -34,6 +34,7 @@ ROTENC ROTENCenable( uint8_t ChnApin, uint8_t ChnBpin )
 	rtnc.PinChnA=ChnApin;
 	rtnc.PinChnB=ChnBpin;
 	rtnc.pchn=rtnc.chn=(1<<ChnBpin)|(1<<ChnApin);
+	rtnc.num=0;
 	// function pointers
 	rtnc.rte=RotEnc_rte;
 	/******/

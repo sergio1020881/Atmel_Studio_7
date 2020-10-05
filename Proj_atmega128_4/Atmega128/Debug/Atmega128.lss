@@ -25,9 +25,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  10 .debug_str    00001473  00000000  00000000  00010a18  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    000060a6  00000000  00000000  00011e8b  2**0
+ 11 .debug_loc    000060aa  00000000  00000000  00011e8b  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000005a0  00000000  00000000  00017f31  2**0
+ 12 .debug_ranges 000005a0  00000000  00000000  00017f35  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -4895,6 +4895,7 @@ ROTENC ROTENCenable( uint8_t ChnApin, uint8_t ChnBpin )
     1ba4:	0a 94       	dec	r0
     1ba6:	e2 f7       	brpl	.-8      	; 0x1ba0 <ROTENCenable+0x2a>
     1ba8:	e4 2b       	or	r30, r20
+	rtnc.num=0;
 	// function pointers
 	rtnc.rte=RotEnc_rte;
 	/******/
@@ -4903,12 +4904,12 @@ ROTENC ROTENCenable( uint8_t ChnApin, uint8_t ChnBpin )
     1bac:	5d e0       	ldi	r21, 0x0D	; 13
     1bae:	5f 83       	std	Y+7, r21	; 0x07
     1bb0:	4e 83       	std	Y+6, r20	; 0x06
-    1bb2:	6d 81       	ldd	r22, Y+5	; 0x05
-    1bb4:	74 2f       	mov	r23, r20
+    1bb2:	74 2f       	mov	r23, r20
 }
-    1bb6:	28 2f       	mov	r18, r24
-    1bb8:	4e 2f       	mov	r20, r30
-    1bba:	5e 2f       	mov	r21, r30
+    1bb4:	28 2f       	mov	r18, r24
+    1bb6:	4e 2f       	mov	r20, r30
+    1bb8:	5e 2f       	mov	r21, r30
+    1bba:	60 e0       	ldi	r22, 0x00	; 0
     1bbc:	8f 81       	ldd	r24, Y+7	; 0x07
     1bbe:	90 e0       	ldi	r25, 0x00	; 0
     1bc0:	27 96       	adiw	r28, 0x07	; 7

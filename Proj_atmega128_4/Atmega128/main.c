@@ -31,6 +31,8 @@ Comment:
  ** Constant and Macro
  */
 #define True 1
+#define PinChnA 0
+#define PinChnB 1
 /*
  ** Global Variable
  */
@@ -39,21 +41,21 @@ struct Rtnc{
 	uint8_t pchn;
 	uint8_t chn;
 	uint8_t num;
-	uint8_t (*rte)(struct Rtnc *self, volatile uint8_t *pin);
+	struct Rtnc (*rte)(struct Rtnc *self, uint8_t data);
 	} RotEnc;
 /*
  ** Function Definition
  */
 void PORTINIT(void);
-uint8_t RotEnc_rte(struct Rtnc *self, volatile uint8_t *pin);
+struct Rtnc RotEnc_rte(struct Rtnc *self, uint8_t data);
 /***MAIN***/
 int main(void)
 {
-	RotEnc.pchn=3;
-	RotEnc.chn=3;
+	RotEnc.pchn=(1<<PinChnB)|(1<<PinChnA);
+	RotEnc.chn=(1<<PinChnB)|(1<<PinChnA);
 	RotEnc.rte=RotEnc_rte;
 	PORTINIT();
-	uint8_t n,m;
+	uint8_t m;
 	//KEYPAD keypad = KEYPADenable(&DDRE,&PINE,&PORTE);
 	LCD0 lcd = LCD0enable(&DDRA,&PINA,&PORTA);
 	EEPROM eeprom = EEPROMenable();
@@ -64,14 +66,12 @@ int main(void)
 	/*** Replace with your application code ***/
 	while (True)
 	{
-		n=PINB;
-		m=RotEnc.rte(&RotEnc,&n);
-		
+		m=RotEnc.rte(&RotEnc,PINB).num;
 		/******/
 		lcd.gotoxy(0,0);
-		string=func.ui16toa(n);
+		string=func.ui16toa(m);
 		lcd.string_size(string,4);
-		lfsm.read(&lfsm,n);
+		lfsm.read(&lfsm,m);
 		/***DISPLAY***/
 		lcd.gotoxy(1,0);
 		lcd.string_size("Output ",7);
@@ -87,18 +87,27 @@ int main(void)
 	}//End while
 }//End main
 /***Procedure and Function***/
-void PORTINIT(void){
+void PORTINIT(void)
+{
 	DDRC=0XFF;
 	PORTC=0XFF;
 	DDRB=0X00;
 	PORTB=0XFF;
 }
-uint8_t RotEnc_rte(struct Rtnc *self, volatile uint8_t *pin){
+struct Rtnc RotEnc_rte(struct Rtnc *self, uint8_t data)
+{
+	uint8_t hl;
+	self->chn=data & ((1<<PinChnB)|(1<<PinChnA));
+	hl=self->chn ^ self->pchn;
+	hl&=self->pchn;
+	if(self->pchn != self->chn){
+		if((self->pchn == ((1<<PinChnB)|(1<<PinChnA))) && (hl & (1<<PinChnA)))
+			self->num++;
+		if((self->pchn == ((1<<PinChnB)|(1<<PinChnA))) && (hl & (1<<PinChnB)))
+			self->num--;
+	}
 	self->pchn=self->chn;
-	self->chn=*pin & 3;
-	if(self->pchn != self->chn)
-		self->num++;
-	return self->num;
+	return *self;
 }
 /***Interrupt***/
 /***Comment

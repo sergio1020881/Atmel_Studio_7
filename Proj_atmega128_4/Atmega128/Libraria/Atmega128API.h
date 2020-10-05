@@ -2,7 +2,9 @@
 ATMEGA128 API START
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-	28092020
+Date: 28092020
+Comment:
+	Stable
 ************************************************************************/
 /***preamble inic***/
 #ifndef _ATMEGA128API_H_
@@ -15,7 +17,6 @@ Author: Sergio Santos
 ** Library
 */
 #include <inttypes.h>
-/***preamble inic***/
 /************************************************************************
 ANALOG API START
 ************************************************************************/

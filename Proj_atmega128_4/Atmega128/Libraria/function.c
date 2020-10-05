@@ -14,7 +14,6 @@ Comment:
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <stdarg.h>
-#include <inttypes.h>
 /***pc use***
 #include<stdio.h>
 #include<stdlib.h>

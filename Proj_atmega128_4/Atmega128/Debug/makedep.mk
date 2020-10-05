@@ -16,5 +16,7 @@ Libraria\lcd.c
 
 Libraria\lfsm.c
 
+Libraria\rotenc.c
+
 main.c
 

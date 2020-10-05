@@ -13,10 +13,10 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\pgmspace.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\gcc\avr\5.4.0\include\stddef.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
- ../Librarias/Atmega128API.h ../Librarias/function.h ../Librarias/clock.h \
- ../Librarias/lcd.h ../Librarias/keypad.h ../Librarias/eeprom.h \
+ ../Libraria/Atmega128API.h ../Libraria/function.h ../Libraria/clock.h \
+ ../Libraria/lcd.h ../Libraria/keypad.h ../Libraria/eeprom.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\eeprom.h \
- ../Librarias/lfsm.h ../Librarias/eeprom.h
+ ../Libraria/lfsm.h ../Libraria/eeprom.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -46,20 +46,20 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\lib\
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h:
 
-../Librarias/Atmega128API.h:
+../Libraria/Atmega128API.h:
 
-../Librarias/function.h:
+../Libraria/function.h:
 
-../Librarias/clock.h:
+../Libraria/clock.h:
 
-../Librarias/lcd.h:
+../Libraria/lcd.h:
 
-../Librarias/keypad.h:
+../Libraria/keypad.h:
 
-../Librarias/eeprom.h:
+../Libraria/eeprom.h:
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\eeprom.h:
 
-../Librarias/lfsm.h:
+../Libraria/lfsm.h:
 
-../Librarias/eeprom.h:
+../Libraria/eeprom.h:

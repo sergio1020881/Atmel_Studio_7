@@ -36,13 +36,18 @@ COMMENT:
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <inttypes.h>
-#include "Atmega128API.h"
+#include "atmega128uart.h"
+#include "atmega128twi.h"
+#include "atmega128analog.h"
+#include "atmega128timer.h"
+#include "atmega128interrupt.h"
+#include "atmega128spi.h"
 #include "function.h"
 #include "clock.h"
 #include "lcd.h"
 #include "keypad.h"
 #include "eeprom.h"
-/***preamble inic***/
+#include "rotenc.h"
 /*
 ** constant and macro
 */

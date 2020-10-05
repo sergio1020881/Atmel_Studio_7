@@ -116,7 +116,7 @@
         <avrgcc.compiler.directories.IncludePaths>
           <ListValues>
             <Value>%24(PackRepoDir)\atmel\ATmega_DFP\1.2.209\include</Value>
-            <Value>../Librarias</Value>
+            <Value>../Libraria</Value>
           </ListValues>
         </avrgcc.compiler.directories.IncludePaths>
         <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
@@ -139,28 +139,46 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Librarias\Atmega128API.c">
+    <Compile Include="Libraria\atmega128analog.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Librarias\clock.c">
+    <Compile Include="Libraria\atmega128interrupt.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Librarias\eeprom.c">
+    <Compile Include="Libraria\atmega128spi.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Librarias\function.c">
+    <Compile Include="Libraria\atmega128timer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Librarias\keypad.c">
+    <Compile Include="Libraria\atmega128twi.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Librarias\lcd.c">
+    <Compile Include="Libraria\atmega128uart.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Librarias\lfsm.c">
+    <Compile Include="Libraria\clock.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Librarias\mm74c923.c">
+    <Compile Include="Libraria\eeprom.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\function.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\keypad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\lfsm.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\mm74c923.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\rotenc.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
@@ -168,7 +186,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Librarias" />
+    <Folder Include="Libraria" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

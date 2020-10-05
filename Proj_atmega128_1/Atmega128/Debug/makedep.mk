@@ -2,21 +2,33 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-Librarias\Atmega128API.c
+Libraria\atmega128analog.c
 
-Librarias\clock.c
+Libraria\atmega128interrupt.c
 
-Librarias\eeprom.c
+Libraria\atmega128spi.c
 
-Librarias\function.c
+Libraria\atmega128timer.c
 
-Librarias\keypad.c
+Libraria\atmega128twi.c
 
-Librarias\lcd.c
+Libraria\atmega128uart.c
 
-Librarias\lfsm.c
+Libraria\clock.c
 
-Librarias\mm74c923.c
+Libraria\eeprom.c
+
+Libraria\function.c
+
+Libraria\keypad.c
+
+Libraria\lcd.c
+
+Libraria\lfsm.c
+
+Libraria\mm74c923.c
+
+Libraria\rotenc.c
 
 main.c
 

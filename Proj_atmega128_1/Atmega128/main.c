@@ -87,7 +87,7 @@ int main(void)
 	UART1 uart= UART1enable(103,8,1,NONE);//103 para 9600, 68 para 14400
 	I2C i2c = I2Cenable(85, 1);
 	ANALOG analog = ANALOGenable(1, 128, 3, 0, 4, 7);
-	TIMER_COUNTER3 timer3 = TIMER_COUNTER3enable(0,1);
+	TIMER_COUNTER3 timer3 = TIMER_COUNTER3enable(0,1); // 0,1
 	TIMER_COUNTER1 timer1 = TIMER_COUNTER1enable(9,0);
 	//SPI spi = SPIenable(SPI_MASTER_MODE, SPI_MSB_DATA_ORDER, 0, 8);
 	//EEPROM eeprom = EEPROMenable();
@@ -179,7 +179,7 @@ void PORTINIT()
 /*
 ** interrupt
 */
-ISR(TIMER3_OVF_vect) // TIMER0_COMP_vect
+ISR(TIMER3_OVF_vect)
 {
 	PORTC=memoria_1[count];
 	TIMER0_COMPARE_MATCH++;

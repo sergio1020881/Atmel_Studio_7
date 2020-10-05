@@ -1,4 +1,4 @@
-This program is a workin learning finite state machine.
+This program is a working learning finite state machine.
 
 It is considered finished, ready for minor update and production.
 

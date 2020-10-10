@@ -1,11 +1,11 @@
 /***************************************************************************************************
                                    ExploreEmbedded	
-****************************************************************************************************
- * File:   i2c.h
+ ***************************************************************************************************
+ * File:   rtc.h
  * Version: 15.0
  * Author: ExploreEmbedded
  * Website: http://www.exploreembedded.com/wiki
- * Description: Contains function prototypes for I2c routines.
+ * Description: Contains the function prototypes for RTC-Ds1307 date and time read write
 
 The libraries have been tested on ExploreEmbedded development boards. We strongly believe that the 
 library works on any of development boards for respective controllers. However, ExploreEmbedded 
@@ -34,16 +34,33 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 ****************************************************************************************************
 15.0: Initial version 
 ***************************************************************************************************/
-#ifndef _I2C_H
-	#define _I2C_H
+#ifndef _RTC_H_
+	#define _RTC_H_
+/***************************************************************************************************
+                             Commonly used Ds1307 macros/Constants
+***************************************************************************************************
+  Below values are fixed and should not be changed. Refer Ds1307 DataSheet for more info  ********/
+
+#define PCF8563ReadMode_U8   0xA3u  // PCF8563 ID
+#define PCF8563WriteMode_U8  0xA2u  // PCF8563 ID
+#define PCF8563SecondRegAddress_U8   0x02u   // Address to access PC8563 SEC register
+#define PCF8563DateRegAddress_U8     0x06u   // Address to access PC8563 DATE register
+#define PCF8563ControlRegAddress_U8  0x0Eu   // Address to access PC8563 CONTROL register
+//
+#define C_Ds1307ReadMode_U8   0xD1u  // DS1307 ID
+#define C_Ds1307WriteMode_U8  0xD0u  // DS1307 ID
+#define C_Ds1307SecondRegAddress_U8   0x00u   // Address to access Ds1307 SEC register
+#define C_Ds1307DateRegAddress_U8     0x04u   // Address to access Ds1307 DATE register
+#define C_Ds1307ControlRegAddress_U8  0x07u   // Address to access Ds1307 CONTROL register
+/**************************************************************************************************/
 /***************************************************************************************************
                              Function Prototypes
 ***************************************************************************************************/
-void I2C_Init();
-void I2C_Start();
-void I2C_Stop(void);
-void I2C_Write(uint8_t );
-uint8_t I2C_Read(uint8_t);
+void RTC_Init();
+void RTC_SetTime(uint8_t, uint8_t, uint8_t);
+void RTC_SetDate(uint8_t, uint8_t, uint8_t);
+void RTC_GetTime(uint8_t *,uint8_t *,uint8_t *);
+void RTC_GetDate(uint8_t *,uint8_t *,uint8_t *);
 /**************************************************************************************************/
 #endif
 /*EOF*/

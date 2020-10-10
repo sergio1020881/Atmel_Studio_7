@@ -48,10 +48,12 @@ C_SRCS +=  \
 ../Libraria/clock.c \
 ../Libraria/eeprom.c \
 ../Libraria/function.c \
+../Libraria/i2c.c \
 ../Libraria/keypad.c \
 ../Libraria/lcd.c \
 ../Libraria/lfsm.c \
 ../Libraria/rotenc.c \
+../Libraria/rtc.c \
 ../main.c
 
 
@@ -72,10 +74,12 @@ Libraria/atmega128uart.o \
 Libraria/clock.o \
 Libraria/eeprom.o \
 Libraria/function.o \
+Libraria/i2c.o \
 Libraria/keypad.o \
 Libraria/lcd.o \
 Libraria/lfsm.o \
 Libraria/rotenc.o \
+Libraria/rtc.o \
 main.o
 
 OBJS_AS_ARGS +=  \
@@ -89,10 +93,12 @@ Libraria/atmega128uart.o \
 Libraria/clock.o \
 Libraria/eeprom.o \
 Libraria/function.o \
+Libraria/i2c.o \
 Libraria/keypad.o \
 Libraria/lcd.o \
 Libraria/lfsm.o \
 Libraria/rotenc.o \
+Libraria/rtc.o \
 main.o
 
 C_DEPS +=  \
@@ -106,10 +112,12 @@ Libraria/atmega128uart.d \
 Libraria/clock.d \
 Libraria/eeprom.d \
 Libraria/function.d \
+Libraria/i2c.d \
 Libraria/keypad.d \
 Libraria/lcd.d \
 Libraria/lfsm.d \
 Libraria/rotenc.d \
+Libraria/rtc.d \
 main.d
 
 C_DEPS_AS_ARGS +=  \
@@ -123,10 +131,12 @@ Libraria/atmega128uart.d \
 Libraria/clock.d \
 Libraria/eeprom.d \
 Libraria/function.d \
+Libraria/i2c.d \
 Libraria/keypad.d \
 Libraria/lcd.d \
 Libraria/lfsm.d \
 Libraria/rotenc.d \
+Libraria/rtc.d \
 main.d
 
 OUTPUT_FILE_PATH +=Atmega128.elf
@@ -213,6 +223,13 @@ Libraria/function.o: ../Libraria/function.c
 	@echo Finished building: $<
 	
 
+Libraria/i2c.o: ../Libraria/i2c.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
 Libraria/keypad.o: ../Libraria/keypad.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
@@ -235,6 +252,13 @@ Libraria/lfsm.o: ../Libraria/lfsm.c
 	
 
 Libraria/rotenc.o: ../Libraria/rotenc.c
+	@echo Building file: $<
+	@echo Invoking: AVR/GNU C Compiler : 5.4.0
+	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 
+	@echo Finished building: $<
+	
+
+Libraria/rtc.o: ../Libraria/rtc.c
 	@echo Building file: $<
 	@echo Invoking: AVR/GNU C Compiler : 5.4.0
 	$(QUOTE)C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avr8-gnu-toolchain\bin\avr-gcc.exe$(QUOTE)  -x c -funsigned-char -funsigned-bitfields -DDEBUG  -I"C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\include" -I"../Libraria"  -O1 -ffunction-sections -fdata-sections -fpack-struct -fshort-enums -mrelax -g2 -Wall -mmcu=atmega128 -B "C:\Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.3.300\gcc\dev\atmega128" -c -std=gnu99 -MD -MP -MF "$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -MT"$(@:%.o=%.o)"   -o "$@" "$<" 

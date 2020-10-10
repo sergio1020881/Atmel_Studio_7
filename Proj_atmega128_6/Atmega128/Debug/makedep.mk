@@ -22,6 +22,8 @@ Libraria\eeprom.c
 
 Libraria\function.c
 
+Libraria\i2c.c
+
 Libraria\keypad.c
 
 Libraria\lcd.c
@@ -29,6 +31,8 @@ Libraria\lcd.c
 Libraria\lfsm.c
 
 Libraria\rotenc.c
+
+Libraria\rtc.c
 
 main.c
 

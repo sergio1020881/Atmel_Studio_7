@@ -181,6 +181,12 @@
     <Compile Include="Libraria\function.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\i2c.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\i2c.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\keypad.c">
       <SubType>compile</SubType>
     </Compile>
@@ -193,17 +199,18 @@
     <Compile Include="Libraria\rotenc.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\rtc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Libraria" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Libraria\Rtc_Pcf8563.cpp">
-      <SubType>compile</SubType>
-    </None>
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

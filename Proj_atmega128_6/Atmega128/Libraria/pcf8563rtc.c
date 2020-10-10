@@ -37,11 +37,14 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 #ifndef F_CPU
 	#define F_CPU 16000000UL
 #endif
+/*Library*/
 #include <avr/io.h>
 #include <util/delay.h>
 #include <inttypes.h>
-#include "rtc.h"
+#include "pcf8563rtc.h"
 #include "i2c.h"
+/*Define*/
+/*Global File Variables*/
 /***************************************************************************************************
                          void RTC_Init()
  ***************************************************************************************************
@@ -49,7 +52,7 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
  * Return value	: none
  * description :This function is used to Initialize the Ds1307 RTC.
 ***************************************************************************************************/
-void RTC_Init()
+void PCF8563RTC_Init()
 {
 	I2C_Init();                             // Initialize the I2c module.
 	I2C_Start();                            // Start I2C communication
@@ -68,7 +71,7 @@ void RTC_Init()
 	Note: The I/P arguments should of BCD, 
 	      like 0x12,0x39,0x26 for 12hr,39min and 26sec.			 
 ***************************************************************************************************/
-void RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8)
+void PCF8563RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8)
 {
 	I2C_Start();                            // Start I2C communication
 	I2C_Write(PCF8563WriteMode_U8);        // connect to PCF8563 by sending its ID on I2c Bus
@@ -88,7 +91,7 @@ void RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8)
 		Note: The I/P arguments should of BCD,
 	      like 0x15,0x08,0x47 for 15th day,8th month and 47th year.				 
 ***************************************************************************************************/
-void RTC_SetDate(uint8_t var_day_u8, uint8_t var_month_u8, uint8_t var_year_u8)
+void PCF8563RTC_SetDate(uint8_t var_day_u8, uint8_t var_month_u8, uint8_t var_year_u8)
 {
 	I2C_Start();                          // Start I2C communication
 	I2C_Write(PCF8563WriteMode_U8);	  // connect to PCF8563 by sending its ID on I2c Bus
@@ -101,47 +104,63 @@ void RTC_SetDate(uint8_t var_day_u8, uint8_t var_month_u8, uint8_t var_year_u8)
 /***************************************************************************************************
       void RTC_GetTime(uint8_t *ptr_hour_u8,uint8_t *ptr_min_u8,uint8_t *ptr_sec_u8)
 ****************************************************************************************************
- * I/P Arguments: uint8_t *,uint8_t *,uint8_t *-->pointers to get the hh,mm,ss.
- * Return value	: none
+ * I/P Arguments: void
+ * Return value	: struct time
  * description  :This function is used to get the Time(hh,mm,ss) from PCF8563 RTC.
 
 	Note: The time read from PCF8563 will be of BCD format, 
 	      like 0x12,0x39,0x26 for 12hr,39min and 26sec.	
 ***************************************************************************************************/
-void RTC_GetTime(uint8_t *ptr_hour_u8,uint8_t *ptr_min_u8,uint8_t *ptr_sec_u8)
+struct time PCF8563RTC_GetTime(void)
 {
-	I2C_Start();                            // Start I2C communication
-	I2C_Write(PCF8563WriteMode_U8);	    // connect to PCF8563 by sending its ID on I2c Bus
-	I2C_Write(PCF8563SecondRegAddress_U8); // Request Sec RAM address at 00H
-	I2C_Stop();	    	                    // Stop I2C communication after selecting Sec Register
-	I2C_Start();		                    // Start I2C communication
-	I2C_Write(PCF8563ReadMode_U8);	        // connect to PCF8563(Read mode) by sending its ID
-	*ptr_sec_u8 = I2C_Read(1);                // read second and return Positive ACK
-	*ptr_min_u8 = I2C_Read(1); 	            // read minute and return Positive ACK
-	*ptr_hour_u8 = I2C_Read(0);               // read hour and return Negative/No ACK
-	I2C_Stop();		                        // Stop I2C communication after reading the Time
+	struct time result;
+	I2C_Start();							// Start I2C communication
+	I2C_Write(PCF8563WriteMode_U8);			// connect to PCF8563 by sending its ID on I2c Bus
+	I2C_Write(PCF8563SecondRegAddress_U8);	// Request Sec RAM address at 00H
+	I2C_Stop();								// Stop I2C communication after selecting Sec Register
+	I2C_Start();							// Start I2C communication
+	I2C_Write(PCF8563ReadMode_U8);			// connect to PCF8563(Read mode) by sending its ID
+	result.VL_seconds = I2C_Read(1);			// read second and return Positive ACK
+	result.minutes = I2C_Read(1);			// read minute and return Positive ACK
+	result.hours = I2C_Read(0);				// read hour and return Negative/No ACK
+	I2C_Stop();								// Stop I2C communication after reading the Time
+	return result;
 }
 /***************************************************************************************************
       void RTC_GetDate(uint8_t *ptr_day_u8,uint8_t *ptr_month_u8,uint8_t *ptr_year_u8)
 ****************************************************************************************************
- * I/P Arguments: uint8_t *,uint8_t *,uint8_t *-->pointers to get the y,m,d.
- * Return value	: none
+ * I/P Arguments: void
+ * Return value	: struct date
  * description  :This function is used to get the Date(d,m,y) from PCF8563 RTC.
 
 	Note: The date read from PCF8563 will be of BCD format, 
 	      like 0x15,0x08,0x47 for 15th day,8th month and 47th year.  
 ***************************************************************************************************/
-void RTC_GetDate(uint8_t *ptr_day_u8,uint8_t *ptr_month_u8,uint8_t *ptr_year_u8)
+struct date PCF8563RTC_GetDate(void)
 {
-	I2C_Start();                          // Start I2C communication
-	I2C_Write(PCF8563WriteMode_U8);	      // connect to PCF8563 by sending its ID on I2c Bus
-	I2C_Write(PCF8563DateRegAddress_U8); // Request DAY RAM address at 04H
-	I2C_Stop();			                  // Stop I2C communication after selecting DAY Register
-	I2C_Start();		                  // Start I2C communication
-	I2C_Write(PCF8563ReadMode_U8);	      // connect to PCF8563 (Read mode) by sending its ID
-	*ptr_day_u8 = I2C_Read(1);              // read Day and return Positive ACK
-	*ptr_month_u8 = I2C_Read(1);            // read Month and return Positive ACK
-	*ptr_year_u8 = I2C_Read(0);             // read Year and return Negative/No ACK
-	I2C_Stop();		                      // Stop I2C communication after reading the Date
+	struct date result;
+	I2C_Start();							// Start I2C communication
+	I2C_Write(PCF8563WriteMode_U8);			// connect to PCF8563 by sending its ID on I2c Bus
+	I2C_Write(PCF8563DateRegAddress_U8);	// Request DAY RAM address at 04H
+	I2C_Stop();								// Stop I2C communication after selecting DAY Register
+	I2C_Start();							// Start I2C communication
+	I2C_Write(PCF8563ReadMode_U8);			// connect to PCF8563 (Read mode) by sending its ID
+	result.days = I2C_Read(1);				// read Day and return Positive ACK
+	result.weekdays = I2C_Read(1);			// read Month and return Positive ACK
+	result.century_months = I2C_Read(1);
+	result.years = I2C_Read(0);				// read Year and return Negative/No ACK
+	I2C_Stop();								// Stop I2C communication after reading the Date
+	return result;
+}
+/***************************************************************************************************
+      char PCF8563RTC_bcd2dec(char num)
+****************************************************************************************************
+ * I/P Arguments: uint8_t
+ * Return value	: uint8_t
+ * description  : bcd to dec
+***************************************************************************************************/
+uint8_t PCF8563RTC_bcd2dec(uint8_t num)
+{
+	return ((num/16 * 10) + (num % 16));
 }
 /*EOF*/

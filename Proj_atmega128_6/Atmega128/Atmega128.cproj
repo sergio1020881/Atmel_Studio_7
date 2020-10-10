@@ -196,13 +196,13 @@
     <Compile Include="Libraria\lfsm.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\pcf8563rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\pcf8563rtc.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\rotenc.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Libraria\rtc.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Libraria\rtc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">

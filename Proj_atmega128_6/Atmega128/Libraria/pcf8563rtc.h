@@ -34,8 +34,8 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 ****************************************************************************************************
 15.0: Initial version 
 ***************************************************************************************************/
-#ifndef _RTC_H_
-	#define _RTC_H_
+#ifndef _PCF8563RTC_H_
+	#define _PCF8563RTC_H_
 /***************************************************************************************************
                              Commonly used Ds1307 macros/Constants
 ***************************************************************************************************
@@ -53,14 +53,33 @@ Errors and omissions should be reported to codelibraries@exploreembedded.com
 #define C_Ds1307DateRegAddress_U8     0x04u   // Address to access Ds1307 DATE register
 #define C_Ds1307ControlRegAddress_U8  0x07u   // Address to access Ds1307 CONTROL register
 /**************************************************************************************************/
+struct date{
+	uint8_t years;
+	uint8_t century_months;
+	uint8_t weekdays;
+	uint8_t days;	
+};
+struct time{
+	uint8_t hours;
+	uint8_t minutes;
+	uint8_t VL_seconds;
+};
+struct alarm{
+	uint8_t minute_alarm;
+	uint8_t	hour_alarm;
+	uint8_t day_alarm;
+	uint8_t weekday_alarm;
+	
+};
 /***************************************************************************************************
                              Function Prototypes
 ***************************************************************************************************/
-void RTC_Init();
-void RTC_SetTime(uint8_t, uint8_t, uint8_t);
-void RTC_SetDate(uint8_t, uint8_t, uint8_t);
-void RTC_GetTime(uint8_t *,uint8_t *,uint8_t *);
-void RTC_GetDate(uint8_t *,uint8_t *,uint8_t *);
+void PCF8563RTC_Init();
+void PCF8563RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec_u8);
+void PCF8563RTC_SetDate(uint8_t var_day_u8, uint8_t var_month_u8, uint8_t var_year_u8);
+struct time PCF8563RTC_GetTime(void);
+struct date PCF8563RTC_GetDate(void);
+uint8_t PCF8563RTC_bcd2dec(uint8_t num);
 /**************************************************************************************************/
 #endif
 /*EOF*/

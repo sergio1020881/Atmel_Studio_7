@@ -30,9 +30,9 @@ Libraria\lcd.c
 
 Libraria\lfsm.c
 
-Libraria\rotenc.c
+Libraria\pcf8563rtc.c
 
-Libraria\rtc.c
+Libraria\rotenc.c
 
 main.c
 

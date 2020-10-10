@@ -395,17 +395,17 @@ unsigned char twi_master_read(unsigned char request)
 			}
 		case TWI_MASTER_RECEIVED_DATABYTE_SENT_ACK:
 			switch(request){
-				case TWI_DATA_ACK:
+				case TWI_DATA_ACK: // 2
 					twi_transmit(TWI_DATA_ACK);
 					twi_poll(680);
 					data=TWI_DATA_REGISTER; // 8 bit data + ack = 9bit
 					break;
-				case TWI_DATA_NO_ACK:
+				case TWI_DATA_NO_ACK: // 1
 					twi_transmit(TWI_DATA_NO_ACK); // last byte to read
 					twi_poll(680);
 					data=TWI_DATA_REGISTER; // 8 bit data + ack = 9bit
 					break;
-				default:
+				default: // 1
 					twi_transmit(TWI_DATA_NO_ACK); // last byte to read
 					twi_poll(680);
 					data=TWI_DATA_REGISTER; // 8 bit data + ack = 9bit

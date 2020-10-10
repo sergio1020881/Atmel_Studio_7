@@ -3,10 +3,8 @@ ATMEGA128 TWI API START
 API: TWI (still in progress)
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-Date:
-   28092020
-Comment:
-   Stable
+Date: 28092020
+Comment: Stable
 *************************************************************************/
 /***preamble inic***/
 #ifndef F_CPU
@@ -18,6 +16,8 @@ Comment:
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
+#include <util/delay.h>
+#include <inttypes.h>
 #include <stdarg.h>
 #include "atmega128twi.h"
 /***preamble inic***/
@@ -299,16 +299,18 @@ void twi_transmit(unsigned char type)
 {
 	switch(type){
 		case TWI_START_CONDITION:	// Start Condition 0
-			TWI_CONTROL_REGISTER |= (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
+			TWI_CONTROL_REGISTER = (1 << TWINT) | (1 << TWSTA) | (1 << TWEN);
+			while (!(TWI_CONTROL_REGISTER & (1<<TWINT)));
 			break;	
 		case TWI_DATA_NO_ACK:		// Data with No-Acknowledge 1
-			TWI_CONTROL_REGISTER |= (1 << TWINT) | (1 << TWEN);
+			TWI_CONTROL_REGISTER = (1 << TWINT) | (1 << TWEN);
 			break;
 		case TWI_DATA_ACK:			// Data with Acknowledge 2
-			TWI_CONTROL_REGISTER |= (1 << TWINT) | (1 << TWEA) | (1 << TWEN);
+			TWI_CONTROL_REGISTER = (1 << TWINT) | (1 << TWEA) | (1 << TWEN);
 			break;
 		case TWI_STOP_CONDITION:	// Stop Condition 3
-			TWI_CONTROL_REGISTER |= (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+			TWI_CONTROL_REGISTER = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
+			_delay_us(100);
 			break;
 		default:					// Stop Condition
 			TWI_CONTROL_REGISTER = (1 << TWINT) | (1 << TWSTO) | (1 << TWEN);
@@ -434,23 +436,10 @@ void twi_stop(void)
 			twi_transmit(TWI_STOP_CONDITION);
 			break;
 	}
+	_delay_us(100);
 }
 /*
 ** interrupt
-*/
-ISR(TWI_vect){ }
-//! I2C (TWI) interrupt service routine
-/*
-SIGNAL(SIG_2WIRE_SERIAL)
-{
-	//SLAVE CODE
-	switch(twi_status()){
-		case TWI_SLAVE_RECEIVED_OSLA_W_SENT_ACK:
-			break;
-		default:
-			break;
-	}
-}
 */
 /************************************************************************
 I2C API END

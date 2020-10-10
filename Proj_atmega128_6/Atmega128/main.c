@@ -18,15 +18,17 @@ Comment:
 #include "pcf8563rtc.h"
 #include "function.h"
 /***Define and Macros***/
+/***Global Variable***/
+struct time tmp;
+struct date dt;
 /***MAIN_MAIN***/
 int main(void)
 {
-	uint8_t sec;
 	LCD0 lcd = LCD0enable(&DDRA,&PINA,&PORTA);
 	FUNC func = FUNCenable();
-    PCF8563RTC_Init();
-    //PCF8563RTC_SetTime(0x10,0x40,0x00);  //  10:40:20 am
-    //PCF8563RTC_SetDate(0x01,0x01,0x15);  //  1st Jan 2015
+    PCF8563RTC_Init(64);
+    PCF8563RTC_SetTime(0x10,0x59,0x00);  //  10:40:20 am
+    PCF8563RTC_SetDate(0x01,0x01,0x15);  //  1st Jan 2015
 	/* Replace with your application code */
 	while (1)
     {
@@ -35,13 +37,24 @@ int main(void)
 		lcd.string_size("start",5);
 		
 		/* Read the Time from RTC(PCF8563) */ 
-		sec=PCF8563RTC_GetTime().VL_seconds;
+		tmp=PCF8563RTC_GetTime();
 		
-		/* Read the Date from RTC(PCF8563) */
-		PCF8563RTC_GetDate();
+		lcd.gotoxy(1,0);
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.hours)),2);
+		lcd.putch(':');
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.minutes)),2);
+		lcd.putch(':');
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.VL_seconds)),2);
 		
+		dt=PCF8563RTC_GetDate();
 		lcd.gotoxy(2,0);
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(sec)),2);
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.days)),2);
+		lcd.putch(':');
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.weekdays)),2);
+		lcd.putch(':');
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.century_months)),2);
+		lcd.putch(':');
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.years)),2);
     }
 }
 /*EOF*/

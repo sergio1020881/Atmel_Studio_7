@@ -18,6 +18,8 @@ Comment:
 #include "pcf8563rtc.h"
 #include "function.h"
 /***Define and Macros***/
+#define TRUE 1
+#define ZERO 0
 /***Global Variable***/
 struct time tmp;
 struct date dt;
@@ -26,9 +28,11 @@ int main(void)
 {
 	LCD0 lcd = LCD0enable(&DDRA,&PINA,&PORTA);
 	FUNC func = FUNCenable();
+	_delay_ms(100);
     PCF8563RTC_Init(64);
     PCF8563RTC_SetTime(0x10,0x59,0x00);  //  10:40:20 am
-    PCF8563RTC_SetDate(0x01,0x01,0x15);  //  1st Jan 2015
+    PCF8563RTC_SetDate(0x01,0x00,0x01,0x15);  //  1st Jan 2015
+	PCF8563RTC_SetClkOut(1, 2);
 	/* Replace with your application code */
 	while (1)
     {

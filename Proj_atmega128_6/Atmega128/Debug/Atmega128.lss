@@ -3,31 +3,31 @@ Atmega128.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         00000006  00800100  000017c4  00001858  2**0
+  0 .data         00000006  00800100  0000180c  000018a0  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  1 .text         000017c4  00000000  00000000  00000094  2**1
+  1 .text         0000180c  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          000000dc  00800106  00800106  0000185e  2**0
+  2 .bss          000000dc  00800106  00800106  000018a6  2**0
                   ALLOC
-  3 .comment      00000030  00000000  00000000  0000185e  2**0
+  3 .comment      00000030  00000000  00000000  000018a6  2**0
                   CONTENTS, READONLY
-  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00001890  2**2
+  4 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  000018d8  2**2
                   CONTENTS, READONLY
-  5 .debug_aranges 00000628  00000000  00000000  000018cc  2**0
+  5 .debug_aranges 00000640  00000000  00000000  00001914  2**0
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   0000555a  00000000  00000000  00001ef4  2**0
+  6 .debug_info   0000571e  00000000  00000000  00001f54  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000184e  00000000  00000000  0000744e  2**0
+  7 .debug_abbrev 000018b6  00000000  00000000  00007672  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00003911  00000000  00000000  00008c9c  2**0
+  8 .debug_line   00003a10  00000000  00000000  00008f28  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00001028  00000000  00000000  0000c5b0  2**2
+  9 .debug_frame  00001064  00000000  00000000  0000c938  2**2
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    0000134a  00000000  00000000  0000d5d8  2**0
+ 10 .debug_str    00001392  00000000  00000000  0000d99c  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00004d3d  00000000  00000000  0000e922  2**0
+ 11 .debug_loc    00004eb3  00000000  00000000  0000ed2e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 000005b8  00000000  00000000  0001365f  2**0
+ 12 .debug_ranges 000005d0  00000000  00000000  00013be1  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -116,8 +116,8 @@ Disassembly of section .text:
       98:	11 e0       	ldi	r17, 0x01	; 1
       9a:	a0 e0       	ldi	r26, 0x00	; 0
       9c:	b1 e0       	ldi	r27, 0x01	; 1
-      9e:	e4 ec       	ldi	r30, 0xC4	; 196
-      a0:	f7 e1       	ldi	r31, 0x17	; 23
+      9e:	ec e0       	ldi	r30, 0x0C	; 12
+      a0:	f8 e1       	ldi	r31, 0x18	; 24
       a2:	00 e0       	ldi	r16, 0x00	; 0
       a4:	0b bf       	out	0x3b, r16	; 59
       a6:	02 c0       	rjmp	.+4      	; 0xac <__do_copy_data+0x14>
@@ -140,8 +140,8 @@ Disassembly of section .text:
       bc:	a2 3e       	cpi	r26, 0xE2	; 226
       be:	b2 07       	cpc	r27, r18
       c0:	e1 f7       	brne	.-8      	; 0xba <.do_clear_bss_loop>
-      c2:	0e 94 a8 0a 	call	0x1550	; 0x1550 <main>
-      c6:	0c 94 e0 0b 	jmp	0x17c0	; 0x17c0 <_exit>
+      c2:	0e 94 bf 0a 	call	0x157e	; 0x157e <main>
+      c6:	0c 94 04 0c 	jmp	0x1808	; 0x1808 <_exit>
 
 000000ca <__bad_interrupt>:
       ca:	9a cf       	rjmp	.-204    	; 0x0 <__vectors>
@@ -1278,7 +1278,7 @@ int FUNCgcd (int u, int v)
 	while ( v != 0 ) {
 		temp = u % v;
      75e:	b9 01       	movw	r22, r18
-     760:	c5 d7       	rcall	.+3978   	; 0x16ec <__divmodhi4>
+     760:	e9 d7       	rcall	.+4050   	; 0x1734 <__divmodhi4>
      762:	ac 01       	movw	r20, r24
      764:	82 2f       	mov	r24, r18
      766:	93 2f       	mov	r25, r19
@@ -1673,14 +1673,14 @@ long FUNCtrimmer(long x, long in_min, long in_max, long out_min, long out_max)
      906:	7b 09       	sbc	r23, r11
      908:	8c 09       	sbc	r24, r12
      90a:	9d 09       	sbc	r25, r13
-     90c:	cc d6       	rcall	.+3480   	; 0x16a6 <__mulsi3>
+     90c:	f0 d6       	rcall	.+3552   	; 0x16ee <__mulsi3>
      90e:	a8 01       	movw	r20, r16
      910:	97 01       	movw	r18, r14
      912:	24 19       	sub	r18, r4
      914:	35 09       	sbc	r19, r5
      916:	46 09       	sbc	r20, r6
      918:	57 09       	sbc	r21, r7
-     91a:	1d d7       	rcall	.+3642   	; 0x1756 <__divmodsi4>
+     91a:	41 d7       	rcall	.+3714   	; 0x179e <__divmodsi4>
      91c:	ca 01       	movw	r24, r20
      91e:	b9 01       	movw	r22, r18
      920:	6a 0d       	add	r22, r10
@@ -1955,7 +1955,7 @@ char* FUNCi32toa(int32_t n)
      a5e:	de 4f       	sbci	r29, 0xFE	; 254
      a60:	a5 01       	movw	r20, r10
      a62:	94 01       	movw	r18, r8
-     a64:	78 d6       	rcall	.+3312   	; 0x1756 <__divmodsi4>
+     a64:	9c d6       	rcall	.+3384   	; 0x179e <__divmodsi4>
      a66:	60 5d       	subi	r22, 0xD0	; 208
      a68:	68 83       	st	Y, r22
 	}while ((n /= 10) > 0); // delete it
@@ -2041,7 +2041,7 @@ char* FUNCi16toa(int16_t n)
      ae6:	e7 54       	subi	r30, 0x47	; 71
      ae8:	fe 4f       	sbci	r31, 0xFE	; 254
      aea:	b8 01       	movw	r22, r16
-     aec:	ff d5       	rcall	.+3070   	; 0x16ec <__divmodhi4>
+     aec:	23 d6       	rcall	.+3142   	; 0x1734 <__divmodhi4>
      aee:	80 5d       	subi	r24, 0xD0	; 208
      af0:	80 83       	st	Z, r24
 	}while ((n /= 10) > 0); // delete it
@@ -2101,7 +2101,7 @@ char* FUNCui16toa(uint16_t n)
      b3e:	9a 01       	movw	r18, r20
      b40:	ad ec       	ldi	r26, 0xCD	; 205
      b42:	bc ec       	ldi	r27, 0xCC	; 204
-     b44:	24 d6       	rcall	.+3144   	; 0x178e <__umulhisi3>
+     b44:	48 d6       	rcall	.+3216   	; 0x17d6 <__umulhisi3>
      b46:	96 95       	lsr	r25
      b48:	87 95       	ror	r24
      b4a:	96 95       	lsr	r25
@@ -2127,7 +2127,7 @@ char* FUNCui16toa(uint16_t n)
      b72:	80 83       	st	Z, r24
 	}while ((n /= 10) > 0); // delete it
      b74:	9a 01       	movw	r18, r20
-     b76:	0b d6       	rcall	.+3094   	; 0x178e <__umulhisi3>
+     b76:	2f d6       	rcall	.+3166   	; 0x17d6 <__umulhisi3>
      b78:	ac 01       	movw	r20, r24
      b7a:	56 95       	lsr	r21
      b7c:	47 95       	ror	r20
@@ -2191,7 +2191,7 @@ unsigned char FUNCbin2bcd(unsigned val)
      bbe:	9c 01       	movw	r18, r24
      bc0:	ad ec       	ldi	r26, 0xCD	; 205
      bc2:	bc ec       	ldi	r27, 0xCC	; 204
-     bc4:	e4 d5       	rcall	.+3016   	; 0x178e <__umulhisi3>
+     bc4:	08 d6       	rcall	.+3088   	; 0x17d6 <__umulhisi3>
      bc6:	96 95       	lsr	r25
      bc8:	87 95       	ror	r24
      bca:	96 95       	lsr	r25
@@ -2279,7 +2279,7 @@ long FUNCgcd1(long a, long b)
      c5a:	20 e0       	ldi	r18, 0x00	; 0
      c5c:	30 e0       	ldi	r19, 0x00	; 0
      c5e:	a9 01       	movw	r20, r18
-     c60:	7a d5       	rcall	.+2804   	; 0x1756 <__divmodsi4>
+     c60:	9e d5       	rcall	.+2876   	; 0x179e <__divmodsi4>
      c62:	61 15       	cp	r22, r1
      c64:	71 05       	cpc	r23, r1
      c66:	81 05       	cpc	r24, r1
@@ -2720,7 +2720,7 @@ void I2C_Init(uint8_t prescaler)
      ece:	70 e0       	ldi	r23, 0x00	; 0
      ed0:	80 e0       	ldi	r24, 0x00	; 0
      ed2:	90 e0       	ldi	r25, 0x00	; 0
-     ed4:	1e d4       	rcall	.+2108   	; 0x1712 <__udivmodsi4>
+     ed4:	42 d4       	rcall	.+2180   	; 0x175a <__udivmodsi4>
      ed6:	20 93 70 00 	sts	0x0070, r18	; 0x800070 <__TEXT_REGION_LENGTH__+0x7e0070>
      eda:	08 95       	ret
 
@@ -3502,7 +3502,7 @@ void PCF8563RTC_Init(uint8_t prescaler)
     1452:	82 ea       	ldi	r24, 0xA2	; 162
     1454:	56 dd       	rcall	.-1364   	; 0xf02 <I2C_Write>
 	I2C_Write(PCF8563ControlRegAddress_U8);	// Select the PCF8563 ControlRegister to configure PCF8563
-    1456:	8d e0       	ldi	r24, 0x0D	; 13
+    1456:	80 e0       	ldi	r24, 0x00	; 0
 	I2C_Write(0x00);						// Write 0x00 to Control register to disable SQW-Out
     1458:	54 dd       	rcall	.-1368   	; 0xf02 <I2C_Write>
     145a:	80 e0       	ldi	r24, 0x00	; 0
@@ -3549,566 +3549,632 @@ void PCF8563RTC_SetTime(uint8_t var_hour_u8, uint8_t var_min_u8, uint8_t var_sec
     148a:	1f 91       	pop	r17
     148c:	08 95       	ret
 
-0000148e <PCF8563RTC_SetDate>:
-    148e:	1f 93       	push	r17
-    1490:	cf 93       	push	r28
+0000148e <PCF8563RTC_SetClkOut>:
+    148e:	cf 93       	push	r28
+    1490:	88 23       	and	r24, r24
+	      like 0x12,0x39,0x26 for 12hr,39min and 26sec.			 
+***************************************************************************************************/
+void PCF8563RTC_SetClkOut(uint8_t onoff, uint8_t freq)
+{
+	uint8_t word=0;
+	if(onoff)
+    1492:	21 f0       	breq	.+8      	; 0x149c <PCF8563RTC_SetClkOut+0xe>
+		word=0x80 | (freq & 0x03);
+    1494:	63 70       	andi	r22, 0x03	; 3
+    1496:	c6 2f       	mov	r28, r22
+    1498:	c0 68       	ori	r28, 0x80	; 128
+    149a:	01 c0       	rjmp	.+2      	; 0x149e <PCF8563RTC_SetClkOut+0x10>
+	Note: The I/P arguments should of BCD, 
+	      like 0x12,0x39,0x26 for 12hr,39min and 26sec.			 
+***************************************************************************************************/
+void PCF8563RTC_SetClkOut(uint8_t onoff, uint8_t freq)
+{
+	uint8_t word=0;
+    149c:	c0 e0       	ldi	r28, 0x00	; 0
+	if(onoff)
+		word=0x80 | (freq & 0x03);
+	I2C_Start();                            // Start I2C communication
+    149e:	1e dd       	rcall	.-1476   	; 0xedc <I2C_Start>
+	I2C_Write(PCF8563WriteMode_U8);			// connect to PCF8563 by sending its ID on I2c Bus
+    14a0:	82 ea       	ldi	r24, 0xA2	; 162
+    14a2:	2f dd       	rcall	.-1442   	; 0xf02 <I2C_Write>
+	I2C_Write(PCF8563CLKOUT_control_U8);	// Select the CLKOUT RAM address
+    14a4:	8d e0       	ldi	r24, 0x0D	; 13
+    14a6:	2d dd       	rcall	.-1446   	; 0xf02 <I2C_Write>
+	I2C_Write(word);						// Write Clock from RAM address 0DH						
+    14a8:	8c 2f       	mov	r24, r28
+    14aa:	2b dd       	rcall	.-1450   	; 0xf02 <I2C_Write>
+    14ac:	20 dd       	rcall	.-1472   	; 0xeee <I2C_Stop>
+	I2C_Stop();           	                // Stop I2C communication after Setting the Time
+    14ae:	cf 91       	pop	r28
+    14b0:	08 95       	ret
+
+000014b2 <PCF8563RTC_SetDate>:
+}
+    14b2:	0f 93       	push	r16
+    14b4:	1f 93       	push	r17
                  The new Date is updated into the non volatile memory of PCF8563.
 		Note: The I/P arguments should of BCD,
 	      like 0x15,0x08,0x47 for 15th day,8th month and 47th year.				 
 ***************************************************************************************************/
-void PCF8563RTC_SetDate(uint8_t var_day_u8, uint8_t var_month_u8, uint8_t var_year_u8)
+void PCF8563RTC_SetDate(uint8_t var_day_u8, uint8_t var_weekday_u8, uint8_t var_month_u8, uint8_t var_year_u8)
 {
-    1492:	df 93       	push	r29
-    1494:	18 2f       	mov	r17, r24
-    1496:	d6 2f       	mov	r29, r22
-    1498:	c4 2f       	mov	r28, r20
+    14b6:	cf 93       	push	r28
+    14b8:	df 93       	push	r29
+    14ba:	08 2f       	mov	r16, r24
+    14bc:	16 2f       	mov	r17, r22
+    14be:	d4 2f       	mov	r29, r20
+    14c0:	c2 2f       	mov	r28, r18
 	I2C_Start();                          // Start I2C communication
-    149a:	20 dd       	rcall	.-1472   	; 0xedc <I2C_Start>
+    14c2:	0c dd       	rcall	.-1512   	; 0xedc <I2C_Start>
 	I2C_Write(PCF8563WriteMode_U8);	  // connect to PCF8563 by sending its ID on I2c Bus
-    149c:	82 ea       	ldi	r24, 0xA2	; 162
-    149e:	31 dd       	rcall	.-1438   	; 0xf02 <I2C_Write>
+    14c4:	82 ea       	ldi	r24, 0xA2	; 162
+    14c6:	1d dd       	rcall	.-1478   	; 0xf02 <I2C_Write>
 	I2C_Write(PCF8563DateRegAddress_U8); // Request DAY RAM address at 04H
-    14a0:	85 e0       	ldi	r24, 0x05	; 5
-    14a2:	2f dd       	rcall	.-1442   	; 0xf02 <I2C_Write>
+    14c8:	85 e0       	ldi	r24, 0x05	; 5
+    14ca:	1b dd       	rcall	.-1482   	; 0xf02 <I2C_Write>
 	I2C_Write(var_day_u8);			      // Write date on RAM address 04H
-    14a4:	81 2f       	mov	r24, r17
-    14a6:	2d dd       	rcall	.-1446   	; 0xf02 <I2C_Write>
+    14cc:	80 2f       	mov	r24, r16
+    14ce:	19 dd       	rcall	.-1486   	; 0xf02 <I2C_Write>
+	I2C_Write(var_weekday_u8);
+    14d0:	81 2f       	mov	r24, r17
+    14d2:	17 dd       	rcall	.-1490   	; 0xf02 <I2C_Write>
 	I2C_Write(var_month_u8);			  // Write month on RAM address 05H
-    14a8:	8d 2f       	mov	r24, r29
-    14aa:	2b dd       	rcall	.-1450   	; 0xf02 <I2C_Write>
+    14d4:	8d 2f       	mov	r24, r29
+    14d6:	15 dd       	rcall	.-1494   	; 0xf02 <I2C_Write>
+    14d8:	8c 2f       	mov	r24, r28
 	I2C_Write(var_year_u8);			      // Write year on RAM address 06h
-    14ac:	8c 2f       	mov	r24, r28
-    14ae:	29 dd       	rcall	.-1454   	; 0xf02 <I2C_Write>
-    14b0:	1e dd       	rcall	.-1476   	; 0xeee <I2C_Stop>
+    14da:	13 dd       	rcall	.-1498   	; 0xf02 <I2C_Write>
+    14dc:	08 dd       	rcall	.-1520   	; 0xeee <I2C_Stop>
+    14de:	df 91       	pop	r29
 	I2C_Stop();				              // Stop I2C communication after Setting the Date
-    14b2:	df 91       	pop	r29
-    14b4:	cf 91       	pop	r28
+    14e0:	cf 91       	pop	r28
+    14e2:	1f 91       	pop	r17
 }
-    14b6:	1f 91       	pop	r17
-    14b8:	08 95       	ret
+    14e4:	0f 91       	pop	r16
+    14e6:	08 95       	ret
 
-000014ba <PCF8563RTC_GetTime>:
-    14ba:	1f 93       	push	r17
-    14bc:	cf 93       	push	r28
-
-	Note: The time read from PCF8563 will be of BCD format, 
+000014e8 <PCF8563RTC_GetTime>:
+    14e8:	1f 93       	push	r17
+    14ea:	cf 93       	push	r28
+    14ec:	df 93       	push	r29
 	      like 0x12,0x39,0x26 for 12hr,39min and 26sec.	
 ***************************************************************************************************/
 struct time PCF8563RTC_GetTime(void)
 {
-    14be:	df 93       	push	r29
 	struct time result;
 	I2C_Start();							// Start I2C communication
-    14c0:	0d dd       	rcall	.-1510   	; 0xedc <I2C_Start>
+    14ee:	f6 dc       	rcall	.-1556   	; 0xedc <I2C_Start>
 	I2C_Write(PCF8563WriteMode_U8);			// connect to PCF8563 by sending its ID on I2c Bus
-    14c2:	82 ea       	ldi	r24, 0xA2	; 162
-    14c4:	1e dd       	rcall	.-1476   	; 0xf02 <I2C_Write>
+    14f0:	82 ea       	ldi	r24, 0xA2	; 162
+    14f2:	07 dd       	rcall	.-1522   	; 0xf02 <I2C_Write>
 	I2C_Write(PCF8563SecondRegAddress_U8);	// Request Sec RAM address at 00H
-    14c6:	82 e0       	ldi	r24, 0x02	; 2
+    14f4:	82 e0       	ldi	r24, 0x02	; 2
 	I2C_Stop();								// Stop I2C communication after selecting Sec Register
-    14c8:	1c dd       	rcall	.-1480   	; 0xf02 <I2C_Write>
+    14f6:	05 dd       	rcall	.-1526   	; 0xf02 <I2C_Write>
 	I2C_Start();							// Start I2C communication
-    14ca:	11 dd       	rcall	.-1502   	; 0xeee <I2C_Stop>
+    14f8:	fa dc       	rcall	.-1548   	; 0xeee <I2C_Stop>
 	I2C_Write(PCF8563ReadMode_U8);			// connect to PCF8563(Read mode) by sending its ID
-    14cc:	07 dd       	rcall	.-1522   	; 0xedc <I2C_Start>
-    14ce:	83 ea       	ldi	r24, 0xA3	; 163
+    14fa:	f0 dc       	rcall	.-1568   	; 0xedc <I2C_Start>
+    14fc:	83 ea       	ldi	r24, 0xA3	; 163
 	result.VL_seconds = I2C_Read(1);		// read second and return Positive ACK
-    14d0:	18 dd       	rcall	.-1488   	; 0xf02 <I2C_Write>
-    14d2:	81 e0       	ldi	r24, 0x01	; 1
-    14d4:	21 dd       	rcall	.-1470   	; 0xf18 <I2C_Read>
+    14fe:	01 dd       	rcall	.-1534   	; 0xf02 <I2C_Write>
+    1500:	81 e0       	ldi	r24, 0x01	; 1
+    1502:	0a dd       	rcall	.-1516   	; 0xf18 <I2C_Read>
 	result.minutes = I2C_Read(1);			// read minute and return Positive ACK
-    14d6:	c8 2f       	mov	r28, r24
-    14d8:	81 e0       	ldi	r24, 0x01	; 1
-    14da:	1e dd       	rcall	.-1476   	; 0xf18 <I2C_Read>
-    14dc:	d8 2f       	mov	r29, r24
+    1504:	c8 2f       	mov	r28, r24
+    1506:	81 e0       	ldi	r24, 0x01	; 1
+    1508:	07 dd       	rcall	.-1522   	; 0xf18 <I2C_Read>
+    150a:	d8 2f       	mov	r29, r24
 	result.hours = I2C_Read(0);				// read hour and return Negative/No ACK
-    14de:	80 e0       	ldi	r24, 0x00	; 0
-    14e0:	1b dd       	rcall	.-1482   	; 0xf18 <I2C_Read>
-    14e2:	18 2f       	mov	r17, r24
-    14e4:	04 dd       	rcall	.-1528   	; 0xeee <I2C_Stop>
+    150c:	80 e0       	ldi	r24, 0x00	; 0
+    150e:	04 dd       	rcall	.-1528   	; 0xf18 <I2C_Read>
+    1510:	18 2f       	mov	r17, r24
+    1512:	ed dc       	rcall	.-1574   	; 0xeee <I2C_Stop>
 	//dump = I2C_Read(0);					// dump last to ensure prior ok
 	I2C_Stop();								// Stop I2C communication after reading the Time
-    14e6:	61 2f       	mov	r22, r17
-    14e8:	7d 2f       	mov	r23, r29
+    1514:	61 2f       	mov	r22, r17
+    1516:	7d 2f       	mov	r23, r29
 	return result;
 }
-    14ea:	8c 2f       	mov	r24, r28
-    14ec:	df 91       	pop	r29
-    14ee:	cf 91       	pop	r28
-    14f0:	1f 91       	pop	r17
-    14f2:	08 95       	ret
+    1518:	8c 2f       	mov	r24, r28
+    151a:	df 91       	pop	r29
+    151c:	cf 91       	pop	r28
+    151e:	1f 91       	pop	r17
+    1520:	08 95       	ret
 
-000014f4 <PCF8563RTC_GetDate>:
-    14f4:	0f 93       	push	r16
-    14f6:	1f 93       	push	r17
+00001522 <PCF8563RTC_GetDate>:
+    1522:	0f 93       	push	r16
+    1524:	1f 93       	push	r17
 
 	Note: The date read from PCF8563 will be of BCD format, 
 	      like 0x15,0x08,0x47 for 15th day,8th month and 47th year.  
 ***************************************************************************************************/
 struct date PCF8563RTC_GetDate(void)
 {
-    14f8:	cf 93       	push	r28
-    14fa:	df 93       	push	r29
+    1526:	cf 93       	push	r28
+    1528:	df 93       	push	r29
 	struct date result;
 	I2C_Start();							// Start I2C communication
-    14fc:	ef dc       	rcall	.-1570   	; 0xedc <I2C_Start>
+    152a:	d8 dc       	rcall	.-1616   	; 0xedc <I2C_Start>
 	I2C_Write(PCF8563WriteMode_U8);			// connect to PCF8563 by sending its ID on I2c Bus
-    14fe:	82 ea       	ldi	r24, 0xA2	; 162
-    1500:	00 dd       	rcall	.-1536   	; 0xf02 <I2C_Write>
+    152c:	82 ea       	ldi	r24, 0xA2	; 162
+    152e:	e9 dc       	rcall	.-1582   	; 0xf02 <I2C_Write>
 	I2C_Write(PCF8563DateRegAddress_U8);	// Request DAY RAM address at 04H
-    1502:	85 e0       	ldi	r24, 0x05	; 5
+    1530:	85 e0       	ldi	r24, 0x05	; 5
 	I2C_Stop();								// Stop I2C communication after selecting DAY Register
-    1504:	fe dc       	rcall	.-1540   	; 0xf02 <I2C_Write>
+    1532:	e7 dc       	rcall	.-1586   	; 0xf02 <I2C_Write>
 	I2C_Start();							// Start I2C communication
-    1506:	f3 dc       	rcall	.-1562   	; 0xeee <I2C_Stop>
+    1534:	dc dc       	rcall	.-1608   	; 0xeee <I2C_Stop>
 	I2C_Write(PCF8563ReadMode_U8);			// connect to PCF8563 (Read mode) by sending its ID
-    1508:	e9 dc       	rcall	.-1582   	; 0xedc <I2C_Start>
-    150a:	83 ea       	ldi	r24, 0xA3	; 163
+    1536:	d2 dc       	rcall	.-1628   	; 0xedc <I2C_Start>
+    1538:	83 ea       	ldi	r24, 0xA3	; 163
 	result.days = I2C_Read(1);				// read Day and return Positive ACK
-    150c:	fa dc       	rcall	.-1548   	; 0xf02 <I2C_Write>
-    150e:	81 e0       	ldi	r24, 0x01	; 1
-    1510:	03 dd       	rcall	.-1530   	; 0xf18 <I2C_Read>
+    153a:	e3 dc       	rcall	.-1594   	; 0xf02 <I2C_Write>
+    153c:	81 e0       	ldi	r24, 0x01	; 1
+    153e:	ec dc       	rcall	.-1576   	; 0xf18 <I2C_Read>
 	result.weekdays = I2C_Read(1);			// read Month and return Positive ACK
-    1512:	c8 2f       	mov	r28, r24
-    1514:	81 e0       	ldi	r24, 0x01	; 1
+    1540:	c8 2f       	mov	r28, r24
+    1542:	81 e0       	ldi	r24, 0x01	; 1
 	result.century_months = I2C_Read(1);
-    1516:	00 dd       	rcall	.-1536   	; 0xf18 <I2C_Read>
-    1518:	d8 2f       	mov	r29, r24
-    151a:	81 e0       	ldi	r24, 0x01	; 1
-    151c:	fd dc       	rcall	.-1542   	; 0xf18 <I2C_Read>
+    1544:	e9 dc       	rcall	.-1582   	; 0xf18 <I2C_Read>
+    1546:	d8 2f       	mov	r29, r24
+    1548:	81 e0       	ldi	r24, 0x01	; 1
+    154a:	e6 dc       	rcall	.-1588   	; 0xf18 <I2C_Read>
 	result.years = I2C_Read(0);				// read Year and return Negative/No ACK
-    151e:	18 2f       	mov	r17, r24
-    1520:	80 e0       	ldi	r24, 0x00	; 0
-    1522:	fa dc       	rcall	.-1548   	; 0xf18 <I2C_Read>
-    1524:	08 2f       	mov	r16, r24
+    154c:	18 2f       	mov	r17, r24
+    154e:	80 e0       	ldi	r24, 0x00	; 0
+    1550:	e3 dc       	rcall	.-1594   	; 0xf18 <I2C_Read>
+    1552:	08 2f       	mov	r16, r24
 	//dump = I2C_Read(0);
 	I2C_Stop();								// Stop I2C communication after reading the Date
-    1526:	e3 dc       	rcall	.-1594   	; 0xeee <I2C_Stop>
-    1528:	60 2f       	mov	r22, r16
+    1554:	cc dc       	rcall	.-1640   	; 0xeee <I2C_Stop>
+    1556:	60 2f       	mov	r22, r16
 	return result;
 }
-    152a:	71 2f       	mov	r23, r17
-    152c:	8d 2f       	mov	r24, r29
-    152e:	9c 2f       	mov	r25, r28
-    1530:	df 91       	pop	r29
-    1532:	cf 91       	pop	r28
-    1534:	1f 91       	pop	r17
-    1536:	0f 91       	pop	r16
-    1538:	08 95       	ret
+    1558:	71 2f       	mov	r23, r17
+    155a:	8d 2f       	mov	r24, r29
+    155c:	9c 2f       	mov	r25, r28
+    155e:	df 91       	pop	r29
+    1560:	cf 91       	pop	r28
+    1562:	1f 91       	pop	r17
+    1564:	0f 91       	pop	r16
+    1566:	08 95       	ret
 
-0000153a <PCF8563RTC_bcd2dec>:
-    153a:	98 2f       	mov	r25, r24
+00001568 <PCF8563RTC_bcd2dec>:
+    1568:	98 2f       	mov	r25, r24
  * Return value	: uint8_t
  * description  : bcd to dec
 ***************************************************************************************************/
 uint8_t PCF8563RTC_bcd2dec(uint8_t num)
 {
 	return ((num/16 * 10) + (num % 16));
-    153c:	92 95       	swap	r25
-    153e:	9f 70       	andi	r25, 0x0F	; 15
-    1540:	99 0f       	add	r25, r25
-    1542:	29 2f       	mov	r18, r25
-    1544:	22 0f       	add	r18, r18
-    1546:	22 0f       	add	r18, r18
-    1548:	92 0f       	add	r25, r18
-    154a:	8f 70       	andi	r24, 0x0F	; 15
+    156a:	92 95       	swap	r25
+    156c:	9f 70       	andi	r25, 0x0F	; 15
+    156e:	99 0f       	add	r25, r25
+    1570:	29 2f       	mov	r18, r25
+    1572:	22 0f       	add	r18, r18
+    1574:	22 0f       	add	r18, r18
+    1576:	92 0f       	add	r25, r18
+    1578:	8f 70       	andi	r24, 0x0F	; 15
 }
-    154c:	89 0f       	add	r24, r25
-    154e:	08 95       	ret
+    157a:	89 0f       	add	r24, r25
+    157c:	08 95       	ret
 
-00001550 <main>:
+0000157e <main>:
 /***Global Variable***/
 struct time tmp;
 struct date dt;
 /***MAIN_MAIN***/
 int main(void)
 {
-    1550:	cf 93       	push	r28
-    1552:	df 93       	push	r29
-    1554:	cd b7       	in	r28, 0x3d	; 61
-    1556:	de b7       	in	r29, 0x3e	; 62
-    1558:	c0 56       	subi	r28, 0x60	; 96
-    155a:	d1 09       	sbc	r29, r1
-    155c:	0f b6       	in	r0, 0x3f	; 63
-    155e:	f8 94       	cli
-    1560:	de bf       	out	0x3e, r29	; 62
-    1562:	0f be       	out	0x3f, r0	; 63
-    1564:	cd bf       	out	0x3d, r28	; 61
+    157e:	cf 93       	push	r28
+    1580:	df 93       	push	r29
+    1582:	cd b7       	in	r28, 0x3d	; 61
+    1584:	de b7       	in	r29, 0x3e	; 62
+    1586:	c0 56       	subi	r28, 0x60	; 96
+    1588:	d1 09       	sbc	r29, r1
+    158a:	0f b6       	in	r0, 0x3f	; 63
+    158c:	f8 94       	cli
+    158e:	de bf       	out	0x3e, r29	; 62
+    1590:	0f be       	out	0x3f, r0	; 63
+    1592:	cd bf       	out	0x3d, r28	; 61
 	LCD0 lcd = LCD0enable(&DDRA,&PINA,&PORTA);
-    1566:	2b e3       	ldi	r18, 0x3B	; 59
-    1568:	30 e0       	ldi	r19, 0x00	; 0
-    156a:	49 e3       	ldi	r20, 0x39	; 57
-    156c:	50 e0       	ldi	r21, 0x00	; 0
-    156e:	6a e3       	ldi	r22, 0x3A	; 58
-    1570:	70 e0       	ldi	r23, 0x00	; 0
-    1572:	ce 01       	movw	r24, r28
-    1574:	01 96       	adiw	r24, 0x01	; 1
-    1576:	03 df       	rcall	.-506    	; 0x137e <LCD0enable>
-    1578:	cf 80       	ldd	r12, Y+7	; 0x07
-    157a:	d8 84       	ldd	r13, Y+8	; 0x08
-    157c:	0d 85       	ldd	r16, Y+13	; 0x0d
-    157e:	1e 85       	ldd	r17, Y+14	; 0x0e
-    1580:	8b 88       	ldd	r8, Y+19	; 0x13
-    1582:	9c 88       	ldd	r9, Y+20	; 0x14
+    1594:	2b e3       	ldi	r18, 0x3B	; 59
+    1596:	30 e0       	ldi	r19, 0x00	; 0
+    1598:	49 e3       	ldi	r20, 0x39	; 57
+    159a:	50 e0       	ldi	r21, 0x00	; 0
+    159c:	6a e3       	ldi	r22, 0x3A	; 58
+    159e:	70 e0       	ldi	r23, 0x00	; 0
+    15a0:	ce 01       	movw	r24, r28
+    15a2:	01 96       	adiw	r24, 0x01	; 1
+    15a4:	ec de       	rcall	.-552    	; 0x137e <LCD0enable>
+    15a6:	cf 80       	ldd	r12, Y+7	; 0x07
+    15a8:	d8 84       	ldd	r13, Y+8	; 0x08
+    15aa:	0d 85       	ldd	r16, Y+13	; 0x0d
+    15ac:	1e 85       	ldd	r17, Y+14	; 0x0e
+    15ae:	8b 88       	ldd	r8, Y+19	; 0x13
+    15b0:	9c 88       	ldd	r9, Y+20	; 0x14
 	FUNC func = FUNCenable();
-    1584:	ce 01       	movw	r24, r28
-    1586:	47 96       	adiw	r24, 0x17	; 23
-    1588:	c9 db       	rcall	.-2158   	; 0xd1c <FUNCenable>
-    158a:	e9 ac       	ldd	r14, Y+57	; 0x39
-    158c:	fa ac       	ldd	r15, Y+58	; 0x3a
+    15b2:	ce 01       	movw	r24, r28
+    15b4:	47 96       	adiw	r24, 0x17	; 23
+    15b6:	b2 db       	rcall	.-2204   	; 0xd1c <FUNCenable>
+    15b8:	e9 ac       	ldd	r14, Y+57	; 0x39
+    15ba:	fa ac       	ldd	r15, Y+58	; 0x3a
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+    15bc:	2f ef       	ldi	r18, 0xFF	; 255
+    15be:	81 ee       	ldi	r24, 0xE1	; 225
+    15c0:	94 e0       	ldi	r25, 0x04	; 4
+    15c2:	21 50       	subi	r18, 0x01	; 1
+    15c4:	80 40       	sbci	r24, 0x00	; 0
+    15c6:	90 40       	sbci	r25, 0x00	; 0
+    15c8:	e1 f7       	brne	.-8      	; 0x15c2 <main+0x44>
+    15ca:	00 c0       	rjmp	.+0      	; 0x15cc <main+0x4e>
+	_delay_ms(100);
     PCF8563RTC_Init(64);
-    158e:	80 e4       	ldi	r24, 0x40	; 64
-    1590:	5e df       	rcall	.-324    	; 0x144e <PCF8563RTC_Init>
-    1592:	40 e0       	ldi	r20, 0x00	; 0
+    15cc:	00 00       	nop
+    15ce:	80 e4       	ldi	r24, 0x40	; 64
+    15d0:	3e df       	rcall	.-388    	; 0x144e <PCF8563RTC_Init>
     PCF8563RTC_SetTime(0x10,0x59,0x00);  //  10:40:20 am
-    1594:	69 e5       	ldi	r22, 0x59	; 89
-    1596:	80 e1       	ldi	r24, 0x10	; 16
-    1598:	64 df       	rcall	.-312    	; 0x1462 <PCF8563RTC_SetTime>
-    159a:	45 e1       	ldi	r20, 0x15	; 21
-    PCF8563RTC_SetDate(0x01,0x01,0x15);  //  1st Jan 2015
-    159c:	61 e0       	ldi	r22, 0x01	; 1
-    159e:	81 e0       	ldi	r24, 0x01	; 1
-    15a0:	76 df       	rcall	.-276    	; 0x148e <PCF8563RTC_SetDate>
-    15a2:	0f 2e       	mov	r0, r31
-    15a4:	fb ed       	ldi	r31, 0xDB	; 219
+    15d2:	40 e0       	ldi	r20, 0x00	; 0
+    15d4:	69 e5       	ldi	r22, 0x59	; 89
+    15d6:	80 e1       	ldi	r24, 0x10	; 16
+    15d8:	44 df       	rcall	.-376    	; 0x1462 <PCF8563RTC_SetTime>
+    PCF8563RTC_SetDate(0x01,0x00,0x01,0x15);  //  1st Jan 2015
+    15da:	25 e1       	ldi	r18, 0x15	; 21
+    15dc:	41 e0       	ldi	r20, 0x01	; 1
+    15de:	60 e0       	ldi	r22, 0x00	; 0
+    15e0:	81 e0       	ldi	r24, 0x01	; 1
+	PCF8563RTC_SetClkOut(1, 2);
+    15e2:	67 df       	rcall	.-306    	; 0x14b2 <PCF8563RTC_SetDate>
+    15e4:	62 e0       	ldi	r22, 0x02	; 2
+    15e6:	81 e0       	ldi	r24, 0x01	; 1
+    15e8:	52 df       	rcall	.-348    	; 0x148e <PCF8563RTC_SetClkOut>
 		
 		/* Read the Time from RTC(PCF8563) */ 
 		tmp=PCF8563RTC_GetTime();
 		
 		lcd.gotoxy(1,0);
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.hours)),2);
-    15a6:	6f 2e       	mov	r6, r31
-    15a8:	f1 e0       	ldi	r31, 0x01	; 1
-    15aa:	7f 2e       	mov	r7, r31
-    15ac:	f0 2d       	mov	r31, r0
-    15ae:	0f 2e       	mov	r0, r31
-    15b0:	fe ed       	ldi	r31, 0xDE	; 222
+    15ea:	0f 2e       	mov	r0, r31
+    15ec:	fb ed       	ldi	r31, 0xDB	; 219
+    15ee:	6f 2e       	mov	r6, r31
+    15f0:	f1 e0       	ldi	r31, 0x01	; 1
+    15f2:	7f 2e       	mov	r7, r31
+    15f4:	f0 2d       	mov	r31, r0
 		lcd.putch(':');
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.VL_seconds)),2);
 		
 		dt=PCF8563RTC_GetDate();
 		lcd.gotoxy(2,0);
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.days)),2);
-    15b2:	af 2e       	mov	r10, r31
-    15b4:	f1 e0       	ldi	r31, 0x01	; 1
-    15b6:	bf 2e       	mov	r11, r31
-    15b8:	f0 2d       	mov	r31, r0
-    15ba:	60 e0       	ldi	r22, 0x00	; 0
-    15bc:	70 e0       	ldi	r23, 0x00	; 0
-    PCF8563RTC_SetDate(0x01,0x01,0x15);  //  1st Jan 2015
+    15f6:	0f 2e       	mov	r0, r31
+    15f8:	fe ed       	ldi	r31, 0xDE	; 222
+    15fa:	af 2e       	mov	r10, r31
+    15fc:	f1 e0       	ldi	r31, 0x01	; 1
+    15fe:	bf 2e       	mov	r11, r31
+    1600:	f0 2d       	mov	r31, r0
+	PCF8563RTC_SetClkOut(1, 2);
 	/* Replace with your application code */
 	while (1)
     {
 		
 		lcd.gotoxy(0,0);
-    15be:	80 e0       	ldi	r24, 0x00	; 0
-    15c0:	90 e0       	ldi	r25, 0x00	; 0
-    15c2:	f4 01       	movw	r30, r8
-    15c4:	09 95       	icall
-    15c6:	65 e0       	ldi	r22, 0x05	; 5
-    15c8:	80 e0       	ldi	r24, 0x00	; 0
+    1602:	60 e0       	ldi	r22, 0x00	; 0
+    1604:	70 e0       	ldi	r23, 0x00	; 0
+    1606:	80 e0       	ldi	r24, 0x00	; 0
+    1608:	90 e0       	ldi	r25, 0x00	; 0
+    160a:	f4 01       	movw	r30, r8
 		lcd.string_size("start",5);
-    15ca:	91 e0       	ldi	r25, 0x01	; 1
-    15cc:	f8 01       	movw	r30, r16
-    15ce:	09 95       	icall
-    15d0:	74 df       	rcall	.-280    	; 0x14ba <PCF8563RTC_GetTime>
+    160c:	09 95       	icall
+    160e:	65 e0       	ldi	r22, 0x05	; 5
+    1610:	80 e0       	ldi	r24, 0x00	; 0
+    1612:	91 e0       	ldi	r25, 0x01	; 1
+    1614:	f8 01       	movw	r30, r16
 		
 		/* Read the Time from RTC(PCF8563) */ 
 		tmp=PCF8563RTC_GetTime();
-    15d2:	60 93 db 01 	sts	0x01DB, r22	; 0x8001db <tmp>
-    15d6:	70 93 dc 01 	sts	0x01DC, r23	; 0x8001dc <tmp+0x1>
-    15da:	80 93 dd 01 	sts	0x01DD, r24	; 0x8001dd <tmp+0x2>
-    15de:	60 e0       	ldi	r22, 0x00	; 0
-    15e0:	70 e0       	ldi	r23, 0x00	; 0
+    1616:	09 95       	icall
+    1618:	67 df       	rcall	.-306    	; 0x14e8 <PCF8563RTC_GetTime>
+    161a:	60 93 db 01 	sts	0x01DB, r22	; 0x8001db <tmp>
+    161e:	70 93 dc 01 	sts	0x01DC, r23	; 0x8001dc <tmp+0x1>
+    1622:	80 93 dd 01 	sts	0x01DD, r24	; 0x8001dd <tmp+0x2>
 		
 		lcd.gotoxy(1,0);
-    15e2:	81 e0       	ldi	r24, 0x01	; 1
-    15e4:	90 e0       	ldi	r25, 0x00	; 0
-    15e6:	f4 01       	movw	r30, r8
-    15e8:	09 95       	icall
-    15ea:	f3 01       	movw	r30, r6
+    1626:	60 e0       	ldi	r22, 0x00	; 0
+    1628:	70 e0       	ldi	r23, 0x00	; 0
+    162a:	81 e0       	ldi	r24, 0x01	; 1
+    162c:	90 e0       	ldi	r25, 0x00	; 0
+    162e:	f4 01       	movw	r30, r8
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.hours)),2);
-    15ec:	80 81       	ld	r24, Z
-    15ee:	a5 df       	rcall	.-182    	; 0x153a <PCF8563RTC_bcd2dec>
-    15f0:	90 e0       	ldi	r25, 0x00	; 0
-    15f2:	f7 01       	movw	r30, r14
-    15f4:	09 95       	icall
-    15f6:	62 e0       	ldi	r22, 0x02	; 2
-    15f8:	f8 01       	movw	r30, r16
-    15fa:	09 95       	icall
-    15fc:	8a e3       	ldi	r24, 0x3A	; 58
+    1630:	09 95       	icall
+    1632:	f3 01       	movw	r30, r6
+    1634:	80 81       	ld	r24, Z
+    1636:	98 df       	rcall	.-208    	; 0x1568 <PCF8563RTC_bcd2dec>
+    1638:	90 e0       	ldi	r25, 0x00	; 0
+    163a:	f7 01       	movw	r30, r14
+    163c:	09 95       	icall
+    163e:	62 e0       	ldi	r22, 0x02	; 2
+    1640:	f8 01       	movw	r30, r16
 		lcd.putch(':');
-    15fe:	f6 01       	movw	r30, r12
-    1600:	09 95       	icall
-    1602:	f3 01       	movw	r30, r6
+    1642:	09 95       	icall
+    1644:	8a e3       	ldi	r24, 0x3A	; 58
+    1646:	f6 01       	movw	r30, r12
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.minutes)),2);
-    1604:	81 81       	ldd	r24, Z+1	; 0x01
-    1606:	99 df       	rcall	.-206    	; 0x153a <PCF8563RTC_bcd2dec>
-    1608:	90 e0       	ldi	r25, 0x00	; 0
-    160a:	f7 01       	movw	r30, r14
-    160c:	09 95       	icall
-    160e:	62 e0       	ldi	r22, 0x02	; 2
-    1610:	f8 01       	movw	r30, r16
-    1612:	09 95       	icall
-    1614:	8a e3       	ldi	r24, 0x3A	; 58
-		lcd.putch(':');
-    1616:	f6 01       	movw	r30, r12
-    1618:	09 95       	icall
-    161a:	f3 01       	movw	r30, r6
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.VL_seconds)),2);
-    161c:	82 81       	ldd	r24, Z+2	; 0x02
-    161e:	8d df       	rcall	.-230    	; 0x153a <PCF8563RTC_bcd2dec>
-    1620:	90 e0       	ldi	r25, 0x00	; 0
-    1622:	f7 01       	movw	r30, r14
-    1624:	09 95       	icall
-    1626:	62 e0       	ldi	r22, 0x02	; 2
-    1628:	f8 01       	movw	r30, r16
-    162a:	09 95       	icall
-    162c:	63 df       	rcall	.-314    	; 0x14f4 <PCF8563RTC_GetDate>
-		
-		dt=PCF8563RTC_GetDate();
-    162e:	60 93 de 01 	sts	0x01DE, r22	; 0x8001de <dt>
-    1632:	70 93 df 01 	sts	0x01DF, r23	; 0x8001df <dt+0x1>
-    1636:	80 93 e0 01 	sts	0x01E0, r24	; 0x8001e0 <dt+0x2>
-    163a:	90 93 e1 01 	sts	0x01E1, r25	; 0x8001e1 <dt+0x3>
-    163e:	60 e0       	ldi	r22, 0x00	; 0
-		lcd.gotoxy(2,0);
-    1640:	70 e0       	ldi	r23, 0x00	; 0
-    1642:	82 e0       	ldi	r24, 0x02	; 2
-    1644:	90 e0       	ldi	r25, 0x00	; 0
-    1646:	f4 01       	movw	r30, r8
     1648:	09 95       	icall
-    164a:	f5 01       	movw	r30, r10
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.days)),2);
-    164c:	83 81       	ldd	r24, Z+3	; 0x03
-    164e:	75 df       	rcall	.-278    	; 0x153a <PCF8563RTC_bcd2dec>
+    164a:	f3 01       	movw	r30, r6
+    164c:	81 81       	ldd	r24, Z+1	; 0x01
+    164e:	8c df       	rcall	.-232    	; 0x1568 <PCF8563RTC_bcd2dec>
     1650:	90 e0       	ldi	r25, 0x00	; 0
     1652:	f7 01       	movw	r30, r14
     1654:	09 95       	icall
     1656:	62 e0       	ldi	r22, 0x02	; 2
     1658:	f8 01       	movw	r30, r16
+		lcd.putch(':');
     165a:	09 95       	icall
     165c:	8a e3       	ldi	r24, 0x3A	; 58
-		lcd.putch(':');
     165e:	f6 01       	movw	r30, r12
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.VL_seconds)),2);
     1660:	09 95       	icall
-    1662:	f5 01       	movw	r30, r10
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.weekdays)),2);
+    1662:	f3 01       	movw	r30, r6
     1664:	82 81       	ldd	r24, Z+2	; 0x02
-    1666:	69 df       	rcall	.-302    	; 0x153a <PCF8563RTC_bcd2dec>
+    1666:	80 df       	rcall	.-256    	; 0x1568 <PCF8563RTC_bcd2dec>
     1668:	90 e0       	ldi	r25, 0x00	; 0
     166a:	f7 01       	movw	r30, r14
     166c:	09 95       	icall
     166e:	62 e0       	ldi	r22, 0x02	; 2
     1670:	f8 01       	movw	r30, r16
+		
+		dt=PCF8563RTC_GetDate();
     1672:	09 95       	icall
-    1674:	8a e3       	ldi	r24, 0x3A	; 58
-		lcd.putch(':');
-    1676:	f6 01       	movw	r30, r12
-    1678:	09 95       	icall
-    167a:	f5 01       	movw	r30, r10
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.century_months)),2);
-    167c:	81 81       	ldd	r24, Z+1	; 0x01
-    167e:	5d df       	rcall	.-326    	; 0x153a <PCF8563RTC_bcd2dec>
-    1680:	90 e0       	ldi	r25, 0x00	; 0
-    1682:	f7 01       	movw	r30, r14
-    1684:	09 95       	icall
-    1686:	62 e0       	ldi	r22, 0x02	; 2
-    1688:	f8 01       	movw	r30, r16
-    168a:	09 95       	icall
-    168c:	8a e3       	ldi	r24, 0x3A	; 58
-		lcd.putch(':');
-    168e:	f6 01       	movw	r30, r12
+    1674:	56 df       	rcall	.-340    	; 0x1522 <PCF8563RTC_GetDate>
+    1676:	60 93 de 01 	sts	0x01DE, r22	; 0x8001de <dt>
+    167a:	70 93 df 01 	sts	0x01DF, r23	; 0x8001df <dt+0x1>
+    167e:	80 93 e0 01 	sts	0x01E0, r24	; 0x8001e0 <dt+0x2>
+    1682:	90 93 e1 01 	sts	0x01E1, r25	; 0x8001e1 <dt+0x3>
+		lcd.gotoxy(2,0);
+    1686:	60 e0       	ldi	r22, 0x00	; 0
+    1688:	70 e0       	ldi	r23, 0x00	; 0
+    168a:	82 e0       	ldi	r24, 0x02	; 2
+    168c:	90 e0       	ldi	r25, 0x00	; 0
+    168e:	f4 01       	movw	r30, r8
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.days)),2);
     1690:	09 95       	icall
     1692:	f5 01       	movw	r30, r10
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.years)),2);
-    1694:	80 81       	ld	r24, Z
-    1696:	51 df       	rcall	.-350    	; 0x153a <PCF8563RTC_bcd2dec>
+    1694:	83 81       	ldd	r24, Z+3	; 0x03
+    1696:	68 df       	rcall	.-304    	; 0x1568 <PCF8563RTC_bcd2dec>
     1698:	90 e0       	ldi	r25, 0x00	; 0
     169a:	f7 01       	movw	r30, r14
     169c:	09 95       	icall
     169e:	62 e0       	ldi	r22, 0x02	; 2
     16a0:	f8 01       	movw	r30, r16
+		lcd.putch(':');
     16a2:	09 95       	icall
-    16a4:	8a cf       	rjmp	.-236    	; 0x15ba <main+0x6a>
+    16a4:	8a e3       	ldi	r24, 0x3A	; 58
+    16a6:	f6 01       	movw	r30, r12
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.weekdays)),2);
+    16a8:	09 95       	icall
+    16aa:	f5 01       	movw	r30, r10
+    16ac:	82 81       	ldd	r24, Z+2	; 0x02
+    16ae:	5c df       	rcall	.-328    	; 0x1568 <PCF8563RTC_bcd2dec>
+    16b0:	90 e0       	ldi	r25, 0x00	; 0
+    16b2:	f7 01       	movw	r30, r14
+    16b4:	09 95       	icall
+    16b6:	62 e0       	ldi	r22, 0x02	; 2
+    16b8:	f8 01       	movw	r30, r16
+		lcd.putch(':');
+    16ba:	09 95       	icall
+    16bc:	8a e3       	ldi	r24, 0x3A	; 58
+    16be:	f6 01       	movw	r30, r12
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.century_months)),2);
+    16c0:	09 95       	icall
+    16c2:	f5 01       	movw	r30, r10
+    16c4:	81 81       	ldd	r24, Z+1	; 0x01
+    16c6:	50 df       	rcall	.-352    	; 0x1568 <PCF8563RTC_bcd2dec>
+    16c8:	90 e0       	ldi	r25, 0x00	; 0
+    16ca:	f7 01       	movw	r30, r14
+    16cc:	09 95       	icall
+    16ce:	62 e0       	ldi	r22, 0x02	; 2
+    16d0:	f8 01       	movw	r30, r16
+		lcd.putch(':');
+    16d2:	09 95       	icall
+    16d4:	8a e3       	ldi	r24, 0x3A	; 58
+    16d6:	f6 01       	movw	r30, r12
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.years)),2);
+    16d8:	09 95       	icall
+    16da:	f5 01       	movw	r30, r10
+    16dc:	80 81       	ld	r24, Z
+    16de:	44 df       	rcall	.-376    	; 0x1568 <PCF8563RTC_bcd2dec>
+    16e0:	90 e0       	ldi	r25, 0x00	; 0
+    16e2:	f7 01       	movw	r30, r14
+    16e4:	09 95       	icall
+    16e6:	62 e0       	ldi	r22, 0x02	; 2
+    16e8:	f8 01       	movw	r30, r16
+    16ea:	09 95       	icall
+    16ec:	8a cf       	rjmp	.-236    	; 0x1602 <main+0x84>
 
-000016a6 <__mulsi3>:
-    16a6:	db 01       	movw	r26, r22
-    16a8:	8f 93       	push	r24
-    16aa:	9f 93       	push	r25
-    16ac:	7f d0       	rcall	.+254    	; 0x17ac <__muluhisi3>
-    16ae:	bf 91       	pop	r27
-    16b0:	af 91       	pop	r26
-    16b2:	a2 9f       	mul	r26, r18
-    16b4:	80 0d       	add	r24, r0
-    16b6:	91 1d       	adc	r25, r1
-    16b8:	a3 9f       	mul	r26, r19
-    16ba:	90 0d       	add	r25, r0
-    16bc:	b2 9f       	mul	r27, r18
-    16be:	90 0d       	add	r25, r0
-    16c0:	11 24       	eor	r1, r1
-    16c2:	08 95       	ret
+000016ee <__mulsi3>:
+    16ee:	db 01       	movw	r26, r22
+    16f0:	8f 93       	push	r24
+    16f2:	9f 93       	push	r25
+    16f4:	7f d0       	rcall	.+254    	; 0x17f4 <__muluhisi3>
+    16f6:	bf 91       	pop	r27
+    16f8:	af 91       	pop	r26
+    16fa:	a2 9f       	mul	r26, r18
+    16fc:	80 0d       	add	r24, r0
+    16fe:	91 1d       	adc	r25, r1
+    1700:	a3 9f       	mul	r26, r19
+    1702:	90 0d       	add	r25, r0
+    1704:	b2 9f       	mul	r27, r18
+    1706:	90 0d       	add	r25, r0
+    1708:	11 24       	eor	r1, r1
+    170a:	08 95       	ret
 
-000016c4 <__udivmodhi4>:
-    16c4:	aa 1b       	sub	r26, r26
-    16c6:	bb 1b       	sub	r27, r27
-    16c8:	51 e1       	ldi	r21, 0x11	; 17
-    16ca:	07 c0       	rjmp	.+14     	; 0x16da <__udivmodhi4_ep>
+0000170c <__udivmodhi4>:
+    170c:	aa 1b       	sub	r26, r26
+    170e:	bb 1b       	sub	r27, r27
+    1710:	51 e1       	ldi	r21, 0x11	; 17
+    1712:	07 c0       	rjmp	.+14     	; 0x1722 <__udivmodhi4_ep>
 
-000016cc <__udivmodhi4_loop>:
-    16cc:	aa 1f       	adc	r26, r26
-    16ce:	bb 1f       	adc	r27, r27
-    16d0:	a6 17       	cp	r26, r22
-    16d2:	b7 07       	cpc	r27, r23
-    16d4:	10 f0       	brcs	.+4      	; 0x16da <__udivmodhi4_ep>
-    16d6:	a6 1b       	sub	r26, r22
-    16d8:	b7 0b       	sbc	r27, r23
+00001714 <__udivmodhi4_loop>:
+    1714:	aa 1f       	adc	r26, r26
+    1716:	bb 1f       	adc	r27, r27
+    1718:	a6 17       	cp	r26, r22
+    171a:	b7 07       	cpc	r27, r23
+    171c:	10 f0       	brcs	.+4      	; 0x1722 <__udivmodhi4_ep>
+    171e:	a6 1b       	sub	r26, r22
+    1720:	b7 0b       	sbc	r27, r23
 
-000016da <__udivmodhi4_ep>:
-    16da:	88 1f       	adc	r24, r24
-    16dc:	99 1f       	adc	r25, r25
-    16de:	5a 95       	dec	r21
-    16e0:	a9 f7       	brne	.-22     	; 0x16cc <__udivmodhi4_loop>
-    16e2:	80 95       	com	r24
-    16e4:	90 95       	com	r25
-    16e6:	bc 01       	movw	r22, r24
-    16e8:	cd 01       	movw	r24, r26
-    16ea:	08 95       	ret
+00001722 <__udivmodhi4_ep>:
+    1722:	88 1f       	adc	r24, r24
+    1724:	99 1f       	adc	r25, r25
+    1726:	5a 95       	dec	r21
+    1728:	a9 f7       	brne	.-22     	; 0x1714 <__udivmodhi4_loop>
+    172a:	80 95       	com	r24
+    172c:	90 95       	com	r25
+    172e:	bc 01       	movw	r22, r24
+    1730:	cd 01       	movw	r24, r26
+    1732:	08 95       	ret
 
-000016ec <__divmodhi4>:
-    16ec:	97 fb       	bst	r25, 7
-    16ee:	07 2e       	mov	r0, r23
-    16f0:	16 f4       	brtc	.+4      	; 0x16f6 <__divmodhi4+0xa>
-    16f2:	00 94       	com	r0
-    16f4:	06 d0       	rcall	.+12     	; 0x1702 <__divmodhi4_neg1>
-    16f6:	77 fd       	sbrc	r23, 7
-    16f8:	08 d0       	rcall	.+16     	; 0x170a <__divmodhi4_neg2>
-    16fa:	e4 df       	rcall	.-56     	; 0x16c4 <__udivmodhi4>
-    16fc:	07 fc       	sbrc	r0, 7
-    16fe:	05 d0       	rcall	.+10     	; 0x170a <__divmodhi4_neg2>
-    1700:	3e f4       	brtc	.+14     	; 0x1710 <__divmodhi4_exit>
+00001734 <__divmodhi4>:
+    1734:	97 fb       	bst	r25, 7
+    1736:	07 2e       	mov	r0, r23
+    1738:	16 f4       	brtc	.+4      	; 0x173e <__divmodhi4+0xa>
+    173a:	00 94       	com	r0
+    173c:	06 d0       	rcall	.+12     	; 0x174a <__divmodhi4_neg1>
+    173e:	77 fd       	sbrc	r23, 7
+    1740:	08 d0       	rcall	.+16     	; 0x1752 <__divmodhi4_neg2>
+    1742:	e4 df       	rcall	.-56     	; 0x170c <__udivmodhi4>
+    1744:	07 fc       	sbrc	r0, 7
+    1746:	05 d0       	rcall	.+10     	; 0x1752 <__divmodhi4_neg2>
+    1748:	3e f4       	brtc	.+14     	; 0x1758 <__divmodhi4_exit>
 
-00001702 <__divmodhi4_neg1>:
-    1702:	90 95       	com	r25
-    1704:	81 95       	neg	r24
-    1706:	9f 4f       	sbci	r25, 0xFF	; 255
-    1708:	08 95       	ret
-
-0000170a <__divmodhi4_neg2>:
-    170a:	70 95       	com	r23
-    170c:	61 95       	neg	r22
-    170e:	7f 4f       	sbci	r23, 0xFF	; 255
-
-00001710 <__divmodhi4_exit>:
-    1710:	08 95       	ret
-
-00001712 <__udivmodsi4>:
-    1712:	a1 e2       	ldi	r26, 0x21	; 33
-    1714:	1a 2e       	mov	r1, r26
-    1716:	aa 1b       	sub	r26, r26
-    1718:	bb 1b       	sub	r27, r27
-    171a:	fd 01       	movw	r30, r26
-    171c:	0d c0       	rjmp	.+26     	; 0x1738 <__udivmodsi4_ep>
-
-0000171e <__udivmodsi4_loop>:
-    171e:	aa 1f       	adc	r26, r26
-    1720:	bb 1f       	adc	r27, r27
-    1722:	ee 1f       	adc	r30, r30
-    1724:	ff 1f       	adc	r31, r31
-    1726:	a2 17       	cp	r26, r18
-    1728:	b3 07       	cpc	r27, r19
-    172a:	e4 07       	cpc	r30, r20
-    172c:	f5 07       	cpc	r31, r21
-    172e:	20 f0       	brcs	.+8      	; 0x1738 <__udivmodsi4_ep>
-    1730:	a2 1b       	sub	r26, r18
-    1732:	b3 0b       	sbc	r27, r19
-    1734:	e4 0b       	sbc	r30, r20
-    1736:	f5 0b       	sbc	r31, r21
-
-00001738 <__udivmodsi4_ep>:
-    1738:	66 1f       	adc	r22, r22
-    173a:	77 1f       	adc	r23, r23
-    173c:	88 1f       	adc	r24, r24
-    173e:	99 1f       	adc	r25, r25
-    1740:	1a 94       	dec	r1
-    1742:	69 f7       	brne	.-38     	; 0x171e <__udivmodsi4_loop>
-    1744:	60 95       	com	r22
-    1746:	70 95       	com	r23
-    1748:	80 95       	com	r24
+0000174a <__divmodhi4_neg1>:
     174a:	90 95       	com	r25
-    174c:	9b 01       	movw	r18, r22
-    174e:	ac 01       	movw	r20, r24
-    1750:	bd 01       	movw	r22, r26
-    1752:	cf 01       	movw	r24, r30
-    1754:	08 95       	ret
+    174c:	81 95       	neg	r24
+    174e:	9f 4f       	sbci	r25, 0xFF	; 255
+    1750:	08 95       	ret
 
-00001756 <__divmodsi4>:
-    1756:	05 2e       	mov	r0, r21
-    1758:	97 fb       	bst	r25, 7
-    175a:	16 f4       	brtc	.+4      	; 0x1760 <__divmodsi4+0xa>
-    175c:	00 94       	com	r0
-    175e:	0f d0       	rcall	.+30     	; 0x177e <__negsi2>
-    1760:	57 fd       	sbrc	r21, 7
-    1762:	05 d0       	rcall	.+10     	; 0x176e <__divmodsi4_neg2>
-    1764:	d6 df       	rcall	.-84     	; 0x1712 <__udivmodsi4>
-    1766:	07 fc       	sbrc	r0, 7
-    1768:	02 d0       	rcall	.+4      	; 0x176e <__divmodsi4_neg2>
-    176a:	46 f4       	brtc	.+16     	; 0x177c <__divmodsi4_exit>
-    176c:	08 c0       	rjmp	.+16     	; 0x177e <__negsi2>
+00001752 <__divmodhi4_neg2>:
+    1752:	70 95       	com	r23
+    1754:	61 95       	neg	r22
+    1756:	7f 4f       	sbci	r23, 0xFF	; 255
 
-0000176e <__divmodsi4_neg2>:
-    176e:	50 95       	com	r21
-    1770:	40 95       	com	r20
-    1772:	30 95       	com	r19
-    1774:	21 95       	neg	r18
-    1776:	3f 4f       	sbci	r19, 0xFF	; 255
-    1778:	4f 4f       	sbci	r20, 0xFF	; 255
-    177a:	5f 4f       	sbci	r21, 0xFF	; 255
+00001758 <__divmodhi4_exit>:
+    1758:	08 95       	ret
 
-0000177c <__divmodsi4_exit>:
-    177c:	08 95       	ret
+0000175a <__udivmodsi4>:
+    175a:	a1 e2       	ldi	r26, 0x21	; 33
+    175c:	1a 2e       	mov	r1, r26
+    175e:	aa 1b       	sub	r26, r26
+    1760:	bb 1b       	sub	r27, r27
+    1762:	fd 01       	movw	r30, r26
+    1764:	0d c0       	rjmp	.+26     	; 0x1780 <__udivmodsi4_ep>
 
-0000177e <__negsi2>:
-    177e:	90 95       	com	r25
-    1780:	80 95       	com	r24
-    1782:	70 95       	com	r23
-    1784:	61 95       	neg	r22
-    1786:	7f 4f       	sbci	r23, 0xFF	; 255
-    1788:	8f 4f       	sbci	r24, 0xFF	; 255
-    178a:	9f 4f       	sbci	r25, 0xFF	; 255
-    178c:	08 95       	ret
+00001766 <__udivmodsi4_loop>:
+    1766:	aa 1f       	adc	r26, r26
+    1768:	bb 1f       	adc	r27, r27
+    176a:	ee 1f       	adc	r30, r30
+    176c:	ff 1f       	adc	r31, r31
+    176e:	a2 17       	cp	r26, r18
+    1770:	b3 07       	cpc	r27, r19
+    1772:	e4 07       	cpc	r30, r20
+    1774:	f5 07       	cpc	r31, r21
+    1776:	20 f0       	brcs	.+8      	; 0x1780 <__udivmodsi4_ep>
+    1778:	a2 1b       	sub	r26, r18
+    177a:	b3 0b       	sbc	r27, r19
+    177c:	e4 0b       	sbc	r30, r20
+    177e:	f5 0b       	sbc	r31, r21
 
-0000178e <__umulhisi3>:
-    178e:	a2 9f       	mul	r26, r18
-    1790:	b0 01       	movw	r22, r0
-    1792:	b3 9f       	mul	r27, r19
-    1794:	c0 01       	movw	r24, r0
-    1796:	a3 9f       	mul	r26, r19
-    1798:	70 0d       	add	r23, r0
-    179a:	81 1d       	adc	r24, r1
-    179c:	11 24       	eor	r1, r1
-    179e:	91 1d       	adc	r25, r1
-    17a0:	b2 9f       	mul	r27, r18
-    17a2:	70 0d       	add	r23, r0
-    17a4:	81 1d       	adc	r24, r1
-    17a6:	11 24       	eor	r1, r1
-    17a8:	91 1d       	adc	r25, r1
-    17aa:	08 95       	ret
+00001780 <__udivmodsi4_ep>:
+    1780:	66 1f       	adc	r22, r22
+    1782:	77 1f       	adc	r23, r23
+    1784:	88 1f       	adc	r24, r24
+    1786:	99 1f       	adc	r25, r25
+    1788:	1a 94       	dec	r1
+    178a:	69 f7       	brne	.-38     	; 0x1766 <__udivmodsi4_loop>
+    178c:	60 95       	com	r22
+    178e:	70 95       	com	r23
+    1790:	80 95       	com	r24
+    1792:	90 95       	com	r25
+    1794:	9b 01       	movw	r18, r22
+    1796:	ac 01       	movw	r20, r24
+    1798:	bd 01       	movw	r22, r26
+    179a:	cf 01       	movw	r24, r30
+    179c:	08 95       	ret
 
-000017ac <__muluhisi3>:
-    17ac:	f0 df       	rcall	.-32     	; 0x178e <__umulhisi3>
-    17ae:	a5 9f       	mul	r26, r21
-    17b0:	90 0d       	add	r25, r0
-    17b2:	b4 9f       	mul	r27, r20
-    17b4:	90 0d       	add	r25, r0
-    17b6:	a4 9f       	mul	r26, r20
-    17b8:	80 0d       	add	r24, r0
-    17ba:	91 1d       	adc	r25, r1
-    17bc:	11 24       	eor	r1, r1
-    17be:	08 95       	ret
+0000179e <__divmodsi4>:
+    179e:	05 2e       	mov	r0, r21
+    17a0:	97 fb       	bst	r25, 7
+    17a2:	16 f4       	brtc	.+4      	; 0x17a8 <__divmodsi4+0xa>
+    17a4:	00 94       	com	r0
+    17a6:	0f d0       	rcall	.+30     	; 0x17c6 <__negsi2>
+    17a8:	57 fd       	sbrc	r21, 7
+    17aa:	05 d0       	rcall	.+10     	; 0x17b6 <__divmodsi4_neg2>
+    17ac:	d6 df       	rcall	.-84     	; 0x175a <__udivmodsi4>
+    17ae:	07 fc       	sbrc	r0, 7
+    17b0:	02 d0       	rcall	.+4      	; 0x17b6 <__divmodsi4_neg2>
+    17b2:	46 f4       	brtc	.+16     	; 0x17c4 <__divmodsi4_exit>
+    17b4:	08 c0       	rjmp	.+16     	; 0x17c6 <__negsi2>
 
-000017c0 <_exit>:
-    17c0:	f8 94       	cli
+000017b6 <__divmodsi4_neg2>:
+    17b6:	50 95       	com	r21
+    17b8:	40 95       	com	r20
+    17ba:	30 95       	com	r19
+    17bc:	21 95       	neg	r18
+    17be:	3f 4f       	sbci	r19, 0xFF	; 255
+    17c0:	4f 4f       	sbci	r20, 0xFF	; 255
+    17c2:	5f 4f       	sbci	r21, 0xFF	; 255
 
-000017c2 <__stop_program>:
-    17c2:	ff cf       	rjmp	.-2      	; 0x17c2 <__stop_program>
+000017c4 <__divmodsi4_exit>:
+    17c4:	08 95       	ret
+
+000017c6 <__negsi2>:
+    17c6:	90 95       	com	r25
+    17c8:	80 95       	com	r24
+    17ca:	70 95       	com	r23
+    17cc:	61 95       	neg	r22
+    17ce:	7f 4f       	sbci	r23, 0xFF	; 255
+    17d0:	8f 4f       	sbci	r24, 0xFF	; 255
+    17d2:	9f 4f       	sbci	r25, 0xFF	; 255
+    17d4:	08 95       	ret
+
+000017d6 <__umulhisi3>:
+    17d6:	a2 9f       	mul	r26, r18
+    17d8:	b0 01       	movw	r22, r0
+    17da:	b3 9f       	mul	r27, r19
+    17dc:	c0 01       	movw	r24, r0
+    17de:	a3 9f       	mul	r26, r19
+    17e0:	70 0d       	add	r23, r0
+    17e2:	81 1d       	adc	r24, r1
+    17e4:	11 24       	eor	r1, r1
+    17e6:	91 1d       	adc	r25, r1
+    17e8:	b2 9f       	mul	r27, r18
+    17ea:	70 0d       	add	r23, r0
+    17ec:	81 1d       	adc	r24, r1
+    17ee:	11 24       	eor	r1, r1
+    17f0:	91 1d       	adc	r25, r1
+    17f2:	08 95       	ret
+
+000017f4 <__muluhisi3>:
+    17f4:	f0 df       	rcall	.-32     	; 0x17d6 <__umulhisi3>
+    17f6:	a5 9f       	mul	r26, r21
+    17f8:	90 0d       	add	r25, r0
+    17fa:	b4 9f       	mul	r27, r20
+    17fc:	90 0d       	add	r25, r0
+    17fe:	a4 9f       	mul	r26, r20
+    1800:	80 0d       	add	r24, r0
+    1802:	91 1d       	adc	r25, r1
+    1804:	11 24       	eor	r1, r1
+    1806:	08 95       	ret
+
+00001808 <_exit>:
+    1808:	f8 94       	cli
+
+0000180a <__stop_program>:
+    180a:	ff cf       	rjmp	.-2      	; 0x180a <__stop_program>

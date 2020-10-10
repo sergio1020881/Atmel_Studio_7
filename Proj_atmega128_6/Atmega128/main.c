@@ -30,8 +30,8 @@ int main(void)
 	FUNC func = FUNCenable();
 	_delay_ms(100);
     PCF8563RTC_Init(64);
-    PCF8563RTC_SetTime(0x10,0x59,0x00);  //  10:40:20 am
-    PCF8563RTC_SetDate(0x01,0x00,0x01,0x15);  //  1st Jan 2015
+    //PCF8563RTC_SetTime(0x23,0x50,0x00);  //  10:59:20 am
+    //PCF8563RTC_SetDate(0x10,0x00,0x10,0x19);
 	PCF8563RTC_SetClkOut(1, 2);
 	/* Replace with your application code */
 	while (1)
@@ -49,14 +49,16 @@ int main(void)
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.minutes)),2);
 		lcd.putch(':');
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(tmp.VL_seconds)),2);
+		lcd.hspace(7);
+		lcd.string_size(func.ui16toa(tmp.VL_seconds),2);
 		
 		dt=PCF8563RTC_GetDate();
 		lcd.gotoxy(2,0);
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.days)),2);
+		//lcd.putch(':');
+		//lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.weekdays & ~0xF8)),2);
 		lcd.putch(':');
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.weekdays)),2);
-		lcd.putch(':');
-		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.century_months)),2);
+		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.century_months & ~0xE0)),2);
 		lcd.putch(':');
 		lcd.string_size(func.ui16toa(PCF8563RTC_bcd2dec(dt.years)),2);
     }

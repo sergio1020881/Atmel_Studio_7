@@ -193,6 +193,9 @@
     <Compile Include="Libraria\lcd.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\lfsm.c">
       <SubType>compile</SubType>
     </Compile>

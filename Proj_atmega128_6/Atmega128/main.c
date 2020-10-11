@@ -36,6 +36,7 @@ int main(void)
 	/* Replace with your application code */
 	while (1)
     {
+		lcd.reboot();
 		
 		lcd.gotoxy(0,0);
 		lcd.string_size("start",5);

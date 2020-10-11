@@ -154,6 +154,9 @@
     <Compile Include="Libraria\74hc595.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\74hc595.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\atmega128analog.c">
       <SubType>compile</SubType>
     </Compile>

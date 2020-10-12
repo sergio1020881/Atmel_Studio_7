@@ -1,0 +1,2 @@
+led a piscar 1hz e uma saida pwm controlada por potenciometro em C
+

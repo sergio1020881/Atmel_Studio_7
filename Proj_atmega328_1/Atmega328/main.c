@@ -105,6 +105,46 @@ int main(void)
 				_delay_ms(50);
 			}
 		}
+		for(j=0;j<10;j++){
+			for(i=0;i<8;i++){
+				shift.byte(~(3<<i));
+				_delay_ms(50);
+			}
+			for(i=6;i;i--){
+				shift.byte(~(3<<i));
+				_delay_ms(50);
+			}
+		}
+		for(j=0;j<10;j++){
+			for(i=0;i<8;i++){
+				shift.byte(~(7<<i));
+				_delay_ms(50);
+			}
+			for(i=6;i;i--){
+				shift.byte(~(7<<i));
+				_delay_ms(50);
+			}
+		}
+		for(j=0;j<10;j++){
+			for(i=0;i<8;i++){
+				shift.byte(~(0x0F<<i));
+				_delay_ms(50);
+			}
+			for(i=6;i;i--){
+				shift.byte(~(0x0F<<i));
+				_delay_ms(50);
+			}
+		}
+		for(j=0;j<20;j++){
+			for(i=0;i<8;i++){
+				shift.byte(~(0x05<<i));
+				_delay_ms(50);
+			}
+			for(i=6;i;i--){
+				shift.byte(~(0x05<<i));
+				_delay_ms(50);
+			}
+		}
 		/***/
     }
 }

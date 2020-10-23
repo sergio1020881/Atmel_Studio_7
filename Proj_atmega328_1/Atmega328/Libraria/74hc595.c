@@ -10,7 +10,7 @@ Comment:
 ************************************************************************/
 #ifndef F_CPU
 /***Mandatory to use util/delay.h***/
-	#define F_CPU 8000000UL
+	#define F_CPU 16000000UL
 #endif
 /*
 ** Library
@@ -91,6 +91,4 @@ void HC595_shift_out(void)
 ** interrupt
 */
 /***EOF***/
-/***COMMENTS
-HC595 API END
-***/
+

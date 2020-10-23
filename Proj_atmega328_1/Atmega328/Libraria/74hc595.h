@@ -31,6 +31,7 @@ typedef struct hc595 HC595;
 ** procedure and function header
 */
 HC595 HC595enable(volatile uint8_t *ddr, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
+//Pin 3,1,0 respectively.
 #endif
 /***COMMENT
 HC595 API HEADER END

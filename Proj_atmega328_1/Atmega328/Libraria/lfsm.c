@@ -20,7 +20,7 @@ Comment:
 #define EMPTY 0 //0
 #define NPAGES 255 //1 to 254 possible pages
 #define BYTEL 0
-#define BYTEH 255
+#define BYTEH 65535
 /*
 ** variable
 */

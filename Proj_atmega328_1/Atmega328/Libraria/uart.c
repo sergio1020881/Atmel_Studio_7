@@ -139,7 +139,7 @@ Comment:
 /***TYPE 10***/
 #elif defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
       defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-      defined(__AVR_ATmega328P__) 
+      defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
 	/* TLS-Added 48P/88P/168P/328P */
 	/* ATmega with one USART */
 	 #define ATMEGA_USART0

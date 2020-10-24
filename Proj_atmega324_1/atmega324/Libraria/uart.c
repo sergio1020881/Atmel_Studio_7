@@ -210,7 +210,7 @@ Comment:
 	 #define UART0_DATA     UDR0
 	 #define UART0_UDRIE    UDRIE0
 /***TYPE 16***/
-#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega644P__)
+#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324A__) || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega644P__)
 	/* ATmega with two USART */
 	 #define ATMEGA_USART0
 	 #define ATMEGA_USART1

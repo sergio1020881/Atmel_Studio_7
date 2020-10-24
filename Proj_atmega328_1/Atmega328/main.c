@@ -47,7 +47,7 @@ int main(void)
     while (TRUE)
     {
 		lcd.gotoxy(0,0);
-		lcd.string_size("Welcome",7);
+		lcd.string_size("Welcome",7);	
 		lcd.gotoxy(1,0);
 		c=a*b;
 		lcd.string(func.i32toa(c));

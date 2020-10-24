@@ -13,13 +13,13 @@ Comment:
 #define F_CPU 16000000UL
 /***library***/
 #include <avr/io.h>
-#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <util/delay.h>
 #include <inttypes.h>
 #include <math.h>
 #include "atmega328timer.h"
-#include "atmega328i2c.h"
+//#include "atmega328i2c.h"
 #include "function.h"
 #include "uart.h"
 /***Consytant and Macros***/
@@ -40,14 +40,25 @@ int main(void)
     while (TRUE)
     {
 		if(!(PIND & 0x04))
-		{uart.puts("asdsf");}
+		{
+			uart.putc('>');
+			uart.puts("Welcome to uart com threw ftdi ! \r \n");
+			uart.puts("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ! \r \n");
+		}
+		PORTB|=0x02;
+		_delay_ms(100);
+		PORTB&=~(0x02);
+		_delay_ms(100);
     }
 }
 /***Definition***/
 void PORTINIT(void)
+
 {
 	DDRD&=~(0x04);
 	PORTD|=0x04;
+	DDRB|=0x02;
+	PORTB=0X02;
 }
 /***Interrupt***/
 /***EOF***/

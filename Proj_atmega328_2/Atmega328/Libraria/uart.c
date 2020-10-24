@@ -9,12 +9,17 @@ License: GNU General Public License
 Comment:
 	stable
 *************************************************************************/
+#ifndef F_CPU
+	//Mandatory to use util/delay
+	#define F_CPU 16000000UL
+#endif
 /*
 ** library
 */
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
+#include <util/delay.h>
 #include <inttypes.h>
 /***/
 #include "uart.h"
@@ -539,10 +544,15 @@ void uart_putc(unsigned char data)
 	uint8_t head = UART_TxHead;
 	UART_TxBuf[head] = data;
 	UART_TxHead = (UART_TxHead + 1) & UART_TX_BUFFER_MASK;
+	//while( UART_TxHead == UART_TxTail ) // Blocks program if buffer crashes
+	//	;
 	if ( UART_TxHead != UART_TxTail ){
 		UART_TxBuf[UART_TxHead] = '\0';
-	}else
-		UART_TxHead=head;
+	}else{
+		//; 
+		_delay_ms(30);
+		//UART_TxHead=head;
+	}
 	UART0_CONTROL |= _BV(UART0_UDRIE);
 }
 /*************************************************************************
@@ -678,6 +688,7 @@ Purpose:  called when the UART is ready to transmit the next byte
 {
 	uint8_t tail = UART_TxTail;
 	UART0_DATA = UART_TxBuf[tail];
+	UART_TxBuf[tail]='\0';
 	UART_TxTail = (UART_TxTail + 1) & UART_TX_BUFFER_MASK;
 	if ( UART_TxTail != UART_TxHead )
 		;

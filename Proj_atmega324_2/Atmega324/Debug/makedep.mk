@@ -2,21 +2,27 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
-Librarias\atmega324analog.c
+Libraria\74hc595.c
 
-Librarias\atmega324preamble.c
+Libraria\atmega324analog.c
 
-Librarias\atmega324timer.c
+Libraria\atmega324preamble.c
 
-Librarias\eeprom.c
+Libraria\atmega324timer.c
 
-Librarias\function.c
+Libraria\eeprom.c
 
-Librarias\keypad.c
+Libraria\function.c
 
-Librarias\lcd.c
+Libraria\keypad.c
 
-Librarias\lfsm.c
+Libraria\lcd.c
+
+Libraria\lfsm.c
+
+Libraria\rotenc.c
+
+Libraria\uart.c
 
 main.c
 

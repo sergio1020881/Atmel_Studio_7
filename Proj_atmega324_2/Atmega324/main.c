@@ -1,11 +1,14 @@
-/*
- * Wavegen
- * Created: 20/03/2018 18:35:21
- * Author: Sergio Santos email: sergio.salazar.santos@gmail.com
- * PORTA - keypad
- * PORTC - LCD
- *
- */
+/***************************************************************************
+	Wavegen
+Author: Sergio Santos email: sergio.salazar.santos@gmail.com
+Created: 20/03/2018 18:35:21
+Hardware: Atmega324A
+	-PORTA - keypad
+	-PORTC - LCD
+	-PORTD5 - Oscillator output
+Comment:
+	Stable
+ ***************************************************************************/
 //Good practice initialize
 #define F_CPU 8000000UL
 #include <avr/io.h>
@@ -19,6 +22,7 @@
 #include "lfsm.h"
 #include "function.h"
 #include "eeprom.h"
+#include "uart.h"
 //Constant & macros
 #define True 1
 #define False 0

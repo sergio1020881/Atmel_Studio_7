@@ -1,0 +1,2 @@
+Ficha na Placa não é ISP, tem que ter placa conversora, ou cabo com
+ligações trocadas.

@@ -1,11 +1,11 @@
 /************************************************************************
 	KEYPAD
-Author: Sergio Santos 
-   <sergio.salazar.santos@gmail.com>
-Date: 29092020
+Author: Sergio Santos
+	<sergio.salazar.santos@gmail.com>
 Hardware: all
+Date: 29092020
 Comment:
-   Stable
+	Stable
 ************************************************************************/
 /***Preamble Inic***/
 #ifndef _KEYPAD_H_

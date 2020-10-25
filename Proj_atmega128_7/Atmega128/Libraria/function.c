@@ -3,8 +3,8 @@
 Author: Sergio Santos
    <sergio.salazar.santos@gmail.com> 
 License: GNU General Public License
-Date:
 Hardware: all
+Date: 25102020
 Comment:
     Always try to make general purpose bullet proof functions !!
     Very Stable

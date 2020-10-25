@@ -2,9 +2,9 @@
 	eeprom wrapper
 Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
-File: $Id: eeprom.c,v 0.2 01/10/2020 Exp $
-Hardware: ATmega
 License: GNU General Public License
+Hardware: ATmega
+Date: 25102020
 Comment:
    Very Stable
 *************************************************************************/

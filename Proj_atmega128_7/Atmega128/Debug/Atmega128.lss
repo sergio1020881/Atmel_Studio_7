@@ -15,11 +15,11 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .debug_aranges 00000820  00000000  00000000  00002fe8  2**3
                   CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00007e46  00000000  00000000  00003808  2**0
+  6 .debug_info   00007e35  00000000  00000000  00003808  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00001e8c  00000000  00000000  0000b64e  2**0
+  7 .debug_abbrev 00001e91  00000000  00000000  0000b63d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00004c90  00000000  00000000  0000d4da  2**0
+  8 .debug_line   00004c9d  00000000  00000000  0000d4ce  2**0
                   CONTENTS, READONLY, DEBUGGING
   9 .debug_frame  000012a8  00000000  00000000  0001216c  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -356,10 +356,10 @@ void HC595_shift_byte(uint8_t byte)
      23c:	08 95       	ret
 
 0000023e <HC595enable>:
+void HC595_shift_bit(uint8_t bool);
+void HC595_shift_byte(uint8_t byte);
 void HC595_shift_out(void);
-/*
-** procedure and function
-*/
+/***Procedure & Function***/
 HC595 HC595enable(volatile uint8_t *ddr, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin)
 {
      23e:	0f 93       	push	r16
@@ -604,10 +604,10 @@ Purpose:  Read Analog Input
      40a:	18 95       	reti
 
 0000040c <__vector_1>:
+			break;
+	}
 }
-/*
-** interrupt
-*/
+/***Interrupt***/
 // cross out the ones being used and redefine in main
 ISR(INT0_vect){ }
      40c:	1f 92       	push	r1
@@ -713,11 +713,11 @@ ISR(INT7_vect){ }
      4aa:	18 95       	reti
 
 000004ac <__vector_17>:
+    while((SPI_STATUS_REGISTER & (1<<SPIF))==0)
+		; // polling, serial transfer is complete interrupt.
     return SPI_DATA_REGISTER;
 }
-/*
-** interrupt
-*/
+/***Interrupt***/
 ISR(SPI_STC_vect){ }
      4ac:	1f 92       	push	r1
      4ae:	0f 92       	push	r0
@@ -731,9 +731,9 @@ ISR(SPI_STC_vect){ }
      4be:	18 95       	reti
 
 000004c0 <__vector_16>:
-/*
-** interrupt
-*/
+	timer3_state=0;
+}
+/***Interrupt***/
 // So that main will not freeze when not defined, therefore exclude here! before use.
 //ISR(TIMER0_COMP_vect){ }
 ISR(TIMER0_OVF_vect){ }
@@ -988,9 +988,9 @@ ISR(TIMER3_OVF_vect){ }
      66c:	18 95       	reti
 
 0000066e <__vector_30>:
-/*
-** interrupt
-*/
+	UART1_TxHead = UART1_TxTail;
+}
+/***Interrupt***/
 /***SIGNAL(UART1_RECEIVE_INTERRUPT)***/
 SIGNAL(UART1_RECEIVE_INTERRUPT)
 {
@@ -1009,17 +1009,17 @@ SIGNAL(UART1_RECEIVE_INTERRUPT)
 	unsigned char data;
 	unsigned char bit9;
     unsigned char usr;
-    /* read UART status register and UART data register */
+    /***read UART status register and UART data register***/
 	usr  = UART1_STATUS;
      684:	80 91 9b 00 	lds	r24, 0x009B	; 0x80009b <__TEXT_REGION_LENGTH__+0x7e009b>
     bit9 = UART1_CONTROL;
      688:	90 91 9a 00 	lds	r25, 0x009A	; 0x80009a <__TEXT_REGION_LENGTH__+0x7e009a>
     bit9 = 0x01 & (bit9>>1);
-    /* */
+    /***/
     UART1_LastRxError = (usr & (_BV(FE1)|_BV(DOR1)));
      68c:	88 71       	andi	r24, 0x18	; 24
      68e:	80 93 85 02 	sts	0x0285, r24	; 0x800285 <UART1_LastRxError>
-	/* calculate buffer index */
+	/***calculate buffer index***/
     tmphead = ( UART1_RxHead + 1) & UART_RX_BUFFER_MASK;
      692:	e0 91 84 02 	lds	r30, 0x0284	; 0x800284 <UART1_RxHead>
      696:	ef 5f       	subi	r30, 0xFF	; 255
@@ -1028,7 +1028,7 @@ SIGNAL(UART1_RECEIVE_INTERRUPT)
      69a:	90 91 4a 03 	lds	r25, 0x034A	; 0x80034a <UART1_RxTail>
      69e:	e9 13       	cpse	r30, r25
      6a0:	04 c0       	rjmp	.+8      	; 0x6aa <__vector_30+0x3c>
-        /* error: receive buffer overflow, caracter is lost*/
+        /***error: receive buffer overflow, caracter is lost***/
         UART1_LastRxError = UART_BUFFER_OVERFLOW >> 8; 
      6a2:	82 e0       	ldi	r24, 0x02	; 2
      6a4:	80 93 85 02 	sts	0x0285, r24	; 0x800285 <UART1_LastRxError>
@@ -1036,13 +1036,13 @@ SIGNAL(UART1_RECEIVE_INTERRUPT)
 	}else{
 		data = UART1_DATA;
      6aa:	90 91 9c 00 	lds	r25, 0x009C	; 0x80009c <__TEXT_REGION_LENGTH__+0x7e009c>
-        /* store new index */
+        /***store new index***/
         UART1_RxHead = tmphead;
      6ae:	e0 93 84 02 	sts	0x0284, r30	; 0x800284 <UART1_RxHead>
 		if(UART1_LastRxError){
      6b2:	88 23       	and	r24, r24
      6b4:	31 f0       	breq	.+12     	; 0x6c2 <__vector_30+0x54>
-			/* store indication data error in buffer */
+			/***store indication data error in buffer***/
 			UART1_RxBuf[tmphead] = 'X';
      6b6:	f0 e0       	ldi	r31, 0x00	; 0
      6b8:	ef 5b       	subi	r30, 0xBF	; 191
@@ -1051,7 +1051,7 @@ SIGNAL(UART1_RECEIVE_INTERRUPT)
      6be:	80 83       	st	Z, r24
      6c0:	04 c0       	rjmp	.+8      	; 0x6ca <__vector_30+0x5c>
 		}else{
-			/* store received data in buffer */
+			/***store received data in buffer***/
 			UART1_RxBuf[tmphead] = data;
      6c2:	f0 e0       	ldi	r31, 0x00	; 0
      6c4:	ef 5b       	subi	r30, 0xBF	; 191
@@ -1128,11 +1128,11 @@ SIGNAL(UART1_TRANSMIT_INTERRUPT)
      73a:	18 95       	reti
 
 0000073c <EEPROMenable>:
-** procedure and function header
-*/
-/*
-** procedure and function
-*/
+#include "eeprom.h"
+/***Constant & Macro***/
+/***Global File Variable***/
+/***Header***/
+/***Procedure & Function***/
 EEPROM EEPROMenable(void){
      73c:	fc 01       	movw	r30, r24
 	eprom.write_float=eeprom_write_float;
@@ -2012,9 +2012,9 @@ char* FUNCresizestr(char *string, int size)
 
 00000b46 <FUNCtrimmer>:
 long FUNCtrimmer(long x, long in_min, long in_max, long out_min, long out_max)
-/*
-	same as arduino map function.
-*/
+/***
+same as arduino map function.
+***/
 {
      b46:	4f 92       	push	r4
      b48:	5f 92       	push	r5
@@ -2827,10 +2827,10 @@ unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)
      fa8:	08 95       	ret
 
 00000faa <FUNCenable>:
+int FUNCreadint(int nmin, int nmax);
+***/
 // uint8_t TRANupdate(struct TRAN *tr, uint8_t idata);
-/*
-** procedure and function
-*/
+/***Procedure & Function***/
 FUNC FUNCenable( void )
 {
      faa:	fc 01       	movw	r30, r24
@@ -3489,8 +3489,8 @@ char KEYPAD_getkey(void)
     13a4:	e1 ce       	rjmp	.-574    	; 0x1168 <KEYPAD_getkey+0x16>
 			default:
 				break;
-		}//endswitch
-	}//endfor
+		}
+	}
 	return c;
 }
     13a6:	df 91       	pop	r29
@@ -3605,10 +3605,10 @@ struct keypadata KEYPAD_read(void)
     145c:	08 95       	ret
 
 0000145e <KEYPADenable>:
+uint8_t KEYPADlh(uint8_t xi, uint8_t xf);
+/***hl***/
 uint8_t KEYPADhl(uint8_t xi, uint8_t xf);
-/*
-** procedure and function
-*/
+/***Procedure & Function***/
 KEYPAD KEYPADenable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
     145e:	cf 93       	push	r28
@@ -4261,10 +4261,10 @@ void LCD0_inic(void)
     195a:	08 95       	ret
 
 0000195c <LCD0enable>:
+void LCD1_strobe(unsigned int num);
+void LCD1_reboot(void);
 unsigned int LCD_ticks(unsigned int num);
-/*
-** procedure and function
-*/
+/***Procedure & Function***/
 LCD0 LCD0enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port)
 {
     195c:	1f 93       	push	r17
@@ -4403,7 +4403,7 @@ void LCD0_reboot(void)
 	}//End switch
 	return status;
 }
-/***quant***/
+/***uint16_t LFSMquant(struct lfsm *r)***/
 uint16_t LFSMquant(struct lfsm *r)
 {
     1a2c:	af 92       	push	r10
@@ -4497,10 +4497,10 @@ uint16_t LFSMquant(struct lfsm *r)
     1ab6:	08 95       	ret
 
 00001ab8 <LFSMdeleteall>:
-	}//End switch
+	}
 	return status;
-}//End main
-/***deleteall***/
+}
+/***uint8_t LFSMdeleteall(struct lfsm *r)***/
 uint8_t LFSMdeleteall(struct lfsm *r)
 {
     1ab8:	af 92       	push	r10
@@ -4596,8 +4596,8 @@ uint8_t LFSMdeleteall(struct lfsm *r)
     1b3c:	19 07       	cpc	r17, r25
     1b3e:	c8 f2       	brcs	.-78     	; 0x1af2 <LFSMdeleteall+0x3a>
     1b40:	01 c0       	rjmp	.+2      	; 0x1b44 <LFSMdeleteall+0x8c>
-}//End main
-/***deleteall***/
+}
+/***uint8_t LFSMdeleteall(struct lfsm *r)***/
 uint8_t LFSMdeleteall(struct lfsm *r)
 {
 	uint16_t i1;
@@ -4633,7 +4633,7 @@ uint8_t LFSMdeleteall(struct lfsm *r)
     1b68:	08 95       	ret
 
 00001b6a <LFSMgetoutput>:
-/***get***/
+/***uint16_t LFSMgetoutput(struct lfsm *r)***/
 uint16_t LFSMgetoutput(struct lfsm *r)
 {
 	return r->output;
@@ -4644,7 +4644,7 @@ uint16_t LFSMgetoutput(struct lfsm *r)
     1b70:	08 95       	ret
 
 00001b72 <LFSMgetstatus>:
-/***get***/
+/***uint8_t LFSMgetstatus(struct lfsm *r)***/
 uint8_t LFSMgetstatus(struct lfsm *r)
 {
 	return r->status;
@@ -4654,7 +4654,7 @@ uint8_t LFSMgetstatus(struct lfsm *r)
     1b76:	08 95       	ret
 
 00001b78 <LFSMsetoutput>:
-/***set***/
+/***void LFSMsetoutput(struct lfsm *r, uint16_t output)***/
 void LFSMsetoutput(struct lfsm *r, uint16_t output)
 {
 	r->output=output;
@@ -4667,7 +4667,7 @@ void LFSMsetoutput(struct lfsm *r, uint16_t output)
 
 00001b82 <LFSMgetpage>:
 }
-/***get***/
+/***uint8_t LFSMgetpage(struct lfsm *r)***/
 uint8_t LFSMgetpage(struct lfsm *r)
 {
 	return r->page;
@@ -4677,7 +4677,7 @@ uint8_t LFSMgetpage(struct lfsm *r)
     1b86:	08 95       	ret
 
 00001b88 <LFSMsetpage>:
-/***set***/
+/***void LFSMsetpage(struct lfsm *r, uint8_t page)***/
 void LFSMsetpage(struct lfsm *r, uint8_t page)
 {
 	r->page=page;
@@ -4686,10 +4686,10 @@ void LFSMsetpage(struct lfsm *r, uint8_t page)
     1b8c:	08 95       	ret
 
 00001b8e <LFSMread>:
-/*
-** procedure and function
-*/
-/***read***/
+	return r;
+}
+/***Procedure & Function***/
+/***uint8_t LFSMread(struct lfsm *r, uint8_t input)***/
 uint8_t LFSMread(struct lfsm *r, uint8_t input)
 {
     1b8e:	2f 92       	push	r2
@@ -4723,7 +4723,7 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
     1bba:	cc 90       	ld	r12, X
     1bbc:	a6 2e       	mov	r10, r22
     1bbe:	ac 24       	eor	r10, r12
-/***hl***/
+/***uint16_t LFSMhl(uint16_t xi, uint16_t xf)***/
 uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -4731,7 +4731,7 @@ uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 	i&=xi;
     1bc0:	ca 20       	and	r12, r10
     1bc2:	d1 2c       	mov	r13, r1
-/***lh***/
+/***uint16_t LFSMlh(uint16_t xi, uint16_t xf)***/
 uint16_t LFSMlh(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -4766,7 +4766,7 @@ uint16_t LFSMlh(uint16_t xi, uint16_t xf)
     1bdc:	b1 04       	cpc	r11, r1
     1bde:	b9 f7       	brne	.-18     	; 0x1bce <LFSMread+0x40>
     1be0:	4a c1       	rjmp	.+660    	; 0x1e76 <LFSMread+0x2e8>
-/***read***/
+/***uint8_t LFSMread(struct lfsm *r, uint8_t input)***/
 uint8_t LFSMread(struct lfsm *r, uint8_t input)
 {
 	uint16_t i1;
@@ -4990,10 +4990,10 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
     1d1a:	08 f4       	brcc	.+2      	; 0x1d1e <LFSMread+0x190>
     1d1c:	72 cf       	rjmp	.-284    	; 0x1c02 <LFSMread+0x74>
 					break;
-			}//End switch
+			}
 		}
 	}
-/***status confirmation***/
+	/***status confirmation***/
 	switch (status){
     1d1e:	f2 e0       	ldi	r31, 0x02	; 2
     1d20:	6f 16       	cp	r6, r31
@@ -5038,8 +5038,8 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
     1d58:	65 81       	ldd	r22, Z+5	; 0x05
     1d5a:	76 81       	ldd	r23, Z+6	; 0x06
 }
-*/
-/***output***/
+***/
+/***uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)***/
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)
 {
 	feedback|=(lh & mask);
@@ -5089,8 +5089,8 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
     1d9a:	65 81       	ldd	r22, Z+5	; 0x05
     1d9c:	76 81       	ldd	r23, Z+6	; 0x06
 }
-*/
-/***output***/
+***/
+/***uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)***/
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)
 {
 	feedback|=(lh & mask);
@@ -5151,8 +5151,8 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
     1dee:	65 81       	ldd	r22, Z+5	; 0x05
     1df0:	76 81       	ldd	r23, Z+6	; 0x06
 }
-*/
-/***output***/
+***/
+/***uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)***/
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)
 {
 	feedback|=(lh & mask);
@@ -5208,8 +5208,8 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
     1e3e:	65 81       	ldd	r22, Z+5	; 0x05
     1e40:	76 81       	ldd	r23, Z+6	; 0x06
 }
-*/
-/***output***/
+***/
+/***uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)***/
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask)
 {
 	feedback|=(lh & mask);
@@ -5249,7 +5249,7 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
 			break;
 		default:
 			break;
-	}//End switch
+	}
 	return r->status;
 }
     1e76:	f8 01       	movw	r30, r16
@@ -5278,7 +5278,7 @@ uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t ma
 	}
 	return programmed;
 }
-/***remove***/
+/***uint8_t LFSMremove(struct lfsm *r, uint8_t input)***/
 uint8_t LFSMremove(struct lfsm *r, uint8_t input)
 {
     1ea0:	2f 92       	push	r2
@@ -5326,7 +5326,7 @@ uint8_t LFSMremove(struct lfsm *r, uint8_t input)
     1ede:	e6 80       	ldd	r14, Z+6	; 0x06
     1ee0:	96 2f       	mov	r25, r22
     1ee2:	9e 25       	eor	r25, r14
-/***hl***/
+/***uint16_t LFSMhl(uint16_t xi, uint16_t xf)***/
 uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -5334,7 +5334,7 @@ uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 	i&=xi;
     1ee4:	e9 22       	and	r14, r25
     1ee6:	f1 2c       	mov	r15, r1
-/***lh***/
+/***uint16_t LFSMlh(uint16_t xi, uint16_t xf)***/
 uint16_t LFSMlh(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -5370,7 +5370,7 @@ uint16_t LFSMlh(uint16_t xi, uint16_t xf)
     1f02:	a1 14       	cp	r10, r1
     1f04:	b1 04       	cpc	r11, r1
     1f06:	b1 f7       	brne	.-20     	; 0x1ef4 <LFSMremove+0x54>
-/***remove***/
+/***uint8_t LFSMremove(struct lfsm *r, uint8_t input)***/
 uint8_t LFSMremove(struct lfsm *r, uint8_t input)
 {
 	uint16_t k,k1,k2,i1;
@@ -5604,9 +5604,9 @@ uint8_t LFSMremove(struct lfsm *r, uint8_t input)
     203c:	08 f4       	brcc	.+2      	; 0x2040 <LFSMremove+0x1a0>
     203e:	7d cf       	rjmp	.-262    	; 0x1f3a <LFSMremove+0x9a>
 				break;
-			}//End switch
-		}//End for
-	}//End if
+			}
+		}
+	}
 	/***status confirmation***/
 	switch (status){
     2040:	f9 81       	ldd	r31, Y+1	; 0x01
@@ -5726,9 +5726,9 @@ uint8_t LFSMremove(struct lfsm *r, uint8_t input)
 			break;
 		default:
 			break;
-	}//End switch
+	}
 	return status;
-}//End main
+}
     20fe:	89 81       	ldd	r24, Y+1	; 0x01
     2100:	29 96       	adiw	r28, 0x09	; 9
     2102:	0f b6       	in	r0, 0x3f	; 63
@@ -5757,10 +5757,10 @@ uint8_t LFSMremove(struct lfsm *r, uint8_t input)
     2130:	08 95       	ret
 
 00002132 <LFSMlearn>:
-	}//End switch
+	}
 	return r->status;
 }
-/***learn***/
+/***uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page)***/
 uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page)
 {
     2132:	2f 92       	push	r2
@@ -5808,7 +5808,7 @@ uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, cons
     216e:	36 2f       	mov	r19, r22
     2170:	32 25       	eor	r19, r2
     2172:	23 22       	and	r2, r19
-/***hl***/
+/***uint16_t LFSMhl(uint16_t xi, uint16_t xf)***/
 uint16_t LFSMhl(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -5818,7 +5818,7 @@ uint16_t LFSMhl(uint16_t xi, uint16_t xf)
     2176:	71 2c       	mov	r7, r1
     2178:	63 23       	and	r22, r19
     217a:	69 83       	std	Y+1, r22	; 0x01
-/***lh***/
+/***uint16_t LFSMlh(uint16_t xi, uint16_t xf)***/
 uint16_t LFSMlh(uint16_t xi, uint16_t xf)
 {
 	uint16_t i;
@@ -5867,7 +5867,7 @@ uint16_t LFSMlh(uint16_t xi, uint16_t xf)
     21b2:	14 96       	adiw	r26, 0x04	; 4
     21b4:	ec 90       	ld	r14, X
     21b6:	f1 2c       	mov	r15, r1
-/***learn***/
+/***uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page)***/
 uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, const uint16_t mask, const uint8_t page)
 {
 	uint16_t i1;
@@ -6167,18 +6167,18 @@ uint8_t LFSMlearn(struct lfsm *r, const uint8_t input, const uint16_t next, cons
     2362:	08 95       	ret
 
 00002364 <LFSMenable>:
+uint16_t LFSMhl(uint16_t xi, uint16_t xf);
 uint16_t LFSMoutputcalc(uint16_t feedback, uint16_t hl, uint16_t lh, uint16_t mask);
-/*
-** Object Initialize
-*/
+/***Object Initialize***/
+/***LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)***/
 LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
 {
     2364:	fc 01       	movw	r30, r24
+	r.getoutput=LFSMgetoutput;
 	r.getstatus=LFSMgetstatus;
 	r.setoutput=LFSMsetoutput;
 	r.getpage=LFSMgetpage;
 	r.setpage=LFSMsetpage;
-	/******/
 	return r;
     2366:	71 83       	std	Z+1, r23	; 0x01
     2368:	60 83       	st	Z, r22
@@ -6234,14 +6234,14 @@ LFSM LFSMenable(EEPROM* eeprom, const uint16_t sizeeeprom)
     23ca:	08 95       	ret
 
 000023cc <PORTINIT>:
-	}//End while
-}//End main
-/***Procedure and Function***/
+	}
+}
+/***Procedure & Function***/
 void PORTINIT(void)
 {
 	DDRB=0X00; // Buttons
     23cc:	17 ba       	out	0x17, r1	; 23
-	PORTB=0XFF;
+	PORTB=0XFF; // Buttons PULLUP
     23ce:	8f ef       	ldi	r24, 0xFF	; 255
     23d0:	88 bb       	out	0x18, r24	; 24
     23d2:	08 95       	ret

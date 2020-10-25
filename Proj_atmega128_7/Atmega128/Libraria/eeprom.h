@@ -2,8 +2,9 @@
 	eeprom wrapper
 Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
-Hardware: ATmega 
 License: GNU General Public License
+Hardware: ATmega
+Date: 25102020
 Comment:
    Very Stable
 *************************************************************************/

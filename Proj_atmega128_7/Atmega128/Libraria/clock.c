@@ -2,8 +2,8 @@
 	CLOCK
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-Date:
 Hardware: all
+Date: 25102020
 Comment:
 	Stable
 *************************************************************************/

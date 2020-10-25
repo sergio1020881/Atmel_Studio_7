@@ -1,26 +1,24 @@
 /*************************************************************************
-Title: Interrupt ANALOG INPUT
+	ANALOG
 Author: Sergio Manuel Santos
 	<sergio.salazar.santos@gmail.com>
-File: $Id: analog.c,v 0.2 2015/04/11 00:00:00 sergio Exp $
-Software: AVR-GCC 4.1, AVR Libc 1.4.6 or higher
-Hardware: AVR with built-in ADC, tested on ATmega128 at 16 Mhz, 
 License: GNU General Public License
-COMMENT:
+Hardware: Listed bellow
+Date: 25102020
+Comment:
 	Very Stable
 *************************************************************************/
-/*
-** library
-*/
+/***Library***/
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <stdarg.h>
 #include <inttypes.h>
 #include "analog.h"
-/*
-** constant and macro
-*/
+/***Constant & Macro***/
+#ifndef GLOBAL_INTERRUPT_ENABLE
+	#define GLOBAL_INTERRUPT_ENABLE 7
+#endif
 // if using differential channels this value has to be greater than one
 #define MAX_CHANNEL 8
 /***TYPE 1***/
@@ -34,7 +32,7 @@ COMMENT:
 /***TYPE 2***/
 #elif defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
       defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
-      defined(__AVR_ATmega328__) || defined(__AVR_ATmega328P__)
+      defined(__AVR_ATmega328P__) ||defined(__AVR_ATmega328__)
 	#define ADC_SELECT ADMUX
 	#define ADC_CONTROL ADCSRA
 	#define ADC_TRIGGER ADCSRB
@@ -51,9 +49,7 @@ COMMENT:
 	/***TYPE 4***/
  	#error "no ANALOG definition for MCU available"
 #endif
-/*
-** variable
-*/
+/***Gloabla File Variable***/
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];
 static volatile int ADC_N_CHANNEL;
@@ -61,18 +57,14 @@ static volatile int ADC_SELECTOR;
 static volatile int adc_sample;
 static volatile int adc_tmp;
 static volatile unsigned char adc_n_sample;
-/*
-** procedure and function header
-*/
+/***Header***/
 int ANALOG_read(int selection);
-/*
-** procedure and function
-*/
+/***Procedure & Function***/
 ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
-/*
-* Interrupt running mode setup
-* setup, and list of channels to be probed
-*/
+/***
+Interrupt running mode setup
+setup, and list of channels to be probed
+***/
 {
 	/***LOCAL VARIABLES***/
 	uint8_t tSREG;
@@ -242,10 +234,9 @@ ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 	return analog;
 }
 int ANALOG_read(int selection)
-/*
-* 
-* Returns selected Channel ADC_VALUE
-*/
+/***
+Returns selected Channel ADC_VALUE
+***/
 {
 	uint8_t ADSC_FLAG;
 	ADSC_FLAG=(1<<ADSC);
@@ -256,9 +247,7 @@ int ANALOG_read(int selection)
 	}	
 	return ADC_VALUE[selection];
 }
-/*
-** interrupt
-*/
+/***Interrupt***/
 ISR(ANALOG_INTERRUPT)
 /*************************************************************************
 Function: ANALOG interrupt

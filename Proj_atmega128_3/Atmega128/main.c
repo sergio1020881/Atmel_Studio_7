@@ -1,8 +1,8 @@
-/*** 
-File: main.c
+/******************************************************
+File: LFSM old libs
 Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
-Hardware: Atmega
+Hardware: Atmega 128
 	-PORTA : LCD Display 4X20
 	-PORTB : Buttons
 	-PORTC : Relay Board
@@ -11,12 +11,10 @@ Date:
 	30/09/2020
 Comment:
 	LFSM
-***/
+********************************************************/
 /***FCPU***/
 #define F_CPU 16000000UL
-/*
-** library
-*/
+/***Library***/
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
@@ -27,19 +25,13 @@ Comment:
 #include "function.h"
 #include "keypad.h"
 #include "lfsm.h"
-/*
- ** Constant and Macro
- */
+/***Constant & Macro***/
 #define True 1
-/*
- ** Global Variable
- */
+/***Global File Variable***/
 char* string=NULL;
-/*
- ** Function Definition
- */
+/***Header***/
 void PORTINIT(void);
-/***MAIN***/
+/***MAIN***MAIN***/
 int main(void)
 {
 	PORTINIT();
@@ -296,8 +288,8 @@ int main(void)
 		//lcd.string_size(string,4);
 		PORTC=lfsm.getoutput(&lfsm);
 		
-	}//End while
-}//End main
+	}
+}
 /***Procedure and Function***/
 void PORTINIT(void){
 	DDRC=0XFF;

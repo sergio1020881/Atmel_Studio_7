@@ -3604,9 +3604,9 @@ void LCD0_reboot(void)
     1544:	08 95       	ret
 
 00001546 <PORTINIT>:
-/*
-** procedure and function definition
-*/
+	}
+}
+/***Procedure & Function***/
 void PORTINIT()
 {
 	DDRG|=0B00000100;
@@ -3628,10 +3628,10 @@ void PORTINIT()
     1560:	08 95       	ret
 
 00001562 <main>:
+/***Global File Variable***/
+/***Header***/
 void PORTINIT();
-/*
-** procedure and function
-*/
+/***MAIN***MAIN***/
 int main(void)
 {
     1562:	cf 93       	push	r28
@@ -3753,7 +3753,7 @@ int main(void)
 	uint16_t incdec=0;
     1632:	41 2c       	mov	r4, r1
     1634:	51 2c       	mov	r5, r1
-*/
+/***MAIN***MAIN***/
 int main(void)
 {
 	PORTINIT();

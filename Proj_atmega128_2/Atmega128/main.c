@@ -1,6 +1,7 @@
 /************************************************************************
 Title: ATMEGA 128
-Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+Author: Sergio Manuel Santos
+	<sergio.salazar.santos@gmail.com>
 File: main.c 2019/02/16 14:00:00
 Software: Atmel Studio 7 (Version: 7.0.1931)
 Hardware: Atmega128 by ETT ET-BASE
@@ -8,18 +9,12 @@ Hardware: Atmega128 by ETT ET-BASE
 	-PORTE: keypad
 	-PORTG: rotary potentiometer
 	-16Mhz
-LICENSE:
-	Copyright (C) 2014
-	This program is free software; you can redistribute it and/or modify
-	it.
 COMMENT:
 	stable
 ************************************************************************/
 /***preamble inic***/
 #define F_CPU 16000000UL
-/*
-** library
-*/
+/***Library***/
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
@@ -31,23 +26,14 @@ COMMENT:
 #include "keypad.h"
 #include "eeprom.h"
 #include "lfsm.h"
-/***preamble inic***/
-/*
-** constant and macro
-*/
+/***Constant & Macro***/
 #define TRUE 1
 #define FALSE 0
 #define GI 7
-/*
-** variable
-*/
-/*
-** procedure and function header
-*/
+/***Global File Variable***/
+/***Header***/
 void PORTINIT();
-/*
-** procedure and function
-*/
+/***MAIN***MAIN***/
 int main(void)
 {
 	PORTINIT();
@@ -85,17 +71,12 @@ int main(void)
 		}
 	}
 }
-/*
-** procedure and function definition
-*/
+/***Procedure & Function***/
 void PORTINIT()
 {
 	DDRG|=0B00000100;
 	PORTG|=0B00000011;
 	SREG|=(1<<GI);
 }
-/*
-** interrupt
-*/
-/*************************************************************************
-*************************************************************************/
+/***Interrupt***/
+/***EOF***/

@@ -1,9 +1,9 @@
 /*************************************************************************
-	TIMER
+	ATMEGA128TIMER
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-Date: 28092020
 Hardware: ATmega128
+Date: 25102020
 Comment:
    Stable
 *************************************************************************/
@@ -781,7 +781,6 @@ for more information read datasheet.
 	timer3.compareC=TIMER_COUNTER3_compareC;
 	timer3.start=TIMER_COUNTER3_start;
 	timer3.stop=TIMER_COUNTER3_stop;
-	//
 	return timer3;
 }
 void TIMER_COUNTER3_start(unsigned int prescaler)

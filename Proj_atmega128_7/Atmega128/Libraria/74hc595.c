@@ -1,13 +1,12 @@
 /*************************************************************************
-Title: 74HC595 API
+	74HC595
 Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
-File: $Id: 74hc595.c Exp $
 License: GNU General Public License     
 Hardware: 74HC595
+Date: 25102020
 Comment:
 	Tested Atemga88 8Mhz and Atmega328 8Mhz
-	reviewed 09/10/2020
 ************************************************************************/
 #ifndef F_CPU
 /***Mandatory to use util/delay.h***/

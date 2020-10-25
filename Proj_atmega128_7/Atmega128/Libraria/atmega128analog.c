@@ -1,9 +1,8 @@
 /*************************************************************************
-	ANALOG API START
+	ATMEGA128ANALOG
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-Date:
-   28092020
+Date: 25102020
 Hardware: ATmega128
 Comment:
    Stable
@@ -162,7 +161,7 @@ Returns selected Channel ADC_VALUE
 	}	
 	return ADC_VALUE[selection];
 }
-/***Interrupt*/
+/***Interrupt***/
 ISR(ANALOG_INTERRUPT)
 /*************************************************************************
 Function: ANALOG interrupt

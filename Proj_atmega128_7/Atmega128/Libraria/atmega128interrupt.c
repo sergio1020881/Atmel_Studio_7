@@ -1,10 +1,9 @@
 /*************************************************************************
-	INTERRUPT
+	ATMEGA128INTERRUPT
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-Date:
-   28092020
 Hardware: ATmega128
+Date: 25102020
 Comment:
    Stable
 *************************************************************************/
@@ -23,7 +22,7 @@ Comment:
     #define GLOBAL_INTERRUPT_ENABLE 7
 #endif
 #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)	
-	/******/
+	/***/
 	#define ATMEGA_INTERRUPT
 	#define External_Interrupt_Control_Register_A EICRA
 	#define External_Interrupt_Control_Register_B EICRB

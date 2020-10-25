@@ -1,10 +1,10 @@
 /************************************************************************
 Title: ATMEGA 128
-Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+Author: Sergio Manuel Santos
+	<sergio.salazar.santos@gmail.com>
 File: $Id: MAIN,v 1.8.2.1 2019/02/08 14:00:00 Sergio Exp $
 Software: AVR-GCC 4.1, AVR Libc 1.4
-Hardware:
-	Atmega128 by ETT ET-BASE
+Hardware: Atmega128 by ETT ET-BASE
 	-PORTC: leds
 	-PORTA: lcd display 2x16 or 4x20
 	-PORTB: servo motor 0 - 180º
@@ -13,18 +13,7 @@ Hardware:
 	-using uart1 threw ftdi usb to connect pc
 	-16Mhz
 License: GNU General Public License
-Usage: see Doxygen manual
-LICENSE:
-    Copyright (C) 2014
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    any later version.
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-    GNU General Public License for more details.
-COMMENT:
+Comment:
 	stable
 ************************************************************************/
 /***preamble inic***/
@@ -48,16 +37,12 @@ COMMENT:
 #include "keypad.h"
 #include "eeprom.h"
 #include "rotenc.h"
-/*
-** constant and macro
-*/
+/***Constant & Macro***/
 #define TRUE 1
 #define FALSE 0
 #define GI 7
 #define vector_size 16
-/*
-** variable
-*/
+/***Global File Variable***/
 uint8_t memoria_1[vector_size]={
 1,16,2,128,8,4,64,32,33,80,6,136,8,4,64,32
 };
@@ -70,14 +55,9 @@ uint16_t EEMEM NonVolatileInt;
 uint8_t EEMEM NonVolatileString[16];
 INTERRUPT int6;
 CLOCK relogio;
-/*
-** procedure and function header
-*/
+/***Header***/
 void PORTINIT();
-/*
-** procedure and function
-*/
-/*MAIN*/
+/***MAIN***MAIN***/
 int main(void)
 {
 	/***INICIALIZE OBJECTS***/
@@ -156,9 +136,7 @@ int main(void)
 		i2c.stop();
 	}
 }
-/*
-** procedure and function definition
-*/
+/***Procedure & Function***/
 void PORTINIT()
 {
 	//INPUT
@@ -176,9 +154,7 @@ void PORTINIT()
 	//DDRE=0X02;
 	SREG|=(1<<GI);
 }
-/*
-** interrupt
-*/
+/***Interrupt***/
 ISR(TIMER3_OVF_vect)
 {
 	PORTC=memoria_1[count];
@@ -196,6 +172,4 @@ ISR(INT6_vect)
 	int6.set(6,3);
 	PORTC=0XFF;
 }
-/*************************************************************************
-MAIN END
-*************************************************************************/
+/***EOF***/

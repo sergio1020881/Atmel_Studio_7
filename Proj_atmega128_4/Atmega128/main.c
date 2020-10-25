@@ -1,8 +1,8 @@
-/*** 
+/****************************************************************
 File: main.c
 Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
-Hardware: Atmega
+Hardware: Atmega 128
 	-PORTA : LCD Display 4X20
 	-PORTB : Buttons or Potentiometer encoder
 	-PORTC : Relay Board
@@ -11,12 +11,10 @@ Date:
 	05/10/2020
 Comment:
 	LFSM & ROTENC
-***/
+****************************************************************/
 /***FCPU***/
 #define F_CPU 16000000UL
-/*
-** library
-*/
+/***library***/
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
@@ -28,20 +26,13 @@ Comment:
 #include "keypad.h"
 #include "lfsm.h"
 #include "rotenc.h"
-/*
- ** Constant and Macro
- */
+/***Constant & Macro***/
 #define True 1
-/*
- ** Global Variable
- */
+/***Global File Variable***/
 char* string=NULL;
-/*
- ** Function Definition
- */
+/***Header***/
 void PORTINIT(void);
-//struct Rtnc RotEnc_rte(struct Rtnc *self, uint8_t data);
-/***MAIN***/
+/***MAIN***MAIN***/
 int main(void)
 {	
 	PORTINIT();
@@ -51,7 +42,7 @@ int main(void)
 	EEPROM eeprom = EEPROMenable();
 	LFSM lfsm = LFSMenable(&eeprom,571);
 	FUNC func = FUNCenable();
-	ROTENC potenc = ROTENCenable(0,1);
+	ROTENC potenc = ROTENCenable(3,7);
 	/**************************************/
 	lfsm.setoutput(&lfsm,0);
 	/*** Replace with your application code ***/
@@ -74,17 +65,19 @@ int main(void)
 		lcd.gotoxy(2,0);
 		lcd.string_size("PotEnc ",7);
 		string=func.ui16toa(m);
-		lcd.string_size(string,4);
-		
-	}//End while
-}//End main
-/***Procedure and Function***/
+		lcd.string_size(string,4);	
+	}
+}
+/***Procedure & Function***/
 void PORTINIT(void)
 {
 	DDRC=0XFF;
 	PORTC=0XFF;
-	DDRB=0X00;
-	PORTB=0XFF;
+	DDRB=0X77; // rotenc pb3 e pb7 input resto output.
+	PORTB=0X88; //rotenc pb3 e pb7 pull up resistor o resto output a zero.
+	//DDRB=0X00; // butoes tudo entrada
+	//PORTB=0XFF; // butoes tudo com pullups
+	
 }
 /***Interrupt***/
 /***Comment

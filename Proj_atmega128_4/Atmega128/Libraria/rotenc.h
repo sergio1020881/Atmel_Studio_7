@@ -2,6 +2,7 @@
 ROTENC API START
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
+Hardware: Rotary Encoder Potentiometer
 Date: 05102020
 Comment:
 	Stable
@@ -13,16 +14,10 @@ Comment:
 #if (__GNUC__ * 100 + __GNUC_MINOR__) < 304
 	#error "This library requires AVR-GCC 3.4 or later, update to newer AVR-GCC compiler !"
 #endif
-/*
-** Library
-*/
+/***Library***/
 #include <inttypes.h>
-/*
-** constant and macro
-*/
-/*
-** variable
-*/
+/***Constant & Macro***/
+/***Global Variable***/
 struct rotenc{
 	/***VARIABLIES***/
 	uint8_t PinChnA;
@@ -34,9 +29,7 @@ struct rotenc{
 	struct rotenc (*rte)(struct rotenc *self, uint8_t data);
 };
 typedef struct rotenc ROTENC;
-/*
-** procedure and function header
-*/
+/***Header***/
 ROTENC ROTENCenable(uint8_t ChnApin, uint8_t ChnBpin);
 #endif
 /***EOF***/

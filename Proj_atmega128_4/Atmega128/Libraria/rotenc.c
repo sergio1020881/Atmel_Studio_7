@@ -1,31 +1,20 @@
 /************************************************************************
 ROTENC API START
-Author: Sergio Santos 
+Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
+Hardware: Rotary encoder Potentiometer
 Date: 05102020
 Comment:
 	Stable
 ************************************************************************/
-/*
-** library
-*/
+/***library***/
 #include <avr/io.h>
-#include <avr/pgmspace.h>
-#include <stdarg.h>
 #include"rotenc.h"
-/*
-** constant and macro
-*/
-/*
-** variable
-*/
-/*
-** procedure and function header
-*/
+/***Constant & Macro***/
+/***Global File Variable***/
+/***Header***/
 ROTENC RotEnc_rte(ROTENC *self, uint8_t data);
-/*
-** INITIALIZE OBJECT STRUCT
-*/
+/***INITIALIZE OBJECT STRUCT***/
 ROTENC ROTENCenable( uint8_t ChnApin, uint8_t ChnBpin )
 {
 	// struct object
@@ -49,14 +38,12 @@ ROTENC RotEnc_rte(ROTENC *self, uint8_t data)
 	hl&=self->pchn;
 	if(self->pchn != self->chn){
 		if((self->pchn == ((1<<self->PinChnB)|(1<<self->PinChnA))) && (hl & (1<<self->PinChnA)))
-		self->num++;
+			self->num++;
 		if((self->pchn == ((1<<self->PinChnB)|(1<<self->PinChnA))) && (hl & (1<<self->PinChnB)))
-		self->num--;
+			self->num--;
 	}
 	self->pchn=self->chn;
 	return *self;
 }
-/*
-** interrupt
-*/
+/***interrupt***/
 /***EOF***/

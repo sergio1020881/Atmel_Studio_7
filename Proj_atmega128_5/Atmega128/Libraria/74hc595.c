@@ -1,16 +1,16 @@
 /*************************************************************************
 Title: 74HC595 API
-Author: Sergio Santos 
+Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 File: $Id: 74hc595.c Exp $
-License: GNU General Public License        
+License: GNU General Public License
 Comment:
 	Tested Atemga88 8Mhz and Atmega328 8Mhz
-	reviewed 09/10/2020                    
+	reviewed 09/10/2020
 ************************************************************************/
 #ifndef F_CPU
 /***Mandatory to use util/delay.h***/
-	#define F_CPU 8000000UL
+	#define F_CPU 16000000UL
 #endif
 /*
 ** Library
@@ -29,8 +29,8 @@ Comment:
 */
 volatile uint8_t *hc595_DDR;
 volatile uint8_t *hc595_PORT;
-uint8_t HC595_datapin; 
-uint8_t HC595_clkpin; 
+uint8_t HC595_datapin;
+uint8_t HC595_clkpin;
 uint8_t HC595_outpin;
 /*
 ** procedure and function header
@@ -52,8 +52,8 @@ HC595 HC595enable(volatile uint8_t *ddr, volatile uint8_t *port, uint8_t datapin
 	//import parametros
 	hc595_DDR=ddr;
 	hc595_PORT=port;
-	HC595_datapin=datapin; 
-	HC595_clkpin=clkpin; 
+	HC595_datapin=datapin;
+	HC595_clkpin=clkpin;
 	HC595_outpin=outpin;
 	//inic variables
     *hc595_DDR |= (1<<datapin) | (1<<clkpin) | (1<<outpin);
@@ -87,10 +87,4 @@ void HC595_shift_out(void)
 	*hc595_PORT |= (1<<HC595_outpin); //Output enable
 	*hc595_PORT &= ~(1<<HC595_outpin); //Output disable
 }
-/*
-** interrupt
-*/
 /***EOF***/
-/***COMMENTS
-HC595 API END
-***/

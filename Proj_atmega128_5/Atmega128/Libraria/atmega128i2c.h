@@ -6,8 +6,8 @@ Date: 20102020
 Comment:
 	Stable
  **************************************************************************************************/
-#ifndef _I2C_H
-	#define _I2C_H
+#ifndef _ATMEGA128I2C_H
+	#define _ATMEGA128I2C_H
 /***Library***/
 #include <inttypes.h>
 /***Function Prototypes***/

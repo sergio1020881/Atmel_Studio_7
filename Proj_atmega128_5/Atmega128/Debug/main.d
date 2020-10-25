@@ -15,11 +15,8 @@ main.d main.o: .././main.c \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\interrupt.h \
  ../Libraria/eeprom.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\eeprom.h \
- ../Libraria/atmega128analog.h ../Libraria/atmega128interrupt.h \
- ../Libraria/atmega128spi.h ../Libraria/atmega128timer.h \
- ../Libraria/atmega128twi.h ../Libraria/atmega128uart.h ../Libraria/lcd.h \
- ../Libraria/function.h ../Libraria/keypad.h ../Libraria/lfsm.h \
- ../Libraria/eeprom.h ../Libraria/rotenc.h
+ ../Libraria/lcd.h ../Libraria/function.h ../Libraria/keypad.h \
+ ../Libraria/lfsm.h ../Libraria/eeprom.h ../Libraria/74hc595.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\io.h:
 
@@ -53,18 +50,6 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\include\avr\eeprom.h:
 
-../Libraria/atmega128analog.h:
-
-../Libraria/atmega128interrupt.h:
-
-../Libraria/atmega128spi.h:
-
-../Libraria/atmega128timer.h:
-
-../Libraria/atmega128twi.h:
-
-../Libraria/atmega128uart.h:
-
 ../Libraria/lcd.h:
 
 ../Libraria/function.h:
@@ -75,4 +60,4 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\avr8\avr8-gnu-toolchain\avr\
 
 ../Libraria/eeprom.h:
 
-../Libraria/rotenc.h:
+../Libraria/74hc595.h:

@@ -1,51 +1,37 @@
-/*** 
-File: main.c
+/*********************************************************
+File: LFSM
 Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
-Hardware: Atmega
+Hardware: Atmega 128
 	-PORTA : LCD Display 4X20
 	-PORTB : Buttons
-	-PORTC : Relay Board
 	-PORTE : Keypad 4X4
+	-PORTG : HC595 PIN 0, 1, 2.
 Date:
-	30/09/2020
+	25/10/2020
 Comment:
 	LFSM
-***/
+**********************************************************/
 /***FCPU***/
 #define F_CPU 16000000UL
-/*
-** library
-*/
+/***library***/
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
 #include <inttypes.h>
 #include "eeprom.h"
-#include "atmega128analog.h"
-#include "atmega128interrupt.h"
-#include "atmega128spi.h"
-#include "atmega128timer.h"
-#include "atmega128twi.h"
-#include "atmega128uart.h"
 #include "lcd.h"
 #include "function.h"
 #include "keypad.h"
 #include "lfsm.h"
-#include "rotenc.h"
-/*
- ** Constant and Macro
- */
+#include "74hc595.h"
+/***Constant and Macro***/
 #define True 1
-/*
- ** Global Variable
- */
+/***Global file Variable***/
 char* string=NULL;
-/*
- ** Function Definition
- */
+/***Header***/
 void PORTINIT(void);
-/***MAIN***/
+/***MAIN***MAIN***/
 int main(void)
 {
 	PORTINIT();
@@ -61,19 +47,18 @@ int main(void)
 	EEPROM eeprom = EEPROMenable();
 	LFSM lfsm = LFSMenable(&eeprom,363);
 	FUNC func = FUNCenable();
-	//ROTENC potenc = ROTENCenable(0,1);
-	/**************************************/
-	lfsm.setoutput(&lfsm,0);
-	/*** Replace with your application code ***/
+	HC595 shift = HC595enable(&DDRG,&PORTG,2,0,1);
+	/*****************************************************/
+	lfsm.setoutput(&lfsm,255);
+	/*********Replace with your application code**********/
 	while (True)
 	{
-		/******/
+		/***Preamble***/
+		lcd.reboot();
+		keypad.read();
+		/******Readings******/
 		keypadinput=keypad.get();
-		//n=potenc.rte(&potenc,PINB).num;
-		n=PINB;
-		/******/
-		lcd.gotoxy(0,14);
-		string=func.ui16toa(n);
+		n=PINB; lcd.gotoxy(0,14); string=func.ui16toa(n);
 		lcd.string_size(string,5);
 		/******/
 		switch(option){
@@ -109,7 +94,7 @@ int main(void)
 				break;
 			case 2: // First entry [input]
 				lcd.gotoxy(0,7);
-				lcd.string_size(keypadinput.string,4);
+				lcd.string_size(keypadinput.printstring,4);
 				if(keypadinput.character == 'D'){
 					input_tmp=func.strToInt(keypadinput.string);
 					lcd.gotoxy(2,0);
@@ -125,7 +110,7 @@ int main(void)
 				break;
 			case 3: // Second Entry [output]
 				lcd.gotoxy(0,7);
-				lcd.string_size(keypadinput.string,4);
+				lcd.string_size(keypadinput.printstring,4);
 				if(keypadinput.character == 'D'){
 					output=func.strToInt(keypadinput.string);
 					lcd.gotoxy(2,5);
@@ -141,7 +126,7 @@ int main(void)
 				break;
 			case 4: // Third Entry [mask]
 				lcd.gotoxy(0,7);
-				lcd.string_size(keypadinput.string,4);
+				lcd.string_size(keypadinput.printstring,4);
 				if(keypadinput.character == 'D'){
 					mask=func.strToInt(keypadinput.string);
 					lcd.gotoxy(2,10);
@@ -157,7 +142,7 @@ int main(void)
 				break;
 			case 5: // Fourth entry [page] and upload with reply
 				lcd.gotoxy(0,7);
-				lcd.string_size(keypadinput.string,4);
+				lcd.string_size(keypadinput.printstring,4);
 				if(keypadinput.character == 'D'){ // D is the enter key on the keyboard
 					page=func.strToInt(keypadinput.string);
 					lcd.gotoxy(2,15);
@@ -242,7 +227,7 @@ int main(void)
 				break;
 			case 9: // Remove Entry from EEprom
 				lcd.gotoxy(0,7);
-				lcd.string_size(keypadinput.string,4);
+				lcd.string_size(keypadinput.printstring,4);
 				if(keypadinput.character == 'D'){ // D is the enter key on the keyboard
 					input_tmp=func.strToInt(keypadinput.string);
 					lcd.gotoxy(2,0);
@@ -302,15 +287,14 @@ int main(void)
 		//lcd.hspace(2);
 		//string=func.ui16toa(lfsm.getstatus(&lfsm));
 		//lcd.string_size(string,4);
-		PORTC=lfsm.getoutput(&lfsm);
+		shift.byte(lfsm.getoutput(&lfsm));
 		
 	}//End while
 }//End main
 /***Procedure and Function***/
-void PORTINIT(void){
-	DDRC=0XFF;
-	PORTC=0XFF;
-	DDRB=0X00;
+void PORTINIT(void)
+{
+	DDRB=0X00; // Buttons
 	PORTB=0XFF;
 }
 /***Interrupt***/

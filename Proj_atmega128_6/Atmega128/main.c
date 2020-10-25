@@ -3,6 +3,10 @@
 Created: 09/10/2020 20:25:13
 Author: Sérgio Santos
 	<sergio.salazar.santos@gmail.com>
+Hardware: Atmega 128
+	-PORTA LCD
+	-PORTG HC595
+	-PORTD PCF8563 (I2C)
 Comment:
 	Create PCF8563RTC lib
  */

@@ -1,41 +1,59 @@
 /*************************************************************************
-ATMEGA128 TIMER API START
-API: TIMER
-Author: Sergio Santos 
-	<sergio.salazar.santos@gmail.com>
-Date:
-   28092020
-Comment:
-   Stable
+Title: TIMER
+Author: Sergio Manuel Santos <sergio.salazar.santos@gmail.com>
+File: $Id: timer.c,v 0.1 2015/04/11 14:30:00 sergio Exp $
+Software: AVR-GCC 4.1, AVR Libc 1.4.6 or higher
+Hardware: AVR ATmega128 at 16 Mhz, Atmega 328p at 16Mhz
+License:  GNU General Public License
+COMMENT:
+	Very Stable
 *************************************************************************/
-/***preamble inic***/
 #ifndef F_CPU
-	#define F_CPU 16000000UL
+  #define F_CPU 16000000UL
 #endif
 /*
 ** library
 */
 #include <avr/io.h>
-#include <avr/interrupt.h>
 #include <avr/pgmspace.h>
-#include <stdarg.h>
-#include "atmega128timer.h"
-/***preamble inic***/
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#include <inttypes.h>
+/***/
+#include "timer.h"
 /*
 ** constant and macro
 */
-#define STATUS_REGISTER SREG
-#define GLOBAL_INTERRUPT_ENABLE 7
-/*
-** variables
-*/
-/*************************************************************************
-TIMER API START
-*************************************************************************/
-/*
-** constant and macro
-*/
-#if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
+/***TYPE 1***/
+#if defined(__AVR_AT90S2313__) \
+ || defined(__AVR_AT90S4414__) || defined(__AVR_AT90S4434__) \
+ || defined(__AVR_AT90S8515__) || defined(__AVR_AT90S8535__) \
+ || defined(__AVR_ATmega103__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 2***/
+#elif defined(__AVR_AT90S2333__) || defined(__AVR_AT90S4433__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 3***/
+#elif  defined(__AVR_ATmega8__)  || defined(__AVR_ATmega16__) || defined(__AVR_ATmega32__) \
+  || defined(__AVR_ATmega323__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 4***/
+#elif  defined(__AVR_ATmega8515__) || defined(__AVR_ATmega8535__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 5***/
+#elif defined(__AVR_ATmega163__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 6***/
+#elif defined(__AVR_ATmega162__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 7***/
+#elif defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
 	/***0***/
 	#define ATMEGA_TIMER_COUNTER
 	#define TIMER_COUNTER0_CONTROL_REGISTER TCCR0
@@ -86,8 +104,90 @@ TIMER API START
 	#define TIMER_COUNTER_SPECIAL_FUNCTION_REGISTER SFIOR
 	#define ASYNCHRONOUS_STATUS_REGISTER ASSR
 	#define SPECIAL_FUNCTION_IO_REGISTER SFIOR
+/***TYPE 8***/
+#elif defined(__AVR_ATmega161__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 9***/
+#elif defined(__AVR_ATmega169__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 10***/
+#elif defined(__AVR_ATmega48__) ||defined(__AVR_ATmega88__) || defined(__AVR_ATmega168__) || \
+      defined(__AVR_ATmega48P__) ||defined(__AVR_ATmega88P__) || defined(__AVR_ATmega168P__) || \
+      defined(__AVR_ATmega328P__)
+	/* TLS-Added 48P/88P/168P/328P */
+	/***0***/
+	#define MEGA_TIMER_COUNTER
+	#define TIMER_COUNTER0A_CONTROL_REGISTER TCCR0A
+	#define TIMER_COUNTER0B_CONTROL_REGISTER TCCR0B
+	#define TIMER_COUNTER0_REGISTER TCNT0
+	#define TIMER_COUNTER0A_COMPARE_REGISTER OCR0A
+	#define TIMER_COUNTER0B_COMPARE_REGISTER OCR0B
+	#define TIMER_COUNTER0A_COMPARE_MATCH_INTERRUPT TIMER0_COMPA_vect
+	#define TIMER_COUNTER0B_COMPARE_MATCH_INTERRUPT TIMER0_COMPB_vect
+	#define TIMER_COUNTER0_OVERFLOW_INTERRUPT TIMER0_OVF_vect
+	/***1***/
+	#define TIMER_COUNTER1A_CONTROL_REGISTER TCCR1A
+	#define TIMER_COUNTER1B_CONTROL_REGISTER TCCR1B
+	#define TIMER_COUNTER1C_CONTROL_REGISTER TCCR1C
+	#define TIMER_COUNTER1_REGISTER TCNT1 // H and L register
+	#define TIMER_COUNTER1A_COMPARE_REGISTER OCR1A
+	#define TIMER_COUNTER1B_COMPARE_REGISTER OCR1B
+	#define TIMER_COUNTER1_INPUT_CAPTURE_REGISTER ICR1
+	#define TIMER_COUNTER1A_COMPARE_MATCH_INTERRUPT TIMER1_COMPA_vect
+	#define TIMER_COUNTER1B_COMPARE_MATCH_INTERRUPT TIMER1_COMPB_vect
+	#define TIMER_COUNTER1_CAPTURE_EVENT_INTERRUPT TIMER1_CAPT_vect
+	#define TIMER_COUNTER1_OVERFLOW_INTERRUPT TIMER1_OVF_vect
+	/***2***/
+	#define TIMER_COUNTER2A_CONTROL_REGISTER TCCR2A
+	#define TIMER_COUNTER2B_CONTROL_REGISTER TCCR2B
+	#define TIMER_COUNTER2_REGISTER TCNT2
+	#define TIMER_COUNTER2A_COMPARE_REGISTER OCR2A
+	#define TIMER_COUNTER2B_COMPARE_REGISTER OCR2B
+	#define TIMER_COUNTER2A_COMPARE_MATCH_INTERRUPT TIMER2_COMPA_vect
+	#define TIMER_COUNTER2B_COMPARE_MATCH_INTERRUPT TIMER2_COMPB_vect
+	#define TIMER_COUNTER2_OVERFLOW_INTERRUPT TIMER2_OVF_vect
+	/***COMMON***/
+	#define TIMER_COUNTER0_INTERRUPT_MASK_REGISTER TIMSK0
+	#define TIMER_COUNTER1_INTERRUPT_MASK_REGISTER TIMSK1
+	#define TIMER_COUNTER2_INTERRUPT_MASK_REGISTER TIMSK2
+	#define TIMER_COUNTER0_INTERRUPT_FLAG_REGISTER TIFR0
+	#define TIMER_COUNTER1_INTERRUPT_FLAG_REGISTER TIFR1
+	#define TIMER_COUNTER2_INTERRUPT_FLAG_REGISTER TIFR2
+	#define ASYNCHRONOUS_STATUS_REGISTER ASSR
+	#define GENERAL_TIMER_COUNTER_CONTROL_REGISTER GTCCR
+/***TYPE 11***/
+#elif defined(__AVR_ATtiny2313__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 12***/
+#elif defined(__AVR_ATmega329__) ||\
+      defined(__AVR_ATmega649__) ||\
+      defined(__AVR_ATmega325__) ||defined(__AVR_ATmega3250__) ||\
+      defined(__AVR_ATmega645__) ||defined(__AVR_ATmega6450__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/* ATmega with one USART */
+/***TYPE 13***/
+#elif defined(__AVR_ATmega3290__) || defined(__AVR_ATmega6490__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 14***/
+#elif defined(__AVR_ATmega2560__) || defined(__AVR_ATmega1280__) || defined(__AVR_ATmega640__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 15***/
+#elif defined(__AVR_ATmega644__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
+/***TYPE 16***/
+#elif defined(__AVR_ATmega164P__) || defined(__AVR_ATmega324P__) || defined(__AVR_ATmega644P__)
+	#error "AVR currently not supported by this libaray !"
+	// can always do it yourself.
 #else
-	#error "Not Atmega 128"
+/***TYPE 17***/
+	#error "no TIMER definition for MCU available"
 #endif
 /*
 ** variable
@@ -146,6 +246,8 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char int
 {
 	TIMER_COUNTER0 timer0;
 	timer0_state=0;
+	/***TYPE 7***/
+	#if defined( ATMEGA_TIMER_COUNTER )
 		TIMER_COUNTER0_CONTROL_REGISTER&=~((1<<WGM00) | (1<<WGM01));
 		switch(wavegenmode){
 			case 0: // Normal
@@ -184,7 +286,68 @@ TIMER_COUNTER0 TIMER_COUNTER0enable(unsigned char wavegenmode, unsigned char int
 		timer0.compare=TIMER_COUNTER0_compare;
 		timer0.start=TIMER_COUNTER0_start;
 		timer0.stop=TIMER_COUNTER0_stop;
-	
+	/***TYPE 10***/
+	#elif defined( MEGA_TIMER_COUNTER )
+		TIMER_COUNTER0A_CONTROL_REGISTER&=~((1<<WGM01) | (1<<WGM00));
+		TIMER_COUNTER0B_CONTROL_REGISTER&=~(1<<WGM02);
+		switch(wavegenmode){
+			case 0: // Normal
+				break;
+			case 1: // PWM, Phase Correct, 8-bit
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<WGM00);
+				break;
+			case 2: // PWM, Phase Correct, 9-bit
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<WGM01);
+				break;
+			case 3: // Fast PWM
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<WGM00) | (1<<WGM01);
+				break;
+			case 5: // PWM, Phase Correct
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<WGM00);
+				TIMER_COUNTER0B_CONTROL_REGISTER|=(1<<WGM02);
+				break;
+			case 7: // Fast PWM
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<WGM00) | (1<<WGM01);
+				TIMER_COUNTER0B_CONTROL_REGISTER|=(1<<WGM02);
+				break;
+			default:
+				break;
+		}
+		TIMER_COUNTER0_INTERRUPT_MASK_REGISTER&=~((1<<OCIE0B) | (1<<OCIE0A) | (1<<TOIE0));
+		switch(interrupt){
+			case 0: 
+				break;
+			case 1:
+				TIMER_COUNTER0_INTERRUPT_MASK_REGISTER|=(1<<TOIE0);
+				break;
+			case 2:
+				TIMER_COUNTER0_INTERRUPT_MASK_REGISTER|=(1<<OCIE0A);
+				break;
+			case 3:
+				TIMER_COUNTER0_INTERRUPT_MASK_REGISTER|=(1<<OCIE0B);
+				break;
+			case 4:
+				TIMER_COUNTER0_INTERRUPT_MASK_REGISTER|=(1<<TOIE0) | (1<<OCIE0A);
+				break;
+			case 5:
+				TIMER_COUNTER0_INTERRUPT_MASK_REGISTER|=(1<<TOIE0) | (1<<OCIE0B);
+				break;
+			case 6:
+				TIMER_COUNTER0_INTERRUPT_MASK_REGISTER|=(1<<TOIE0) | (1<<OCIE0A) | (1<<OCIE0B);
+				break;
+			case 7:
+				TIMER_COUNTER0_INTERRUPT_MASK_REGISTER|=(1<<OCIE0A) | (1<<OCIE0B);
+				break;
+			default:
+				break;
+		}
+		timer0.compoutmodeA=TIMER_COUNTER0_compoutmodeA;
+		timer0.compoutmodeB=TIMER_COUNTER0_compoutmodeB;
+		timer0.compareA=TIMER_COUNTER0_compareA;
+		timer0.compareB=TIMER_COUNTER0_compareB;
+		timer0.start=TIMER_COUNTER0_start;
+		timer0.stop=TIMER_COUNTER0_stop;
+	#endif
 	return timer0;
 }
 /*****************************************************************************************/
@@ -200,6 +363,8 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char int
 {
 	TIMER_COUNTER1 timer1;
 	timer1_state=0;
+	/***TYPE 7***/
+	#if defined( ATMEGA_TIMER_COUNTER )
 		TIMER_COUNTER1A_CONTROL_REGISTER&=~((1<<WGM11) | (1<<WGM10));
 		TIMER_COUNTER1B_CONTROL_REGISTER&=~((1<<WGM13) | (1<<WGM12));
 		switch(wavegenmode){
@@ -319,7 +484,116 @@ TIMER_COUNTER1 TIMER_COUNTER1enable(unsigned char wavegenmode, unsigned char int
 		timer1.compareC=TIMER_COUNTER1_compareC;
 		timer1.start=TIMER_COUNTER1_start;
 		timer1.stop=TIMER_COUNTER1_stop;
-	
+	/***TYPE 10***/
+	#elif defined( MEGA_TIMER_COUNTER )
+		TIMER_COUNTER1A_CONTROL_REGISTER&=~((1<<WGM11) | (1<<WGM10));
+		TIMER_COUNTER1B_CONTROL_REGISTER&=~((1<<WGM13) | (1<<WGM12));
+		switch(wavegenmode){
+			case 0: // Normal
+				break;
+			case 1: // PWM, Phase Correct, 8-bit
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM10);
+				break;
+			case 2:	// PWM, Phase Correct, 9-bit
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11);
+				break;
+			case 3:	// PWM, Phase Correct, 10-bit
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11) | (1<<WGM10);
+				break;
+			case 4:	// CTC
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM12);
+				break;
+			case 5:	// Fast PWM, 8-bit
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM10);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM12);
+				break;
+			case 6:	// Fast PWM, 9-bit
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM12);
+				break;
+			case 7:	// Fast PWM, 10-bit
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11) | (1<<WGM10);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM12);
+				break;
+			case 8:	// PWM, Phase and Frequency Correct
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13);
+				break;
+			case 9:	// PWM, Phase and Frequency Correct
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM10);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13);
+				break;
+			case 10: // PWM, Phase Correct
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13);
+				break;
+			case 11: // PWM, Phase Correct
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11) | (1<<WGM10);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13);
+				break;
+			case 12: // CTC
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13) | (1<<WGM12);
+				break;
+			case 13: // (Reserved)
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM10);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13) | (1<<WGM12);
+				break;
+			case 14: // Fast PWM
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13) | (1<<WGM12);
+				break;
+			case 15: // Fast PWM
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<WGM11) | (1<<WGM10);
+				TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<WGM13) | (1<<WGM12);
+				break;
+			default:
+				break;
+		}
+		TIMER_COUNTER1A_CONTROL_REGISTER&=~((3<<COM1A0) | (3<<COM1B0));
+		TIMER_COUNTER1_INTERRUPT_MASK_REGISTER&=~((1<<ICIE1)  | (1<<OCIE1B) | (1<<OCIE1A) | (1<<TOIE1));
+		switch(interrupt){
+			case 0:
+				break;
+			case 1:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<TOIE1);
+				break;
+			case 2:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<OCIE1A);
+				break;
+			case 3:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<OCIE1B);
+				break;
+			case 4:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<ICIE1);
+				break;
+			case 5:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<OCIE1A) | (1<<TOIE1);
+				break;
+			case 6:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<OCIE1B) | (1<<TOIE1);
+				break;
+			case 7:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<ICIE1) | (1<<TOIE1);
+				break;
+			case 8:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<OCIE1A) | (1<<OCIE1B) | (1<<TOIE1);
+				break;
+			case 9:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<ICIE1) | (1<<OCIE1A) | (1<<OCIE1B) | (1<<TOIE1);
+				break;
+			case 10:
+				TIMER_COUNTER1_INTERRUPT_MASK_REGISTER|=(1<<OCIE1A) | (1<<OCIE1B);
+				break;
+			default:
+				break;
+		}
+		//
+		timer1.compoutmodeA=TIMER_COUNTER1_compoutmodeA;
+		timer1.compoutmodeB=TIMER_COUNTER1_compoutmodeB;
+		timer1.compareA=TIMER_COUNTER1_compareA;
+		timer1.compareB=TIMER_COUNTER1_compareB;
+		timer1.start=TIMER_COUNTER1_start;
+		timer1.stop=TIMER_COUNTER1_stop;
+	#endif
 	//
 	return timer1;
 }
@@ -333,6 +607,8 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 {
 	TIMER_COUNTER2 timer2;
 	timer2_state=0;
+	/***TYPE 7***/
+	#if defined( ATMEGA_TIMER_COUNTER )
 		TIMER_COUNTER2_CONTROL_REGISTER&=~((1<<WGM20) | (1<<WGM21));
 		switch(wavegenmode){
 			case 0: // Normal
@@ -370,9 +646,71 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 		timer2.compare=TIMER_COUNTER2_compare;
 		timer2.start=TIMER_COUNTER2_start;
 		timer2.stop=TIMER_COUNTER2_stop;
-	
+	/***TYPE 10***/
+	#elif defined( MEGA_TIMER_COUNTER )
+		TIMER_COUNTER2A_CONTROL_REGISTER&=~((1<<WGM21) | (1<<WGM20));
+		TIMER_COUNTER2B_CONTROL_REGISTER&=~(1<<WGM22);
+		switch(wavegenmode){
+			case 0: // Normal
+				break;
+			case 1: // PWM, Phase Correct
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<WGM20);
+				break;
+			case 2: // CTC
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<WGM21);
+				break;
+			case 3: // Fast PWM
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<WGM20) | (1<<WGM21);
+				break;
+			case 5: // PWM, Phase Correct
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<WGM20);
+				TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<WGM22);
+				break;
+			case 7: // Fast PWM
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<WGM20) | (1<<WGM21);
+				TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<WGM22);
+				break;
+			default:
+				break;
+		}
+		TIMER_COUNTER2_INTERRUPT_MASK_REGISTER&=~((1<<OCIE2B) | (1<<OCIE2A) | (1<<TOIE2));
+		switch(interrupt){
+			case 0: 
+				break;
+			case 1:
+				TIMER_COUNTER2_INTERRUPT_MASK_REGISTER|=(1<<TOIE2);
+				break;
+			case 2:
+				TIMER_COUNTER2_INTERRUPT_MASK_REGISTER|=(1<<OCIE2A);
+				break;
+			case 3:
+				TIMER_COUNTER2_INTERRUPT_MASK_REGISTER|=(1<<TOIE2) | (1<<OCIE2A);
+				break;
+			case 4:
+				TIMER_COUNTER2_INTERRUPT_MASK_REGISTER|=(1<<TOIE2) | (1<<OCIE2B);
+				break;
+			case 5:
+				TIMER_COUNTER2_INTERRUPT_MASK_REGISTER|=(1<<OCIE2B) | (1<<OCIE2A);
+				break;
+			case 6:
+				TIMER_COUNTER2_INTERRUPT_MASK_REGISTER|=(1<<OCIE2B) | (1<<OCIE2A) | (1<<TOIE2);
+				break;
+			default:
+				break;
+		}
+		timer2.compoutmodeA=TIMER_COUNTER2_compoutmodeA;
+		timer2.compoutmodeB=TIMER_COUNTER2_compoutmodeB;
+		timer2.compareA=TIMER_COUNTER2_compareA;
+		timer2.compareB=TIMER_COUNTER2_compareB;
+		timer2.start=TIMER_COUNTER2_start;
+		timer2.stop=TIMER_COUNTER2_stop;
+	#endif
 	return timer2;
 }
+
+
+/***TYPE 7***/
+#if defined( ATMEGA_TIMER_COUNTER )
 	void TIMER_COUNTER0_start(unsigned int prescaler)
 	/*
 		PARAMETER SETTING
@@ -942,24 +1280,363 @@ TIMER_COUNTER2 TIMER_COUNTER2enable(unsigned char wavegenmode, unsigned char int
 		TIMER_COUNTER3_REGISTER=0X0000;
 		timer3_state=0;
 	}
-
+/***TYPE 10***/
+#elif defined( MEGA_TIMER_COUNTER )
+	void TIMER_COUNTER0_start(unsigned int prescaler)
+	/*
+		PARAMETER SETTING
+		Frequency oscilator devision factor or prescaler.
+		prescaler: clk T0S /(No prescaling); clk T0S /8 (From prescaler); clk T0S /32 (From prescaler);
+		clk T0S /64 (From prescaler); clk T0S /128 (From prescaler); clk T 0 S /256 (From prescaler);
+		clk T 0 S /1024 (From prescaler); default - clk T 0 S /1024 (From prescaler).
+	*/
+	{
+		if(timer0_state==0){ // oneshot
+			TIMER_COUNTER0A_COMPARE_REGISTER=0XFF;
+			TIMER_COUNTER0B_CONTROL_REGISTER&=~(7<<CS00); // No clock source. (Timer/Counter stopped)
+			switch(prescaler){
+				case 1: // clk T0S /(No prescaling)
+					TIMER_COUNTER0B_CONTROL_REGISTER|=(1<<CS00);
+					break;
+				case 8: // clk T0S /8 (From prescaler)
+					TIMER_COUNTER0B_CONTROL_REGISTER|=(1<<CS01);
+					break;
+				case 64: // clk T0S /64 (From prescaler)
+					TIMER_COUNTER0B_CONTROL_REGISTER|=(3<<CS00);
+					break;
+				case 256: // clk T 0 S /256 (From prescaler)
+					TIMER_COUNTER0B_CONTROL_REGISTER|=(4<<CS00);
+					break;
+				case 1024: // clk T 0 S /1024 (From prescaler)
+					TIMER_COUNTER0B_CONTROL_REGISTER|=(5<<CS00);
+					break;
+				case 3: // External clock source on T0 pin. Clock on falling edge.
+					TIMER_COUNTER0B_CONTROL_REGISTER|=(6<<CS00);
+					break;
+				case 5: // External clock source on T0 pin. Clock on rising edge.
+					TIMER_COUNTER0B_CONTROL_REGISTER|=(7<<CS00);
+					break;
+				default:
+					break;
+			}
+			timer0_state=1;
+		}	
+	}
+	void TIMER_COUNTER0_compoutmodeA(unsigned char compoutmode)
+	/*
+		compoutmode: Normal port operation, OC0 disconnected; Toggle OC0 on compare match; 
+		Clear OC0 on compare match when up-counting. Set OC0 on compare match when downcounting. Clear OC0 on compare match;
+		Set OC0 on compare match when up-counting. Clear OC0 on compare match when downcounting. Set OC0 on compare match ;
+		default-Normal port operation, OC0 disconnected.
+	*/
+	{
+		TIMER_COUNTER0A_CONTROL_REGISTER&=~((1<<COM0A0) | (1<<COM0A1));
+		switch(compoutmode){
+			case 0: // Normal port operation, OC0 disconnected.
+				break;
+			case 1: // Reserved
+					// Toggle OC0 on compare match
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<COM0A0);
+				break;
+			case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+					// match when downcounting.
+					// Clear OC0 on compare match
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<COM0A1);
+				break;
+			case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+					// match when downcounting.
+					// Set OC0 on compare match
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<COM0A0) | (1<<COM0A1);
+				break;
+			default:
+				break;
+		}
+	}
+	void TIMER_COUNTER0_compoutmodeB(unsigned char compoutmode)
+	/*
+		compoutmode: Normal port operation, OC0 disconnected; Toggle OC0 on compare match; 
+		Clear OC0 on compare match when up-counting. Set OC0 on compare match when downcounting. Clear OC0 on compare match;
+		Set OC0 on compare match when up-counting. Clear OC0 on compare match when downcounting. Set OC0 on compare match ;
+		default-Normal port operation, OC0 disconnected.
+	*/
+	{
+		TIMER_COUNTER0A_CONTROL_REGISTER&=~((1<<COM0B0) | (1<<COM0B1));
+		switch(compoutmode){ // see table 53, 54, 55 in datasheet for more information
+			case 0: // Normal port operation, OC0 disconnected.
+				break;
+			case 1: // Reserved
+					// Toggle OC0 on compare match
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<COM0B0);
+				break;
+			case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+					// match when downcounting.
+					// Clear OC0 on compare match
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<COM0B1);
+				break;
+			case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+					// match when downcounting.
+					// Set OC0 on compare match
+				TIMER_COUNTER0A_CONTROL_REGISTER|=(1<<COM0B0) | (1<<COM0B1);
+				break;
+			default:
+				break;
+		}
+	}
+	void TIMER_COUNTER0_compareA(unsigned char compare)
+	{
+		TIMER_COUNTER0A_COMPARE_REGISTER=compare;
+	}
+	void TIMER_COUNTER0_compareB(unsigned char compare)
+	{
+		TIMER_COUNTER0B_COMPARE_REGISTER=compare;
+	}
+	void TIMER_COUNTER0_stop(void)
+	/*
+		stops timer by setting prescaler to zero
+	*/
+	{
+		TIMER_COUNTER0B_CONTROL_REGISTER&=~(7<<CS00); // No clock source. (Timer/Counter stopped)
+		TIMER_COUNTER0_REGISTER=0X00;
+		timer0_state=0;
+	}
+	/*****************************************************************************************/
+	void TIMER_COUNTER1_start(unsigned int prescaler)
+	/*
+		PARAMETER SETTING
+		Frequency oscilator devision factor or prescaler.
+		prescaler: clk T0S /(No prescaling); clk T0S /8 (From prescaler); clk T0S /64 (From prescaler);
+		clk T0S /256 (From prescaler); clk T0S /1024 (From prescaler); External clock source on Tn pin. Clock on falling edge;
+		External clock source on Tn pin. Clock on rising edge; default - clk T 0 S /1024 (From prescaler).
+	*/
+	{
+		if(timer1_state==0){ // oneshot
+			TIMER_COUNTER1A_COMPARE_REGISTER=0XFFFF;
+			TIMER_COUNTER1B_CONTROL_REGISTER&=~(7<<CS10); // No clock source. (Timer/Counter stopped)
+			switch(prescaler){
+				case 1: // clkI/O/1 (No prescaling)
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<CS10);
+					break;
+				case 8: // clkI/O/8 (From prescaler)
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<CS11);
+					break;
+				case 64: // clkI/O/64 (From prescaler)
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(3<<CS10);
+					break;
+				case 256: // clkI/O/256 (From prescaler)
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(1<<CS12);
+					break;
+				case 1024: // clkI/O/1024 (From prescaler)
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(5<<CS10);
+					break;
+				case 3: // External clock source on Tn pin. Clock on falling edge
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(6<<CS10);
+					break;
+				case 5: // External clock source on Tn pin. Clock on rising edge
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(7<<CS10);
+					break;
+				default:
+					TIMER_COUNTER1B_CONTROL_REGISTER|=(5<<CS10);
+					break;
+			}
+			timer1_state=1;
+		}	
+	}
+	void TIMER_COUNTER1_compoutmodeA(unsigned char compoutmode)
+	{
+		TIMER_COUNTER1A_CONTROL_REGISTER&=~(3<<COM1A0);
+		switch(compoutmode){ // see table 53, 54, 55 in datasheet for more information
+			case 0: // Normal port operation, OC0 disconnected.
+				break;
+			case 1: // Reserved
+					// Toggle OC0 on compare match
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<COM1A0);
+				break;
+			case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+					// match when downcounting.
+					// Clear OC0 on compare match
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<COM1A1);
+				break;
+			case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+					// match when downcounting.
+					// Set OC0 on compare match
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<COM1A0) | (1<<COM1A1);
+				break;
+			default:
+				break;
+		}
+	}
+	void TIMER_COUNTER1_compoutmodeB(unsigned char compoutmode)
+	{
+		TIMER_COUNTER1A_CONTROL_REGISTER&=~(3<<COM1B0);
+		switch(compoutmode){ // see table 53, 54, 55 in datasheet for more information
+			case 0: // Normal port operation, OC0 disconnected.
+				break;
+			case 1: // Reserved
+					// Toggle OC0 on compare match
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<COM1B0);
+				break;
+			case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+					// match when downcounting.
+					// Clear OC0 on compare match
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<COM1B1);
+				break;
+			case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+					// match when downcounting.
+					// Set OC0 on compare match
+				TIMER_COUNTER1A_CONTROL_REGISTER|=(1<<COM1B0) | (1<<COM1B1);
+				break;
+			default:
+				break;
+		}
+	}
+	void TIMER_COUNTER1_compareA(uint16_t compare)
+	{
+		TIMER_COUNTER1A_COMPARE_REGISTER=compare;
+	}
+	void TIMER_COUNTER1_compareB(uint16_t compare)
+	{
+		TIMER_COUNTER1B_COMPARE_REGISTER=compare;
+	}
+	void TIMER_COUNTER1_stop(void)
+	/*
+		stops timer by setting prescaler to zero
+	*/
+	{
+		TIMER_COUNTER1B_CONTROL_REGISTER&=~(7<<CS10); // No clock source. (Timer/Counter stopped)
+		TIMER_COUNTER1_REGISTER=0X0000;
+		timer1_state=0;
+	}
+	/*****************************************************************************************/
+	void TIMER_COUNTER2_start(unsigned int prescaler)
+	/*
+		PARAMETER SETTING
+		Frequency oscilator devision factor or prescaler.
+		prescaler: clk T0S /(No prescaling); clk T0S /8 (From prescaler); clk T0S /64 (From prescaler);
+		clk T0S /256 (From prescaler); clk T0S /1024 (From prescaler); External clock source on Tn pin. Clock on falling edge;
+		External clock source on Tn pin. Clock on rising edge; default - clk T 0 S /1024 (From prescaler).
+	*/
+	{
+		if(timer2_state==0){ // oneshot
+			TIMER_COUNTER2A_COMPARE_REGISTER=0XFF;
+			TIMER_COUNTER2B_CONTROL_REGISTER&=~(7<<CS20); // No clock source. (Timer/Counter stopped)
+			switch(prescaler){
+				case 1: // clkI/O/(No prescaling)
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<CS20);
+					break;
+				case 8: // clkI/O/8 (From prescaler)
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<CS21);
+					break;
+				case 32: // clkI/O/32 (From prescaler)
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<CS21) | (1<<CS20);
+					break;
+				case 64: // clkI/O/64 (From prescaler)
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<CS22);
+					break;
+				case 128: // clkI/O/128 (From prescaler)
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<CS22) | (1<<CS20);
+					break;
+				case 256: // clkI/O/256 (From prescaler)
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(1<<CS22) | (1<<CS21);
+					break;
+				case 1024: // clkI/O/1024 (From prescaler)
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(7<<CS20);
+					break;
+				default:
+					TIMER_COUNTER2B_CONTROL_REGISTER|=(7<<CS20);
+					break;
+			}
+			timer2_state=1;
+		}	
+	}
+	void TIMER_COUNTER2_compoutmodeA(unsigned char compoutmode)
+	/*
+		compoutmode: Normal port operation, OC0 disconnected; Toggle OC0 on compare match; 
+		Clear OC0 on compare match when up-counting. Set OC0 on compare match when downcounting. Clear OC0 on compare match;
+		Set OC0 on compare match when up-counting. Clear OC0 on compare match when downcounting. Set OC0 on compare match ;
+		default-Normal port operation, OC0 disconnected.
+	*/
+	{
+		TIMER_COUNTER2A_CONTROL_REGISTER&=~((1<<COM2A0) | (1<<COM2A1));
+		switch(compoutmode){ // see table 53, 54, 55 in datasheet for more information
+			case 0: // Normal port operation, OC0 disconnected.
+				break;
+			case 1: // Reserved
+					// Toggle OC0 on compare match
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<COM2A0);
+				break;
+			case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+					// match when downcounting.
+					// Clear OC0 on compare match
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<COM2A1);
+				break;
+			case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+					// match when downcounting.
+					// Set OC0 on compare match
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<COM2A0) | (1<<COM2A1);
+				break;
+			default:
+				break;
+		}
+	}
+	void TIMER_COUNTER2_compoutmodeB(unsigned char compoutmode)
+	/*
+		compoutmode: Normal port operation, OC0 disconnected; Toggle OC0 on compare match; 
+		Clear OC0 on compare match when up-counting. Set OC0 on compare match when downcounting. Clear OC0 on compare match;
+		Set OC0 on compare match when up-counting. Clear OC0 on compare match when downcounting. Set OC0 on compare match ;
+		default-Normal port operation, OC0 disconnected.
+	*/
+	{
+		TIMER_COUNTER2A_CONTROL_REGISTER&=~((1<<COM2B0) | (1<<COM2B1));
+		switch(compoutmode){ // see table 53, 54, 55 in datasheet for more information
+			case 0: // Normal port operation, OC0 disconnected.
+				break;
+			case 1: // Reserved
+					// Toggle OC0 on compare match
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<COM2B0);
+				break;
+			case 2: // Clear OC0 on compare match when up-counting. Set OC0 on compare
+					// match when downcounting.
+					// Clear OC0 on compare match
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<COM2B1);
+				break;
+			case 3: // Set OC0 on compare match when up-counting. Clear OC0 on compare
+					// match when downcounting.
+					// Set OC0 on compare match
+				TIMER_COUNTER2A_CONTROL_REGISTER|=(1<<COM2B0) | (1<<COM2B1);
+				break;
+			default:
+				break;
+		}
+	}
+	void TIMER_COUNTER2_compareA(unsigned char compare)
+	{
+		TIMER_COUNTER2A_COMPARE_REGISTER=compare;
+	}
+	void TIMER_COUNTER2_compareB(unsigned char compare)
+	{
+		TIMER_COUNTER2B_COMPARE_REGISTER=compare;
+	}
+	void TIMER_COUNTER2_stop(void)
+	/*
+		stops timer by setting prescaler to zero
+	*/
+	{
+		TIMER_COUNTER2B_CONTROL_REGISTER&=~(7<<CS20); // No clock source. (Timer/Counter stopped)
+		TIMER_COUNTER2_REGISTER=0X00;
+		timer2_state=0;
+	}
+#endif
 /*
 ** interrupt
 */
-// So that main will not freeze when not defined, therefore exclude here! before use.
 //ISR(TIMER0_COMP_vect){ }
-ISR(TIMER0_OVF_vect){ }
-ISR(TIMER1_CAPT_vect){ }
-ISR(TIMER1_COMPA_vect){ }
-ISR(TIMER1_COMPB_vect){ }
-ISR(TIMER1_COMPC_vect){ }
-ISR(TIMER1_OVF_vect){ }
-ISR(TIMER2_OVF_vect){ }
-ISR(TIMER3_CAPT_vect){ }
-ISR(TIMER3_COMPA_vect){ }
-ISR(TIMER3_COMPB_vect){ }
-ISR(TIMER3_COMPC_vect){ }
-ISR(TIMER3_OVF_vect){ }
-/*************************************************************************
-TIMER API END
-*************************************************************************/
+//ISR(TIMER1_COMP_vect){ }
+//ISR(TIMER2_COMP_vect){ }
+//ISR(TIMER3_COMP_vect){ }
+/***EOF***/
+/***COMMENTS
+interrupt to be defined in MAIN file
+Note if you configure to use interrupts and do not define them, program will block,
+so be carefull when enabling, make sure correct parameters for specified aplication are applied.
+***/
+

@@ -2,7 +2,7 @@
 Title: 74hc595 API
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
-File: $Id: 74hc595.h Exp $
+Hardware: 74HC595
 License: GNU General Public License
 Comment:
 	tested Atemga128 16Mhz and Atmega328 8Mhz
@@ -32,7 +32,4 @@ typedef struct hc595 HC595;
 */
 HC595 HC595enable(volatile uint8_t *ddr, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin, uint8_t outpin);
 #endif
-/***COMMENT
-HC595 API HEADER END
-***/
 /***EOF***/

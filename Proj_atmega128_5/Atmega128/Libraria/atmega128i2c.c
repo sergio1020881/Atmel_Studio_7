@@ -15,7 +15,7 @@ Comment:
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <inttypes.h>
-#include "i2c.h"
+#include "atmega128i2c.h"
 /***Define***/
 #if defined(__AVR_ATmega64__) || defined(__AVR_ATmega128__)
 	#define ATMEGA_I2C

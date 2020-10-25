@@ -16,7 +16,7 @@ Comment:
 /***Define and Macros***/
 #define TRUE 1
 #define ZERO 0
-/***Global Variable***/
+/***Global File Variable***/
 /***MAIN_MAIN***/
 int main(void)
 {

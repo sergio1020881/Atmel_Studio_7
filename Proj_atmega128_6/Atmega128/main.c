@@ -25,7 +25,7 @@ Comment:
 /***Define and Macros***/
 #define TRUE 1
 #define ZERO 0
-/***Global Variable***/
+/***Global File Variable***/
 struct time tmp;
 struct date dt;
 /***MAIN_MAIN***/

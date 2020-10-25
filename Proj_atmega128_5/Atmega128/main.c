@@ -27,7 +27,7 @@ Comment:
 #include "74hc595.h"
 /***Constant and Macro***/
 #define True 1
-/***Global file Variable***/
+/***Global File Variable***/
 char* string=NULL;
 /***Header***/
 void PORTINIT(void);

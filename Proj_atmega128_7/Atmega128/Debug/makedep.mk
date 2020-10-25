@@ -12,8 +12,6 @@ Libraria\atmega128spi.c
 
 Libraria\atmega128timer.c
 
-Libraria\atmega128twi.c
-
 Libraria\atmega128uart.c
 
 Libraria\clock.c
@@ -21,8 +19,6 @@ Libraria\clock.c
 Libraria\eeprom.c
 
 Libraria\function.c
-
-Libraria\i2c.c
 
 Libraria\keypad.c
 

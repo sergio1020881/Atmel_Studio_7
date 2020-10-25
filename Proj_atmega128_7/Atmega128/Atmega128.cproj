@@ -43,19 +43,6 @@
     <avrtool>com.atmel.avrdbg.tool.atmelice</avrtool>
     <avrtoolserialnumber>J41800026917</avrtoolserialnumber>
     <avrdeviceexpectedsignature>0x1E9702</avrdeviceexpectedsignature>
-    <com_atmel_avrdbg_tool_simulator>
-      <ToolOptions>
-        <InterfaceProperties>
-        </InterfaceProperties>
-        <InterfaceName>
-        </InterfaceName>
-      </ToolOptions>
-      <ToolType>com.atmel.avrdbg.tool.simulator</ToolType>
-      <ToolNumber>
-      </ToolNumber>
-      <ToolName>Simulator</ToolName>
-    </com_atmel_avrdbg_tool_simulator>
-    <avrtoolinterface>ISP</avrtoolinterface>
     <com_atmel_avrdbg_tool_atmelice>
       <ToolOptions>
         <InterfaceProperties>
@@ -67,6 +54,7 @@
       <ToolNumber>J41800026917</ToolNumber>
       <ToolName>Atmel-ICE</ToolName>
     </com_atmel_avrdbg_tool_atmelice>
+    <avrtoolinterface>ISP</avrtoolinterface>
     <avrtoolinterfaceclock>125000</avrtoolinterfaceclock>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
@@ -169,28 +157,31 @@
     <Compile Include="Libraria\atmega128timer.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\atmega128twi.c">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="Libraria\atmega128uart.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\clock.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\clock.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\eeprom.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\eeprom.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\function.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\i2c.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Libraria\i2c.h">
+    <Compile Include="Libraria\function.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\keypad.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Libraria\keypad.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Libraria\lcd.c">
@@ -202,13 +193,16 @@
     <Compile Include="Libraria\lfsm.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="Libraria\lfsm.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="Libraria\pcf8563rtc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\pcf8563rtc.h">
+    <Compile Include="Libraria\rotenc.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Libraria\rotenc.c">
+    <Compile Include="Libraria\rotenc.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">

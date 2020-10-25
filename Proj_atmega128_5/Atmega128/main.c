@@ -25,7 +25,7 @@ Comment:
 #include "keypad.h"
 #include "lfsm.h"
 #include "74hc595.h"
-/***Constant and Macro***/
+/***Constant & Macro***/
 #define True 1
 /***Global File Variable***/
 char* string=NULL;
@@ -289,13 +289,13 @@ int main(void)
 		//lcd.string_size(string,4);
 		shift.byte(lfsm.getoutput(&lfsm));
 		
-	}//End while
-}//End main
-/***Procedure and Function***/
+	}
+}
+/***Procedure & Function***/
 void PORTINIT(void)
 {
 	DDRB=0X00; // Buttons
-	PORTB=0XFF;
+	PORTB=0XFF; // Buttons PULLUP
 }
 /***Interrupt***/
 /***Comment

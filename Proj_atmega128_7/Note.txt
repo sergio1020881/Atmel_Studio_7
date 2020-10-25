@@ -1,0 +1,8 @@
+This program is a working learning finite state machine.
+
+It is considered finished, ready for minor update and production.
+
+03/10/2020
+
+
+

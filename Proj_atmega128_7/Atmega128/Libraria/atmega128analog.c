@@ -1,41 +1,28 @@
 /*************************************************************************
-ATMEGA128 ANALOG API START
-API: ANALOG
+	ANALOG API START
 Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 Date:
    28092020
+Hardware: ATmega128
 Comment:
    Stable
 *************************************************************************/
-/***preamble inic***/
+/***Preamble Inic***/
 #ifndef F_CPU
 	#define F_CPU 16000000UL
 #endif
-/*
-** library
-*/
+/***Library***/
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <avr/pgmspace.h>
 #include <stdarg.h>
 #include "atmega128analog.h"
-/***preamble inic***/
-/*
-** constant and macro
-*/
+/***Constant & Macro***/
 #ifndef GLOBAL_INTERRUPT_ENABLE
-    #define GLOBAL_INTERRUPT_ENABLE 7
+	#define STATUS_REGISTER SREG
+	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
-/*
-** variables
-*/
-/*************************************************************************
-ANALOG API START
-*************************************************************************/
-/*
-** constant and macro
-*/
 // if using differential channels this value has to be greater than one
 #define MAX_CHANNEL 8
 /***TYPE 1***/
@@ -50,9 +37,7 @@ ANALOG API START
 #else
  	#error "Not Atmega 128"
 #endif
-/*
-** variable
-*/
+/***Global File Variable***/
 static volatile int ADC_VALUE[MAX_CHANNEL];
 static volatile int ADC_CHANNEL_GAIN[MAX_CHANNEL];
 static volatile int ADC_N_CHANNEL;
@@ -60,26 +45,22 @@ static volatile int ADC_SELECTOR;
 static volatile int adc_sample;
 static volatile int adc_tmp;
 static volatile unsigned char adc_n_sample;
-/*
-** procedure and function header
-*/
+/***Header***/
 int ANALOG_read(int selection);
-/*
-** procedure and function
-*/
+/***Procedure & Function***/
 ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
-/*
-* Interrupt running mode setup
-* setup, and list of channels to be probed
-*/
+/***
+Interrupt running mode setup
+setup, and list of channels to be probed
+***/
 {
 	/***LOCAL VARIABLES***/
 	uint8_t tSREG;
 	va_list list;
 	int i;
 	//inic variables
-	tSREG=SREG;
-	SREG&=~(1<<GLOBAL_INTERRUPT_ENABLE);
+	tSREG=STATUS_REGISTER;
+	STATUS_REGISTER&=~(1<<GLOBAL_INTERRUPT_ENABLE);
 	/***GLOBAL VARIABLES INICIALIZE***/
 	ADC_N_CHANNEL=n_channel;
 	ADC_SELECTOR=0;
@@ -162,16 +143,15 @@ ANALOG ANALOGenable( uint8_t Vreff, uint8_t Divfactor, int n_channel, ... )
 				break;
 		}		
 		
-	SREG=tSREG;
-	SREG|=(1<<GLOBAL_INTERRUPT_ENABLE);
+	STATUS_REGISTER=tSREG;
+	STATUS_REGISTER|=(1<<GLOBAL_INTERRUPT_ENABLE);
 	/******/
 	return analog;
 }
 int ANALOG_read(int selection)
-/*
-* 
-* Returns selected Channel ADC_VALUE
-*/
+/***
+Returns selected Channel ADC_VALUE
+***/
 {
 	uint8_t ADSC_FLAG;
 	ADSC_FLAG=(1<<ADSC);
@@ -182,16 +162,16 @@ int ANALOG_read(int selection)
 	}	
 	return ADC_VALUE[selection];
 }
-/*
-** interrupt
-*/
+/***Interrupt*/
 ISR(ANALOG_INTERRUPT)
 /*************************************************************************
 Function: ANALOG interrupt
 Purpose:  Read Analog Input
 **************************************************************************/
 {
-	/******/
+	uint8_t Sreg;
+	Sreg=STATUS_REGISTER;
+	STATUS_REGISTER&=~(1<<GLOBAL_INTERRUPT_ENABLE);
 	adc_tmp=ADCL;
 	adc_tmp|=(ADCH<<8);
 	if(adc_n_sample < (1<<ADC_NUMBER_SAMPLE)){
@@ -207,12 +187,9 @@ Purpose:  Read Analog Input
 			ADC_SELECTOR=0;
 		ADC_SELECT &= ~MUX_MASK;
 		ADC_SELECT |= (ADC_CHANNEL_GAIN[ADC_SELECTOR] & MUX_MASK);
-	}		
+	}
+	STATUS_REGISTER=Sreg;
 }
-/*
-** Interrupt
-*/
+/***Interrupt***/
 //ISR(ADC_vect){ }
-/*************************************************************************
-ANALOG API END
-*************************************************************************/
+/***EOF***/

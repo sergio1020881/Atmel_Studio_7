@@ -85,7 +85,7 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
 					break;
 				case 1: //Global logic
 					if( pdata->inhl==HL && pdata->inlh==LH ){
-							i1=r->sizeeeprom;
+							i1=r->sizeeeprom; //exit search
 							status=2; //Global logic exist
 					}
 					break;
@@ -93,7 +93,7 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
 					if( (pdata->feedback & pdata->mask)==(r->output & pdata->mask) && pdata->inhl==HL && pdata->inlh==LH ){
 						n=pdata->page - page;	
 						if(!n){
-							i1=r->sizeeeprom;
+							i1=r->sizeeeprom; //exit search
 							status=3; //Local logic exist in present page
 							break;
 						}
@@ -122,6 +122,7 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
 			break;
 		case 1: //New entry
 			//Give warning and pause waiting for decision (very important).
+			//To be implemented Learning on flight mode.
 			//Serves has flag to main function.
 			r->input=input; //Update
 			break;

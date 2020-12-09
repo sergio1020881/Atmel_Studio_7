@@ -4805,7 +4805,7 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
 					break;
 				case 1: //Global logic
 					if( pdata->inhl==HL && pdata->inlh==LH ){
-							i1=r->sizeeeprom;
+							i1=r->sizeeeprom; //exit search
 							status=2; //Global logic exist
     1bfc:	68 94       	set
     1bfe:	22 24       	eor	r2, r2
@@ -4857,7 +4857,7 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
     1c48:	3b 05       	cpc	r19, r11
     1c4a:	09 f0       	breq	.+2      	; 0x1c4e <LFSMread+0xc0>
     1c4c:	60 c0       	rjmp	.+192    	; 0x1d0e <LFSMread+0x180>
-							i1=r->sizeeeprom;
+							i1=r->sizeeeprom; //exit search
     1c4e:	f8 01       	movw	r30, r16
     1c50:	c2 81       	ldd	r28, Z+2	; 0x02
     1c52:	d3 81       	ldd	r29, Z+3	; 0x03
@@ -4904,7 +4904,7 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
     1c9c:	39 09       	sbc	r19, r9
 						if(!n){
     1c9e:	49 f4       	brne	.+18     	; 0x1cb2 <LFSMread+0x124>
-							i1=r->sizeeeprom;
+							i1=r->sizeeeprom; //exit search
     1ca0:	12 96       	adiw	r26, 0x02	; 2
     1ca2:	cd 91       	ld	r28, X+
     1ca4:	dc 91       	ld	r29, X
@@ -5012,10 +5012,10 @@ uint8_t LFSMread(struct lfsm *r, uint8_t input)
     1d3a:	09 f4       	brne	.+2      	; 0x1d3e <LFSMread+0x1b0>
     1d3c:	4b c0       	rjmp	.+150    	; 0x1dd4 <LFSMread+0x246>
     1d3e:	9b c0       	rjmp	.+310    	; 0x1e76 <LFSMread+0x2e8>
-		case ZERO: //No entry
 			break;
 		case 1: //New entry
 			//Give warning and pause waiting for decision (very important).
+			//To be implemented Learning on flight mode.
 			//Serves has flag to main function.
 			r->input=input; //Update
     1d40:	f8 01       	movw	r30, r16

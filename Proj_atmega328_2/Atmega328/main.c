@@ -49,9 +49,9 @@ int main(void)
 			uart.puts("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA ! \r \n");
 		}
 		PORTB|=0x02;
-		_delay_ms(100);
+		_delay_ms(1000);
 		PORTB&=~(0x02);
-		_delay_ms(100);
+		_delay_ms(1000);
     }
 }
 /***Definition***/

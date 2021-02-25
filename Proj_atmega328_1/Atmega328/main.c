@@ -35,8 +35,9 @@ int main(void)
 {
 	/***Preamble***/
 	FUNC func = FUNCenable();
-	LCD0 lcd = LCD0enable(&DDRD,&PIND,&PORTD);
-	HC595 shift = HC595enable(&DDRB,&PORTB,3,1,0); //REMEMBER!!!
+	//LCD0 lcd = LCD0enable(&DDRD,&PIND,&PORTD); //using arduino
+	//HC595 shift = HC595enable(&DDRB,&PORTB,3,1,0); //using arduino
+	HC595 shift = HC595enable(&DDRD,&PORTD,4,7,5); //4,7,5 using board from ETT with altered pin.
 	/***Local Variable***/
 	int32_t b=56;
 	int32_t a=38347922;
@@ -46,11 +47,11 @@ int main(void)
     /* Replace with your application code */
     while (TRUE)
     {
-		lcd.gotoxy(0,0);
-		lcd.string_size("Welcome",7);	
-		lcd.gotoxy(1,0);
-		c=a*b;
-		lcd.string(func.i32toa(c));
+		//lcd.gotoxy(0,0);
+		//lcd.string_size("Welcome",7);	
+		//lcd.gotoxy(1,0);
+		//c=a*b;
+		//lcd.string(func.i32toa(c));
 		/***Play around***/
 		for(i=0;i<8;i++){
 			shift.bit(1);

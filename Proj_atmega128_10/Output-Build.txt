@@ -1,0 +1,16 @@
+﻿------ Clean started: Project: Atmega128, Configuration: Debug AVR ------
+Build started.
+Project "Atmega128.cproj" (Clean target(s)):
+Target "Clean" in file "C:\Program Files (x86)\Atmel\Studio\7.0\Vs\Compiler.targets" from project "C:\Users\sergi\Documents\GITHUB\PESTA2021\SandBox\ATMEGA128\Atmega128\Atmega128.cproj" (entry point):
+	Task "RunCompilerTask"
+		Shell Utils Path C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils
+		C:\Program Files (x86)\Atmel\Studio\7.0\shellUtils\make.exe clean 
+		rm -rf  Libraria/74hc595.o Libraria/atmega128analog.o Libraria/atmega128i2c.o Libraria/atmega128timer.o Libraria/atmega128uart.o Libraria/clock.o Libraria/eeprom.o Libraria/function.o Libraria/keypad.o Libraria/lcd.o Libraria/lfsm.o Libraria/mm74c923.o Libraria/pcf8563rtc.o Libraria/rotenc.o Libraria/hx711.o Libraria/znpid.o main.o   
+		rm -rf  Libraria/74hc595.d Libraria/atmega128analog.d Libraria/atmega128i2c.d Libraria/atmega128timer.d Libraria/atmega128uart.d Libraria/clock.d Libraria/eeprom.d Libraria/function.d Libraria/keypad.d Libraria/lcd.d Libraria/lfsm.d Libraria/mm74c923.d Libraria/pcf8563rtc.d Libraria/rotenc.d Libraria/hx711.d Libraria/znpid.d main.d   
+		rm -rf "Atmega128.elf" "Atmega128.a" "Atmega128.hex" "Atmega128.lss" "Atmega128.eep" "Atmega128.map" "Atmega128.srec" "Atmega128.usersignatures"
+	Done executing task "RunCompilerTask".
+Done building target "Clean" in project "Atmega128.cproj".
+Done building project "Atmega128.cproj".
+
+Build succeeded.
+========== Clean: 1 succeeded, 0 failed, 0 skipped ==========

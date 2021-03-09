@@ -222,7 +222,7 @@ Discarded input sections
                 0x00000000       0x50 Libraria/atmega128i2c.o
  .debug_ranges  0x00000000       0x40 Libraria/atmega128i2c.o
  .debug_line    0x00000000      0x273 Libraria/atmega128i2c.o
- .debug_str     0x00000000      0x275 Libraria/atmega128i2c.o
+ .debug_str     0x00000000      0x279 Libraria/atmega128i2c.o
  .comment       0x00000000       0x31 Libraria/atmega128i2c.o
  .debug_frame   0x00000000       0x94 Libraria/atmega128i2c.o
  COMMON         0x00000000        0x2 Libraria/atmega128i2c.o
@@ -331,7 +331,7 @@ Discarded input sections
                 0x00000000       0x70 Libraria/clock.o
  .debug_ranges  0x00000000       0x60 Libraria/clock.o
  .debug_line    0x00000000      0x3d8 Libraria/clock.o
- .debug_str     0x00000000      0x340 Libraria/clock.o
+ .debug_str     0x00000000      0x344 Libraria/clock.o
  .comment       0x00000000       0x31 Libraria/clock.o
  .debug_frame   0x00000000       0xec Libraria/clock.o
  COMMON         0x00000000       0x14 Libraria/clock.o
@@ -346,7 +346,7 @@ Discarded input sections
                 0x00000000       0x20 Libraria/eeprom.o
  .debug_ranges  0x00000000       0x10 Libraria/eeprom.o
  .debug_line    0x00000000      0x12c Libraria/eeprom.o
- .debug_str     0x00000000      0x26b Libraria/eeprom.o
+ .debug_str     0x00000000      0x26f Libraria/eeprom.o
  .comment       0x00000000       0x31 Libraria/eeprom.o
  .debug_frame   0x00000000       0x24 Libraria/eeprom.o
  .text          0x00000000        0x0 Libraria/function.o
@@ -453,7 +453,7 @@ Discarded input sections
                 0x00000000       0x48 Libraria/mm74c923.o
  .debug_ranges  0x00000000       0x38 Libraria/mm74c923.o
  .debug_line    0x00000000      0x2a9 Libraria/mm74c923.o
- .debug_str     0x00000000      0x449 Libraria/mm74c923.o
+ .debug_str     0x00000000      0x44d Libraria/mm74c923.o
  .comment       0x00000000       0x31 Libraria/mm74c923.o
  .debug_frame   0x00000000       0xb4 Libraria/mm74c923.o
  COMMON         0x00000000       0x68 Libraria/mm74c923.o
@@ -499,7 +499,7 @@ Discarded input sections
                 0x00000000       0x98 Libraria/pcf8563rtc.o
  .debug_ranges  0x00000000       0x88 Libraria/pcf8563rtc.o
  .debug_line    0x00000000      0x45d Libraria/pcf8563rtc.o
- .debug_str     0x00000000      0x432 Libraria/pcf8563rtc.o
+ .debug_str     0x00000000      0x436 Libraria/pcf8563rtc.o
  .comment       0x00000000       0x31 Libraria/pcf8563rtc.o
  .debug_frame   0x00000000      0x238 Libraria/pcf8563rtc.o
  COMMON         0x00000000        0xa Libraria/pcf8563rtc.o
@@ -517,7 +517,7 @@ Discarded input sections
                 0x00000000       0x28 Libraria/rotenc.o
  .debug_ranges  0x00000000       0x18 Libraria/rotenc.o
  .debug_line    0x00000000      0x122 Libraria/rotenc.o
- .debug_str     0x00000000      0x1e7 Libraria/rotenc.o
+ .debug_str     0x00000000      0x1eb Libraria/rotenc.o
  .comment       0x00000000       0x31 Libraria/rotenc.o
  .debug_frame   0x00000000       0x54 Libraria/rotenc.o
  .text          0x00000000        0x0 Libraria/znpid.o
@@ -1868,29 +1868,29 @@ END GROUP
  .debug_frame   0x0000111c      0x16c Libraria/znpid.o
  .debug_frame   0x00001288       0xb0 main.o
 
-.debug_str      0x00000000     0x156a
+.debug_str      0x00000000     0x156e
  *(.debug_str)
  .debug_str     0x00000000      0x27d C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.3.300/gcc/dev/atmega128/avr51/crtatmega128.o
- .debug_str     0x0000027d      0x1e7 Libraria/74hc595.o
-                                0x236 (size before relaxing)
- .debug_str     0x00000464      0x11a Libraria/atmega128analog.o
-                                0x2a1 (size before relaxing)
- .debug_str     0x0000057e      0x41e Libraria/atmega128timer.o
-                                0x5ee (size before relaxing)
- .debug_str     0x0000099c      0x296 Libraria/atmega128uart.o
-                                0x46a (size before relaxing)
- .debug_str     0x00000c32      0x2b6 Libraria/function.o
-                                0x581 (size before relaxing)
- .debug_str     0x00000ee8      0x13a Libraria/keypad.o
-                                0x2e0 (size before relaxing)
- .debug_str     0x00001022      0x1ec Libraria/lcd.o
-                                0x406 (size before relaxing)
- .debug_str     0x0000120e      0x1e3 Libraria/lfsm.o
-                                0x3f1 (size before relaxing)
- .debug_str     0x000013f1       0xe2 Libraria/znpid.o
-                                0x287 (size before relaxing)
- .debug_str     0x000014d3       0x97 main.o
-                                0x59d (size before relaxing)
+ .debug_str     0x0000027d      0x1eb Libraria/74hc595.o
+                                0x23a (size before relaxing)
+ .debug_str     0x00000468      0x11a Libraria/atmega128analog.o
+                                0x2a5 (size before relaxing)
+ .debug_str     0x00000582      0x41e Libraria/atmega128timer.o
+                                0x5f2 (size before relaxing)
+ .debug_str     0x000009a0      0x296 Libraria/atmega128uart.o
+                                0x46e (size before relaxing)
+ .debug_str     0x00000c36      0x2b6 Libraria/function.o
+                                0x585 (size before relaxing)
+ .debug_str     0x00000eec      0x13a Libraria/keypad.o
+                                0x2e4 (size before relaxing)
+ .debug_str     0x00001026      0x1ec Libraria/lcd.o
+                                0x40a (size before relaxing)
+ .debug_str     0x00001212      0x1e3 Libraria/lfsm.o
+                                0x3f5 (size before relaxing)
+ .debug_str     0x000013f5       0xe2 Libraria/znpid.o
+                                0x28b (size before relaxing)
+ .debug_str     0x000014d7       0x97 main.o
+                                0x5a1 (size before relaxing)
 
 .debug_loc      0x00000000     0x6970
  *(.debug_loc)

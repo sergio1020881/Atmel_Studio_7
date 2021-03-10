@@ -1,0 +1,11 @@
+Preocupação do projecto criar librarias o mais autonomas possivel, 
+ou seja, com o minimo ou nenhuma dependencia. Os objectos criados poderem ser
+duplicados, isto é spawned, de forma a poder ter varios objectos com a mesma 
+funcionalidade ou iguais mas totalmente independentes.
+
+As librarias serem não dependent do hardware.
+
+Ideia para libraria do HX711, interrupção de 
+leitura que depois faz saltar para interrupção 
+do timer para fazer as respetcivas leituras. 
+

@@ -22,7 +22,7 @@ Comment:
 #endif
 #define ZERO 0
 #define ONE 1
-#define HX711_ticks 110 // 16Mhz between 100 and 200
+#define HX711_ticks 110 // 16Mhz between 100 and 200, make a macro for this value dependent on CPU clock.
 #define HX711_ADC_bits 24
 #define HX711_VECT_SIZE 4
 /***Global File Variable***/
@@ -37,7 +37,7 @@ void HX711_set_readflag(HX711* self);
 void HX711_reset_readflag(HX711* self);
 uint8_t HX711_read_bit(void);
 void HX711_set_amplify(HX711* self, uint8_t amplify);
-uint32_t HX711_read(HX711* self);
+int32_t HX711_read(HX711* self);
 /***Procedure & Function***/
 HX711 HX711enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t *port, uint8_t datapin, uint8_t clkpin)
 {
@@ -54,40 +54,44 @@ HX711 HX711enable(volatile uint8_t *ddr, volatile uint8_t *pin, volatile uint8_t
 	hx711_datapin=datapin;
 	hx711_clkpin=clkpin;
 	//inic variables
-	*hx711_DDR |= (1<<clkpin);
-	*hx711_PORT |= (1<<datapin);
-	hx711.readflag=0;
-	hx711.amplify=1;
-	hx711.ampcount=1;
+	*hx711_DDR |= (ONE<<clkpin);
+	*hx711_PORT |= (ONE<<datapin);
+	hx711.readflag=ZERO;
+	hx711.amplify=ONE;
+	hx711.ampcount=ONE;
 	hx711.bitcount=HX711_ADC_bits;
-	hx711.buffer[3]=0;
+	hx711.buffer[3]=ZERO;
 	hx711.bufferindex=3;
-	hx711.reading=0;
+	hx711.reading=ZERO;
+	hx711.cal.offset=73850; // to subtract
+	hx711.cal.divfactor_1=46; // to divide
+	hx711.cal.divfactor_2=46; // to divide
+	hx711.cal.divfactor_3=46; // to divide
 	//Direccionar apontadores para PROTOTIPOS
 	hx711.set_readflag=HX711_set_readflag;
 	hx711.read_bit=HX711_read_bit;
 	hx711.set_amplify=HX711_set_amplify;
 	hx711.read=HX711_read;
 	SREG=tSREG;
-	//
+	// returns a copy
 	return hx711;
 }
 void HX711_set_readflag(HX711* self)
 {
-	self->readflag=1;
+	self->readflag=ONE;
 }
 void HX711_reset_readflag(HX711* self)
 {
-	self->readflag=0;
+	self->readflag=ZERO;
 }
 uint8_t HX711_read_bit(void)
 {	
 	uint16_t bool;
-	*hx711_PORT|=(1<<hx711_clkpin);
+	*hx711_PORT|=(ONE<<hx711_clkpin);
 	/**0.1us minimum**/
 	for(bool=0;bool<HX711_ticks;bool++);
-	bool=*hx711_PIN & (1<<hx711_datapin);
-	*hx711_PORT&=~(1<<hx711_clkpin);
+	bool=*hx711_PIN & (ONE<<hx711_datapin);
+	*hx711_PORT&=~(ONE<<hx711_clkpin);
 	return bool;
 }
 // Gain selector
@@ -96,8 +100,8 @@ void HX711_set_amplify(HX711* self, uint8_t amplify)
 {
 	switch(amplify){
 		case 128:
-			self->amplify=1; //channel A
-			self->ampcount=1;
+			self->amplify=ONE; //channel A
+			self->ampcount=ONE;
 			break;
 		case 32:
 			self->amplify=2; //channel B
@@ -108,32 +112,36 @@ void HX711_set_amplify(HX711* self, uint8_t amplify)
 			self->ampcount=3;
 			break;
 		default:
-			self->amplify=1;
-			self->ampcount=1;
+			self->amplify=ONE;
+			self->ampcount=ONE;
 			break;
 	}
 }
-uint32_t HX711_read(HX711* self)
+/***
+Function to be used in the interrupt routine with appropriate cycle period.
+***/
+int32_t HX711_read(HX711* self)
 {
 	uint8_t aindex, bindex;
-	uint32_t value;
-	aindex = self->bufferindex-1;
-	bindex = self->bitcount-1;
+	int32_t value;
+	aindex = self->bufferindex-ONE;
+	bindex = self->bitcount-ONE;
 	ptr=(int32_t*)self->buffer;
 	/***Detect query for reading***/
 	if((!(*hx711_PIN & ONE << hx711_datapin)) && !self->readflag){
 		HX711_set_readflag(self);
-		PORTC&=~(1<<0);
+		PORTC&=~(1<<0); // indicator remove when finished
 	}
 	/***Interrupt 24 times sequence***/
 	if(self->readflag){
 		if(self->bitcount){
-			if (HX711_read_bit()) self->buffer[aindex] |= ONE<<(bindex-(aindex*8));
+			if (HX711_read_bit())
+				self->buffer[aindex] |= ONE<<(bindex-(aindex*8));
 			self->bitcount--;
 			if(self->bitcount==16)
 				self->bufferindex=2;
 			if(self->bitcount==8)
-				self->bufferindex=1;
+				self->bufferindex=ONE;
 		}else{
 			if(self->ampcount){
 				HX711_read_bit();
@@ -159,5 +167,6 @@ uint32_t HX711_read(HX711* self)
 }
 /***Interrupt***/
 /****comment:
+Have to use vector to store 32 bit size word, then do a cast (int32_t*) to retrieve the value.
 *************/
 /***EOF***/

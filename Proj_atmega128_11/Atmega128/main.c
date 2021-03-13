@@ -32,21 +32,13 @@ Comment:
 */
 #define TRUE 1
 #define ZERO 0
-#define repeat 59
+#define average_n 4
 /*
 ** Global File variable
 */
-FUNC function;
-LCD0 lcd0;
 HX711 hx;
-uint8_t count_1=0;
-uint8_t count_2=0;
-uint8_t ADD0;
-uint32_t hx_adc;
-float value;
-uint8_t i;
 uint32_t tmp;
-uint32_t itmp;
+
 char result[20];
 /*
 ** Header
@@ -58,27 +50,30 @@ int main(void)
 	//SREG|=1<<7;
 	PORTINIT();
 	/***INICIALIZE OBJECTS***/
-	function = FUNCenable();
-	lcd0 = LCD0enable(&DDRA,&PINA,&PORTA);
+	FUNC function = FUNCenable();
+	LCD0 lcd0 = LCD0enable(&DDRA,&PINA,&PORTA);
 	TIMER_COUNTER0 timer0 = TIMER_COUNTER0enable(2,2); //2,2
 	TIMER_COUNTER1 timer1 = TIMER_COUNTER1enable(4,0);
 	hx = HX711enable(&DDRF, &PINF, &PORTF, 6, 7);
 	/******/
 	char Menu='1'; // Main menu selector
-	i=0;
+	float value=0;
+	uint8_t i=0;
+	uint32_t itmp=0;
 	tmp=0;
 	/***Parameters timers***/
 	//vector[0]=255;
 	//vector[1]=255;
 	//vector[2]=255;
-	//uint8_t* ptr=vector; 
-	timer0.compare(100);
-	timer0.start(128);//1 8 32 64 128 256 1024
+	//uint8_t* ptr=vector;
 	timer0.compoutmode(1);
+	timer0.compare(79);// 1 -> 159 -> 20us, 1 -> 79 -> 10 us, 8 -> 99 -> 100 us
+	timer0.start(1);// 1 -> 32 us , 8 -> 256 us , 32 64 128 256 1024
+	
 	timer1.compareA(50);
 	timer1.compoutmodeA(1);
 	timer1.start(256);
-	hx.set_amplify(&hx,64);
+	hx.set_amplify(&hx,64); // 32 64 128
 	/**********/
 	//TODO:: Please write your application code
 	while(TRUE){
@@ -90,28 +85,17 @@ int main(void)
 				//if(!strcmp(keypad.get().string,"A")){Menu='2';keypad.flush();lcd0.clear();break;}
 				//if(!strcmp(keypad.get().string,"B")){Menu='3';keypad.flush();lcd0.clear();break;}					
 		
-				//lcd0.gotoxy(0,0);
-				//lcd0.string_size("program running",15);
 				
-				/***Play around***/
-				//if(!(PINF & 64)){
-					//hx.set_readflag(&hx);
-					//PORTC&=~(1<<0);
-				//}
-				
-				
-				//lcd0.gotoxy(3,0);
-				//lcd0.string_size(function.i32toa(*((int32_t*)ptr)),15);
 				// my average function
 				if(hx.trigger){
-					if(i<10){
+					if(i<average_n){
 						itmp+=tmp;
 						i++;
 						lcd0.gotoxy(3,0);
-						lcd0.string_size(function.i16toa(tmp),3);
+						lcd0.string_size(function.i32toa(tmp),3);
 					}else{
 						i=0;
-						value=itmp/10;
+						value=itmp/average_n;
 						itmp=0;
 						itmp+=tmp;
 						i++;
@@ -121,11 +105,13 @@ int main(void)
 				
 				
 				lcd0.gotoxy(0,0);
-				lcd0.string_size(function.i16toa(count_2), 15);
+				lcd0.string_size(function.i32toa(tmp), 8); lcd0.string_size("raw", 3);
 				lcd0.gotoxy(1,0);
-				lcd0.string_size(function.ftoa((value-74050)/46,result,2), 8); lcd0.string_size("gram", 4);
+				lcd0.string_size(function.ftoa((value-hx.cal.offset_64)/hx.cal.divfactor_64,result,2), 8); lcd0.string_size("gram", 4);
+				lcd0.gotoxy(2,0);
+				lcd0.string_size(function.ftoa((value-hx.cal.offset_128)/hx.cal.divfactor_128,result,0), 8); lcd0.string_size("gram", 4);
 				
-				
+				//(value-73990)/46
 					
 				break;
 			/***MENU 2***/
@@ -168,28 +154,27 @@ void PORTINIT(void)
 */
 ISR(TIMER0_COMP_vect)
 {
+	/***Block other interrupts during this procedure***/
 	uint8_t Sreg;
 	Sreg=SREG;
 	SREG&=~(1<<7);
+	/***Block other interrupts during this procedure***/	
+	tmp=hx.readraw(&hx);
+
+	PORTC^=(1<<0);
 	
-	
-	
-	
-	tmp=hx.read(&hx);
-	
-	
-	if(count_1 > 0){
-		count_2++;
-		
-		PORTC|=(1<<0);
-		
-		count_1=0;
-	}
-	count_1++;
+	/***enable interrupts again***/
 	SREG=Sreg;
 }
 /***EOF***/
 /**** Comment:
 The past only exists if the present comes to be. There is no future only possibilities.
-because 24 bit will have to create a vector pointer of the size of 32 bit, then at the end do a cast to *((int32_t*)ptr)
+because 24 bit will have to create a vector pointer of the size of 32 bit, then at the 
+end do a cast to *((int32_t*)ptr).
+
+Have to make function for average, then offset.
+
+After that create a calibration section.
+
+Then it is all extras.
 ****/

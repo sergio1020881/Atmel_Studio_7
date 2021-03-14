@@ -32,7 +32,7 @@ Comment:
 */
 #define TRUE 1
 #define ZERO 0
-#define average_n 4
+#define average_n 3
 /*
 ** Global File variable
 */
@@ -87,6 +87,7 @@ int main(void)
 		
 				
 				// my average function
+				/**/
 				if(hx.trigger){
 					if(i<average_n){
 						itmp+=tmp;
@@ -102,14 +103,18 @@ int main(void)
 					}
 					hx.trigger=ZERO;
 				}
-				
+				/**/
+				//value=0.45;
 				
 				lcd0.gotoxy(0,0);
 				lcd0.string_size(function.i32toa(tmp), 8); lcd0.string_size("raw", 3);
 				lcd0.gotoxy(1,0);
-				lcd0.string_size(function.ftoa((value-hx.cal.offset_64)/hx.cal.divfactor_64,result,2), 8); lcd0.string_size("gram", 4);
+				lcd0.string_size(function.ftoa((value-hx.cal.offset_64)/hx.cal.divfactor_64,result,0), 12); lcd0.string_size("gram", 4);
 				lcd0.gotoxy(2,0);
-				lcd0.string_size(function.ftoa((value-hx.cal.offset_128)/hx.cal.divfactor_128,result,0), 8); lcd0.string_size("gram", 4);
+				lcd0.string_size(function.ftoa((value-hx.cal.offset_128)/hx.cal.divfactor_128,result,0), 12); lcd0.string_size("gram", 4);
+				
+				//lcd0.gotoxy(3,0);
+				//lcd0.string_size(function.ftoa(value,result,2), 8);
 				
 				//(value-73990)/46
 					
@@ -177,4 +182,6 @@ Have to make function for average, then offset.
 After that create a calibration section.
 
 Then it is all extras.
+
+changed rate in HX711 to 80Hz, 10Hz is to slow. Though there is more noise.
 ****/

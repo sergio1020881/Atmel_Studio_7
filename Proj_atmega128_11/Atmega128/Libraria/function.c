@@ -71,8 +71,8 @@ long FUNCgcd1(long a, long b);
 uint8_t FUNCpincheck(uint8_t port, uint8_t pin);
 char* FUNCprint_binary(uint8_t number);
 void FUNCreverse(char* str, int len);
-int FUNCintToStr(float x, char str[]);
-char* FUNCftoa(float n, char* res, int afterpoint);
+int FUNCintToStr(int32_t x, char str[], uint8_t n_digit);
+char* FUNCftoa(float n, char* res, uint8_t afterpoint);
 uint8_t  bintobcd(uint8_t bin);
 /***pc use***
 char* FUNCfltos(FILE* stream);
@@ -543,47 +543,46 @@ void FUNCreverse(char* str, int len)
 		j--;
 	}
 }
-int FUNCintToStr(float n, char str[])
+int FUNCintToStr(int32_t n, char str[], uint8_t n_digit)
 {
-	int i = 0;
+	int k = 0;
 	int8_t sign=0;
-	int32_t x;
 	if (n < 0){
 		n = -n;
 		sign=-ONE;
 	}
-	x = (int32_t)n;
     do{ 
-        str[i++] = (x % 10) + '0'; 
-    }while((x/=10)>0);
+        str[k++] = (n % 10) + '0'; 
+    }while((n/=10)>0 || k < n_digit);
 		
 	if (sign < 0)
-		str[i++] = '-';
+		str[k++] = '-';
 	else
-		str[i++] = ' ';
-    FUNCreverse(str, i); 
-    str[i] = '\0';
-    return i;
+		str[k++] = ' ';
+    FUNCreverse(str, k); 
+    str[k] = '\0';
+    return k;
 }
-char* FUNCftoa(float n, char* res, int afterpoint)
+char* FUNCftoa(float n, char* res, uint8_t afterpoint)
 {
+	int l;
 	int32_t ipart = (int32_t)n;
+	float fpart;
 	
-	// Extract floating part
-	float fpart = n - (float)ipart;
-	if(fpart < 0)
-		fpart = -fpart;
+	fpart = n - (float)ipart;
 	
 	// string part decimal
-	int i =	FUNCintToStr(n, res);
+	l =	FUNCintToStr(ipart, res, 0);
 	
 	// part fraccional
 	if (afterpoint != 0) {
-		res[i] = '.';
+		res[l] = '.';
 		
-		fpart = fpart * pow(10, afterpoint);
+		ipart = fpart * pow(10, afterpoint);
+		if(ipart < 0)
+			ipart = -ipart;
 		
-		FUNCintToStr((float)fpart, res + i + 1);
+		FUNCintToStr(ipart, res + l + 1, afterpoint);
 	}
 	return res;
 }

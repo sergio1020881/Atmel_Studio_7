@@ -1,38 +1,38 @@
 /*************************************************************************
-FUNCTION API START
-Author: Sergio Manuel Santos
-	<sergio.salazar.santos@gmail.com>
+	FUNCTION
+Author: Sergio Santos
+	<sergio.salazar.santos@gmail.com> 
+License: GNU General Public License
+Hardware: all
+Date: 25102020
+Comment:
+    Always try to make general purpose bullet proof functions !!
+    Very Stable
 *************************************************************************/
-/***preamble inic***/
-/*
-** library
-*/
+/***Library***/
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <stdarg.h>
 #include <inttypes.h>
+#include <math.h>
 /***pc use***
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include<errno.h>
-*/
+***/
 #include"function.h"
-/***preamble inic***/
-/*
-** constant and macro
-*/
+/***Constant & Macro***/
 #ifndef GLOBAL_INTERRUPT_ENABLE
 	#define GLOBAL_INTERRUPT_ENABLE 7
 #endif
-/*
-** variable
-*/
-char FUNCstr[16];
-/*
-** procedure and function header
-*/
-unsigned int Power(uint8_t base, uint8_t n);
+#define ZERO 0
+#define ONE 1
+#define FUNCSTRSIZE 20
+/***Global File Variable***/
+char FUNCstr[FUNCSTRSIZE+1];
+/***Header***/
+unsigned int Pwr(uint8_t bs, uint8_t n);
 int StringLength (const char string[]);
 void Reverse(char s[]);
 /******/
@@ -49,9 +49,9 @@ void FUNCswap(long *px, long *py);
 void FUNCcopy(char to[], char from[]);
 void FUNCsqueeze(char s[], int c);
 void FUNCshellsort(int v[], int n);
-void FUNCi16toa(int16_t n, char s[]);
-void FUNCui16toa(uint16_t n, char s[]);
-void FUNCi32toa(int32_t n, char s[]);
+char* FUNCi16toa(int16_t n);
+char* FUNCui16toa(uint16_t n);
+char* FUNCi32toa(int32_t n);
 int FUNCtrim(char s[]);
 int FUNCpmax(int a1, int a2);
 int FUNCgcd (int u, int v);
@@ -70,6 +70,10 @@ unsigned char FUNCbin2bcd(unsigned val);
 long FUNCgcd1(long a, long b);
 uint8_t FUNCpincheck(uint8_t port, uint8_t pin);
 char* FUNCprint_binary(uint8_t number);
+void FUNCreverse(char* str, int len);
+int FUNCintToStr(int32_t x, char str[], uint8_t n_digit);
+char* FUNCftoa(float n, char* res, uint8_t afterpoint);
+uint8_t  bintobcd(uint8_t bin);
 /***pc use***
 char* FUNCfltos(FILE* stream);
 char* FUNCftos(FILE* stream);
@@ -78,11 +82,9 @@ char* FUNCputstr(char* str);
 int FUNCgetnum(char* x);
 unsigned int FUNCgetnumv2(char* x);
 int FUNCreadint(int nmin, int nmax);
-*/
+***/
 // uint8_t TRANupdate(struct TRAN *tr, uint8_t idata);
-/*
-** procedure and function
-*/
+/***Procedure & Function***/
 FUNC FUNCenable( void )
 {
 	uint8_t tSREG;
@@ -91,7 +93,7 @@ FUNC FUNCenable( void )
 	// struct object
 	FUNC func;
 	// function pointers
-	func.power=Power;
+	func.power=Pwr;
 	func.stringlength=StringLength;
 	func.reverse=Reverse;
 	func.mayia=FUNCmayia;
@@ -128,6 +130,7 @@ FUNC FUNCenable( void )
 	func.gcd1=FUNCgcd1;
 	func.pincheck=FUNCpincheck;
 	func.print_binary=FUNCprint_binary;
+	func.ftoa=FUNCftoa;
 	/***pc use***
 	func.fltos=FUNCfltos;
 	func.ftos=FUNCftos;
@@ -147,7 +150,7 @@ unsigned int FUNCmayia(unsigned int xi, unsigned int xf, uint8_t nbits)
 	unsigned int mask;
 	unsigned int diff;
 	unsigned int trans;
-	mask=Power(2,nbits)-1;
+	mask=Pwr(2,nbits)-1;
 	xi&=mask;
 	xf&=mask;
 	diff=xf^xi;
@@ -254,7 +257,7 @@ void FUNCshellsort(int v[], int n)
 			}
 }
 // i32toa: convert n to characters in s
-void FUNCi32toa(int32_t n, char s[])
+char* FUNCi32toa(int32_t n)
 {
 	uint8_t i;
 	int32_t sign;
@@ -262,15 +265,16 @@ void FUNCi32toa(int32_t n, char s[])
 	n = -n; // make n positive
 	i = 0;
 	do { // generate digits in reverse order
-		s[i++] = n % 10 + '0'; // get next digit
+		FUNCstr[i++] = n % 10 + '0'; // get next digit
 	}while ((n /= 10) > 0); // delete it
 	if (sign < 0)
-	s[i++] = '-';
-	s[i] = '\0';
-	Reverse(s);
+		FUNCstr[i++] = '-';
+	FUNCstr[i] = '\0';
+	Reverse(FUNCstr);
+	return FUNCstr;
 }
 // i16toa: convert n to characters in s
-void FUNCi16toa(int16_t n, char s[])
+char* FUNCi16toa(int16_t n)
 {
 	uint8_t i;
 	int16_t sign;
@@ -278,23 +282,25 @@ void FUNCi16toa(int16_t n, char s[])
 		n = -n; // make n positive
 	i = 0;
 	do { // generate digits in reverse order
-		s[i++] = n % 10 + '0'; // get next digit
+		FUNCstr[i++] = n % 10 + '0'; // get next digit
 	}while ((n /= 10) > 0); // delete it
 	if (sign < 0)
-		s[i++] = '-';
-	s[i] = '\0';
-	Reverse(s);
+		FUNCstr[i++] = '-';
+	FUNCstr[i] = '\0';
+	Reverse(FUNCstr);
+	return FUNCstr;
 }
 // ui16toa: convert n to characters in s
-void FUNCui16toa(uint16_t n, char s[])
+char* FUNCui16toa(uint16_t n)
 {
 	uint8_t i;
 	i = 0;
 	do { // generate digits in reverse order
-		s[i++] = n % 10 + '0'; // get next digit
+		FUNCstr[i++] = n % 10 + '0'; // get next digit
 	}while ((n /= 10) > 0); // delete it
-	s[i] = '\0';
-	Reverse(s);
+	FUNCstr[i] = '\0';
+	Reverse(FUNCstr);
+	return FUNCstr;
 }
 // trim: remove trailing blanks, tabs, newlines
 int FUNCtrim(char s[])
@@ -437,19 +443,19 @@ char* FUNCresizestr(char *string, int size)
 	return FUNCstr;
 }
 long FUNCtrimmer(long x, long in_min, long in_max, long out_min, long out_max)
-/*
-	same as arduino map function.
-*/
+/***
+same as arduino map function.
+***/
 {
 	return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 // power: raise base to n-th power; n >= 0
-unsigned int Power(uint8_t base, uint8_t n)
+unsigned int Pwr(uint8_t bs, uint8_t n)
 {
     unsigned int i, p;
     p = 1;
     for (i = 1; i <= n; ++i)
-        p = p * base;
+        p = p * bs;
     return p;
 }
 // Function to count the number of characters in a string
@@ -521,7 +527,66 @@ uint8_t leap_year_check(uint16_t year){
     	i=0;
 	return i;
 }
-/*
+uint8_t  bintobcd(uint8_t bin)
+{
+	return (((bin) / 10) << 4) + ((bin) % 10);
+}
+/************/
+void FUNCreverse(char* str, int len)
+{
+	int i = 0, j = len - 1, temp;
+	while (i < j) {
+		temp = str[i];
+		str[i] = str[j];
+		str[j] = temp;
+		i++;
+		j--;
+	}
+}
+int FUNCintToStr(int32_t n, char str[], uint8_t n_digit)
+{
+	int k = 0;
+	int8_t sign=0;
+	if (n < 0){
+		n = -n;
+		sign=-ONE;
+	}
+    do{ 
+        str[k++] = (n % 10) + '0'; 
+    }while((n/=10)>0 || k < n_digit);
+		
+	if (sign < 0)
+		str[k++] = '-';
+	else
+		str[k++] = ' ';
+    FUNCreverse(str, k); 
+    str[k] = '\0';
+    return k;
+}
+char* FUNCftoa(float n, char* res, uint8_t afterpoint)
+{
+	int l;
+	int32_t ipart = (int32_t)n;
+	float fpart;
+	
+	fpart = n - (float)ipart;
+	
+	// string part decimal
+	l =	FUNCintToStr(ipart, res, 0);
+	
+	// part fraccional
+	if (afterpoint != 0) {
+		res[l] = '.';
+		
+		ipart = fpart * pow(10, afterpoint);
+		if(ipart < 0)
+			ipart = -ipart;
+		
+		FUNCintToStr(ipart, res + l + 1, afterpoint);
+	}
+	return res;
+}
+/******
 int gcd( int a, int b ) {
     int result ;
     // Compute Greatest Common Divisor using Euclid's Algorithm
@@ -688,10 +753,6 @@ int FUNCreadint(int nmin, int nmax)
 	}
 		return num;
 }
-*/
-/*
-** interrupt
-*/
-/*************************************************************************
-FUNCTION API START
-*************************************************************************/
+***/
+/***Interrupt***/
+/***EOF***/

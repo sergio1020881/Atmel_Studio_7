@@ -78,13 +78,14 @@ int main(void)
 	while(TRUE){
 		/***PREAMBLE***/
 		lcd0.reboot();
+		/**************/
 		switch(Menu){
 			/***MENU 1***/
 			case '1': // Main Program Menu
 				//if(!strcmp(keypad.get().string,"A")){Menu='2';keypad.flush();lcd0.clear();break;}
 				//if(!strcmp(keypad.get().string,"B")){Menu='3';keypad.flush();lcd0.clear();break;}					
 		
-				value=hx.average(&hx,tmp,4);
+				value=hx.raw_average(&hx, 4);
 				value=(value-hx.cal.offset_64)/hx.cal.divfactor_64;
 				
 				//Just to keep track
@@ -156,7 +157,7 @@ ISR(TIMER0_COMP_vect)
 	Sreg=SREG;
 	SREG&=~(1<<7);
 	/***Block other interrupts during this procedure***/	
-	tmp=hx.readraw(&hx);
+	tmp=hx.read_raw(&hx);
 
 	PORTC^=(1<<0);
 	

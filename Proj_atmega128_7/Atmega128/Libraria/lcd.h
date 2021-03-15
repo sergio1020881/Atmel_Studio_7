@@ -1,6 +1,6 @@
 /************************************************************************
 	LCD
-Author: Sergio Santos
+Author: Sergio Santos 
    <sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all

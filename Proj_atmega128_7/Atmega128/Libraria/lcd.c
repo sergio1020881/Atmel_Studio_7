@@ -1,12 +1,12 @@
 /*************************************************************************
 	LCD
-Author: Sergio Santos
+Author: Sergio Santos 
 	<sergio.salazar.santos@gmail.com>
 License: GNU General Public License
 Hardware: all
 Date: 25102020
 Comment:
-   Tested Atemga128 16Mhz and Atmega328 8Mhz
+   Tested Atemga128 16Mhz and Atmega328 8Mhz                    
 ************************************************************************/
 #ifndef F_CPU
 /***Mandatory to use util/delay.h***/

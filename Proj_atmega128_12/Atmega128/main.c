@@ -27,6 +27,7 @@ Comment:
 #include "function.h"
 #include "lcd.h"
 #include "hx711.h"
+#include "eeprom.h"
 /*
 ** Constant and Macro
 */
@@ -55,6 +56,7 @@ int main(void)
 	TIMER_COUNTER0 timer0 = TIMER_COUNTER0enable(2,2); //2,2
 	TIMER_COUNTER1 timer1 = TIMER_COUNTER1enable(4,0);
 	hx = HX711enable(&DDRF, &PINF, &PORTF, 6, 7);
+	EEPROM eprom = EEPROMenable();
 	/******/
 	char Menu='1'; // Main menu selector
 	float value_64=0;
@@ -70,10 +72,12 @@ int main(void)
 	timer0.start(8); // 1 -> 32 us , 8 -> 256 us , 32 64 128 256 1024
 	
 	// to be used to jump menu for calibration in progress
-	timer1.compareA(50);
 	timer1.compoutmodeA(1);
+	timer1.compareA(62800); // 256 -> 62800 -> 2 s
 	timer1.start(256);
-	hx.set_amplify(&hx,128); // 32 64 128
+	
+	// HX711 Gain
+	hx.set_amplify(&hx,64); // 32 64 128
 	/**********/
 	//TODO:: Please write your application code
 	while(TRUE){
@@ -88,8 +92,8 @@ int main(void)
 		
 				
 				//Just to keep track
-				lcd0.gotoxy(0,0);
-				lcd0.string_size(function.i32toa(tmp), 8); lcd0.string_size("raw", 3); // RAW_READING
+				//lcd0.gotoxy(0,0);
+				//lcd0.string_size(function.i32toa(tmp), 8); lcd0.string_size("raw", 3); // RAW_READING
 				
 				value_64=hx.raw_average(&hx, 25); // 25 50, smaller means faster or more readings
 				lcd0.gotoxy(1,0);
@@ -98,19 +102,19 @@ int main(void)
 				value_64=(value_64-hx.cal.offset_64)/hx.cal.divfactor_64;
 				
 				//Display
-				if (value_128 > 1000 || value_128 < -1000){
+				if (value_64 > 1000 || value_64 < -1000){
 					value_64 = value_64/1000;
 					value_128 = value_128/1000;
-					//lcd0.gotoxy(2,0);
-					//lcd0.string_size(function.ftoa(value_64,result,3), 12); lcd0.string_size("Kg", 4);
 					lcd0.gotoxy(3,0);
-					lcd0.string_size(function.ftoa(value_128,result,3), 12); lcd0.string_size("Kg", 4);
+					lcd0.string_size(function.ftoa(value_64,result,3), 12); lcd0.string_size("Kg", 4);
+					//lcd0.gotoxy(3,0);
+					//lcd0.string_size(function.ftoa(value_128,result,3), 12); lcd0.string_size("Kg", 4);
 					
 				}else{
-					//lcd0.gotoxy(2,0);
-					//lcd0.string_size(function.ftoa(value_64,result,0), 12); lcd0.string_size("gram", 4);
 					lcd0.gotoxy(3,0);
-					lcd0.string_size(function.ftoa(value_128,result,0), 12); lcd0.string_size("gram", 4);
+					lcd0.string_size(function.ftoa(value_64,result,0), 12); lcd0.string_size("gram", 4);
+					//lcd0.gotoxy(3,0);
+					//lcd0.string_size(function.ftoa(value_128,result,0), 12); lcd0.string_size("gram", 4);
 				}
 				
 				//(value-73990)/46
@@ -146,8 +150,8 @@ int main(void)
 */
 void PORTINIT(void)
 {
-	DDRC=0xFF;
-	PORTC=0xFF;
+	//DDRC=0xFF;
+	//PORTC=0xFF;
 	//DDRB=0x10;
 	//PORTB=0x10;
 }

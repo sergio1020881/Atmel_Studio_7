@@ -13,6 +13,7 @@ Comment:
 #include "lfsm.h"
 /***Constant & Macro***/
 #define ZERO 0 //0
+#define ONE 1 //1
 #define EMPTY 0 //0
 #define NPAGES 255 //1 to 254 possible pages
 #define BYTEL 0

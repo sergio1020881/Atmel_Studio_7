@@ -1,7 +1,7 @@
 /*
 	Atmega128.c
 Created: 09/10/2020 20:25:13
-Author: Sérgio Santos
+Author: Sergio Santos
 	<sergio.salazar.santos@gmail.com>
 Hardware: Atmega 128
 	-PORTA LCD

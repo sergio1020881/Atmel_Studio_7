@@ -83,218 +83,214 @@ void PORTINIT();
 /****MAIN****/
 int main(void)
 {
-PORTINIT();
-HX711_ptr = &HX711_data; // CALIBRATION DATA BUS
-/***INICIALIZE OBJECTS***/
-F = EXPLODEenable();
-FUNC function = FUNCenable();
-lcd0 = LCD0enable(&DDRA,&PINA,&PORTA);
-timer0 = TIMER_COUNTER0enable(2,2); //2,2
-TIMER_COUNTER1 timer1 = TIMER_COUNTER1enable(4,2); //4,2
-hx = HX711enable(&DDRF, &PINF, &PORTF, 6, 7); //6,7
-eprom = EEPROMenable();
-//intx = INTERRUPTenable();
-/******/
-float value = 0;
-float publish = 0;
-uint8_t choice;
-// Get default values to buss memory
-HX711_data.offset_32 = hx.get_cal(&hx)->offset_32;
-HX711_data.offset_64 = hx.get_cal(&hx)->offset_64;
-HX711_data.offset_128 = hx.get_cal(&hx)->offset_128;
-HX711_data.divfactor_32 = hx.get_cal(&hx)->divfactor_32;
-HX711_data.divfactor_64 = hx.get_cal(&hx)->divfactor_64;
-HX711_data.divfactor_128 = hx.get_cal(&hx)->divfactor_128;
-HX711_data.status = hx.get_cal(&hx)->status;
-/***Parameters timers***/
-timer0.compoutmode(1); // troubleshooting blinking PORTB 5
-/***79 and 8  -> 80 us***/
-timer0.compare(60); // 8 -> 79 -> 80 us, fine tunned = 8 -> 60 -> 30.4us
-timer0.start(8); // 1 -> 32 us , 8 -> 256 us , 32 64 128 256 1024
-// to be used to jump menu for calibration in progress
-timer1.compoutmodeA(1); // troubleshooting blinking PORTB 6
-timer1.compareA(62800); // Freq = 256 -> 62800 -> 2 s
-timer1.start(256);
-//intx.set(1,0); // Not necessary, if used move IDC from PORTF to PORTD with new config pinage.
-// HX711 Gain
-hx.set_amplify(&hx, 64); // 32 64 128
-choice = hx.get_amplify(&hx);
-if(choice == 1)
-	divfactor = (uint16_t) HX711_data.divfactor_128;
-if(choice == 2)
-	divfactor = (uint16_t) HX711_data.divfactor_32;
-if(choice == 3)
-	divfactor = (uint16_t) HX711_data.divfactor_64;
-//Get stored calibration values and put them to effect
-eprom.read_block(HX711_ptr, (const void*) ZERO, sizeblock);
-if(HX711_ptr->status == 1){
-	//Load stored value 
-	hx.get_cal(&hx)->offset_32 = HX711_ptr->offset_32;
-	hx.get_cal(&hx)->offset_64 = HX711_ptr->offset_64;
-	hx.get_cal(&hx)->offset_128 = HX711_ptr->offset_128;
-	hx.get_cal(&hx)->divfactor_32 = HX711_ptr->divfactor_32;
-	hx.get_cal(&hx)->divfactor_64 = HX711_ptr->divfactor_64;
-	hx.get_cal(&hx)->divfactor_128 = HX711_ptr->divfactor_128;
-	hx.get_cal(&hx)->status=ZERO;
-	PORTC &= ~(ONE << 5); // troubleshooting
-}
-/*********************************************************/
-//lcd0.gotoxy(1,0); // for troubleshooting
-//lcd0.string_size(function.ftoa(HX711_data.status, result, ZERO), 13);
-//lcd0.string_size(function.ftoa(hx.get_cal(&hx)->offset_64, result, ZERO), 13);
-/*********************************************************/
-while(TRUE){
-	/******PREAMBLE******/
-	lcd0.reboot(); //Reboot LCD
-	F.boot(&F,PINF); //PORTF INPUT READING
-	/************INPUT***********/
-	if(hx.query(&hx)) 
-	//Catches falling Edge instance, begins bit shifting.
-		continue;
-	/***geting data interval***/
-	// Jump Menu signal
-	if(signal == ONE){ //INPUT FROM INTERRUPT SINALS
-		Menu = '2';
-		signal = ZERO; // ONE SHOT
-		lcd0.clear();
+	PORTINIT();
+	HX711_ptr = &HX711_data; // CALIBRATION DATA BUS
+	/***INICIALIZE OBJECTS***/
+	F = EXPLODEenable();
+	FUNC function = FUNCenable();
+	lcd0 = LCD0enable(&DDRA,&PINA,&PORTA);
+	timer0 = TIMER_COUNTER0enable(2,2); //2,2
+	TIMER_COUNTER1 timer1 = TIMER_COUNTER1enable(4,2); //4,2
+	hx = HX711enable(&DDRF, &PINF, &PORTF, 6, 7); //6,7
+	eprom = EEPROMenable();
+	//intx = INTERRUPTenable();
+	/******/
+	float value = 0;
+	float publish = 0;
+	uint8_t choice;
+	// Get default values to buss memory
+	HX711_data.offset_32 = hx.get_cal(&hx)->offset_32;
+	HX711_data.offset_64 = hx.get_cal(&hx)->offset_64;
+	HX711_data.offset_128 = hx.get_cal(&hx)->offset_128;
+	HX711_data.divfactor_32 = hx.get_cal(&hx)->divfactor_32;
+	HX711_data.divfactor_64 = hx.get_cal(&hx)->divfactor_64;
+	HX711_data.divfactor_128 = hx.get_cal(&hx)->divfactor_128;
+	HX711_data.status = hx.get_cal(&hx)->status;
+	/***Parameters timers***/
+	timer0.compoutmode(1); // troubleshooting blinking PORTB 5
+	/***79 and 8  -> 80 us***/
+	timer0.compare(60); // 8 -> 79 -> 80 us, fine tunned = 8 -> 60 -> 30.4us
+	timer0.start(8); // 1 -> 32 us , 8 -> 256 us , 32 64 128 256 1024
+	// to be used to jump menu for calibration in progress
+	timer1.compoutmodeA(1); // troubleshooting blinking PORTB 6
+	timer1.compareA(62800); // Freq = 256 -> 62800 -> 2 s
+	timer1.start(256);
+	//intx.set(1,0); // Not necessary, if used move IDC from PORTF to PORTD with new config pinage.
+	// HX711 Gain
+	hx.set_amplify(&hx, 64); // 32 64 128
+	choice = hx.get_amplify(&hx);
+	if(choice == 1)
+		divfactor = (uint16_t) HX711_data.divfactor_128;
+	if(choice == 2)
+		divfactor = (uint16_t) HX711_data.divfactor_32;
+	if(choice == 3)
+		divfactor = (uint16_t) HX711_data.divfactor_64;
+	//Get stored calibration values and put them to effect
+	eprom.read_block(HX711_ptr, (const void*) ZERO, sizeblock);
+	if(HX711_ptr->status == 1){
+		//Load stored value 
+		hx.get_cal(&hx)->offset_32 = HX711_ptr->offset_32;
+		hx.get_cal(&hx)->offset_64 = HX711_ptr->offset_64;
+		hx.get_cal(&hx)->offset_128 = HX711_ptr->offset_128;
+		hx.get_cal(&hx)->divfactor_32 = HX711_ptr->divfactor_32;
+		hx.get_cal(&hx)->divfactor_64 = HX711_ptr->divfactor_64;
+		hx.get_cal(&hx)->divfactor_128 = HX711_ptr->divfactor_128;
+		hx.get_cal(&hx)->status=ZERO;
+		PORTC &= ~(ONE << 5); // troubleshooting
 	}
-	tmp = hx.raw_average(&hx, average_n); // average_n  25 or 50, smaller means faster or more readings
-	/****************************/
-	switch(Menu){
-		/***MENU 1***/
-		case '1': // Main Program Menu
-			lcd0.gotoxy(0,4); //TITLE
-			lcd0.string_size("Weight Scale", 12); //TITLE
-			/*********************************************/
-			//lcd0.gotoxy(1,0); // for troubleshooting
-			//lcd0.string_size(function.ftoa(hx.read_raw(&hx), result, ZERO), 13);
-			/*********************************************/
-			if((F.hl(&F) & IMASK) & ONE){ // calibrate offset by pressing button 1
-				HX711_data.offset_32 = tmp;
-				HX711_data.offset_64 = tmp;
-				HX711_data.offset_128 = tmp;
-				HX711_data.status = ONE;
-				eprom.update_block(HX711_ptr, (void*) ZERO, sizeblock);
-				hx.get_cal(&hx)->offset_32 = HX711_ptr->offset_32;
-				hx.get_cal(&hx)->offset_64 = HX711_ptr->offset_64;
-				hx.get_cal(&hx)->offset_128 = HX711_ptr->offset_128;
-				hx.get_cal(&hx)->status=ZERO;
-				PORTC &= ~(ONE << 5);
-			}
-			if(choice == 1 || choice == 11)
-				value = (tmp - hx.get_cal(&hx)->offset_128) / hx.get_cal(&hx)->divfactor_128;
-				//value to be published to LCD
-			if(choice == 2 || choice == 21)
-				value = (tmp - hx.get_cal(&hx)->offset_32) / hx.get_cal(&hx)->divfactor_32;
-				//value to be published to LCD
-			if(choice == 3 || choice == 31)
-				value = (tmp - hx.get_cal(&hx)->offset_64) / hx.get_cal(&hx)->divfactor_64;
-				//value to be published to LCD
-			/*********************************************/
-			//lcd0.gotoxy(3,0); // for troubleshooting
-			//lcd0.string_size(function.ftoa(tmp, result, ZERO), 13);
-			//lcd0.string_size(function.ftoa(hx.get_cal(&hx)->divfactor_128, result, ZERO), 13);
-			//lcd0.string_size(function.ftoa(hx.get_cal(&hx)->offset_128, result, ZERO), 13);
-			/*********************************************/
-			if (value > 1000 || value < -1000){
-				publish = value / 1000;
-				lcd0.gotoxy(2,1);
-				lcd0.string_size(function.ftoa(publish, result, 3), 13); lcd0.string_size("Kg", 4);
-			}else{
-				publish = value;
-				lcd0.gotoxy(2,1);
-				lcd0.string_size(function.ftoa(publish, result, ZERO), 13); lcd0.string_size("gram", 4);
-			}
-			break;
-		/***MENU 2***/
-		case '2': // MANUAL CALIBRATE DIVFACTOR MENU
-			/**/
-			lcd0.gotoxy(0,1);
-			lcd0.string_size("SETUP GAIN FACTOR",17);
-			switch(choice){
-				case 1: // case 128
-					divfactor=hx.get_cal(&hx)->divfactor_128;
-					choice=11;
-					break;
-				case 11: // case 128
-					lcd0.gotoxy(2,9);
-					if(F.hl(&F) == (ONE << 3)){
-						divfactor++;
-						if(divfactor > maxDIV)
-							divfactor = maxDIV;
-					}
-					if(F.hl(&F) == (ONE << 4)){
-						divfactor--;
-						if(divfactor < minDIV)
-							divfactor = minDIV;
-					}
-					HX711_data.divfactor_128 = divfactor;
-					lcd0.string_size(function.ui16toa(divfactor),6);
-					break;
-				case 2: // case 32
-					divfactor=hx.get_cal(&hx)->divfactor_32;
-					choice=21;
-					break;
-				case 21: // case 32
-					lcd0.gotoxy(2,9);
-					if(F.hl(&F) == (ONE << 3)){
-						divfactor++;
-						if(divfactor > maxDIV)
-							divfactor = maxDIV;
-					}
-					if(F.hl(&F) == (ONE << 4)){
-						divfactor--;
-						if(divfactor < minDIV)
-							divfactor=minDIV;
-					}
-					HX711_data.divfactor_32 = divfactor;
-					lcd0.string_size(function.ui16toa(divfactor),6);
-					break;
-				case 3: // case 64
-					divfactor=hx.get_cal(&hx)->divfactor_64;
-					choice=31;
-					break;
-				case 31: // case 64
-					lcd0.gotoxy(2,9);
-					if(F.hl(&F) == (ONE << 3)){
-						divfactor++;
-						if(divfactor > maxDIV)
-							divfactor = maxDIV;
-					}
-					if(F.hl(&F) == (ONE << 4)){
-						divfactor--;
-						if(divfactor < minDIV)
-							divfactor = minDIV;
-					}
-					HX711_data.divfactor_64 = divfactor;
-					lcd0.string_size(function.ui16toa(divfactor),6);
-					break;
-				default:
-					choice = 3;
-					break;
-			};
-			// Exit and store value
-			if((F.ll(&F) & IMASK) == (ONE << 5)){ // Button 6
-				HX711_data.status = ONE;
-				eprom.update_block(HX711_ptr, (void*) ZERO, sizeblock);
-				hx.get_cal(&hx)->divfactor_32=divfactor;
-				hx.get_cal(&hx)->divfactor_64=divfactor;
-				hx.get_cal(&hx)->divfactor_128=divfactor;
-				hx.get_cal(&hx)->status=ZERO;
-				PORTC &= ~(ONE << 5); // troubleshooting
-				PORTC |= (ONE << 7); // troubleshooting
-				counter_2 = ZERO;
+	/*********************************************************/
+	//lcd0.gotoxy(1,0); // for troubleshooting
+	//lcd0.string_size(function.ftoa(HX711_data.status, result, ZERO), 13);
+	//lcd0.string_size(function.ftoa(hx.get_cal(&hx)->offset_64, result, ZERO), 13);
+	/*********************************************************/
+	while(TRUE){
+		/******PREAMBLE******/
+		lcd0.reboot(); //Reboot LCD
+		F.boot(&F,PINF); //PORTF INPUT READING
+		/************INPUT***********/
+		// Jump Menu signal
+		if(signal == ONE){ //INPUT FROM INTERRUPT SINALS
+			Menu = '2';
+			signal = ZERO; // ONE SHOT
+			lcd0.clear();
+		}
+		/***geting data interval***/
+		while(hx.query(&hx))
+		//Catches falling Edge instance, begins bit shifting.
+		tmp = hx.raw_average(&hx, average_n); // average_n  25 or 50, smaller means faster or more readings
+		/****************************/
+		switch(Menu){
+			/***MENU 1***/
+			case '1': // Main Program Menu
+				lcd0.gotoxy(0,4); //TITLE
+				lcd0.string_size("Weight Scale", 12); //TITLE
+				/*********************************************/
+				//lcd0.gotoxy(1,0); // for troubleshooting
+				//lcd0.string_size(function.ftoa(hx.read_raw(&hx), result, ZERO), 13);
+				/*********************************************/
+				if((F.hl(&F) & IMASK) & ONE){ // calibrate offset by pressing button 1
+					HX711_data.offset_32 = tmp;
+					HX711_data.offset_64 = tmp;
+					HX711_data.offset_128 = tmp;
+					HX711_data.status = ONE;
+					eprom.update_block(HX711_ptr, (void*) ZERO, sizeblock);
+					hx.get_cal(&hx)->offset_32 = HX711_ptr->offset_32;
+					hx.get_cal(&hx)->offset_64 = HX711_ptr->offset_64;
+					hx.get_cal(&hx)->offset_128 = HX711_ptr->offset_128;
+					hx.get_cal(&hx)->status=ZERO;
+					PORTC &= ~(ONE << 5);
+				}
+				if(choice == 1 || choice == 11)
+					value = (tmp - hx.get_cal(&hx)->offset_128) / hx.get_cal(&hx)->divfactor_128; //value to be published to LCD
+				if(choice == 2 || choice == 21)
+					value = (tmp - hx.get_cal(&hx)->offset_32) / hx.get_cal(&hx)->divfactor_32; //value to be published to LCD
+				if(choice == 3 || choice == 31)
+					value = (tmp - hx.get_cal(&hx)->offset_64) / hx.get_cal(&hx)->divfactor_64; //value to be published to LCD
+				/*********************************************/
+				//lcd0.gotoxy(3,0); // for troubleshooting
+				//lcd0.string_size(function.ftoa(tmp, result, ZERO), 13);
+				//lcd0.string_size(function.ftoa(hx.get_cal(&hx)->divfactor_128, result, ZERO), 13);
+				//lcd0.string_size(function.ftoa(hx.get_cal(&hx)->offset_128, result, ZERO), 13);
+				/*********************************************/
+				if (value > 1000 || value < -1000){
+					publish = value / 1000;
+					lcd0.gotoxy(2,1);
+					lcd0.string_size(function.ftoa(publish, result, 3), 13); lcd0.string_size("Kg", 4);
+				}else{
+					publish = value;
+					lcd0.gotoxy(2,1);
+					lcd0.string_size(function.ftoa(publish, result, ZERO), 13); lcd0.string_size("gram", 4);
+				}
+				break;
+			/***MENU 2***/
+			case '2': // MANUAL CALIBRATE DIVFACTOR MENU
+				/**/
+				lcd0.gotoxy(0,1);
+				lcd0.string_size("SETUP GAIN FACTOR",17);
+				switch(choice){
+					case 1: // case 128
+						divfactor=hx.get_cal(&hx)->divfactor_128;
+						choice=11;
+						break;
+					case 11: // case 128
+						lcd0.gotoxy(2,9);
+						if(F.hl(&F) == (ONE << 3)){
+							divfactor++;
+							if(divfactor > maxDIV)
+								divfactor = maxDIV;
+						}
+						if(F.hl(&F) == (ONE << 4)){
+							divfactor--;
+							if(divfactor < minDIV)
+								divfactor = minDIV;
+						}
+						HX711_data.divfactor_128 = divfactor;
+						lcd0.string_size(function.ui16toa(divfactor),6);
+						break;
+					case 2: // case 32
+						divfactor=hx.get_cal(&hx)->divfactor_32;
+						choice=21;
+						break;
+					case 21: // case 32
+						lcd0.gotoxy(2,9);
+						if(F.hl(&F) == (ONE << 3)){
+							divfactor++;
+							if(divfactor > maxDIV)
+								divfactor = maxDIV;
+						}
+						if(F.hl(&F) == (ONE << 4)){
+							divfactor--;
+							if(divfactor < minDIV)
+								divfactor=minDIV;
+						}
+						HX711_data.divfactor_32 = divfactor;
+						lcd0.string_size(function.ui16toa(divfactor),6);
+						break;
+					case 3: // case 64
+						divfactor=hx.get_cal(&hx)->divfactor_64;
+						choice=31;
+						break;
+					case 31: // case 64
+						lcd0.gotoxy(2,9);
+						if(F.hl(&F) == (ONE << 3)){
+							divfactor++;
+							if(divfactor > maxDIV)
+								divfactor = maxDIV;
+						}
+						if(F.hl(&F) == (ONE << 4)){
+							divfactor--;
+							if(divfactor < minDIV)
+								divfactor = minDIV;
+						}
+						HX711_data.divfactor_64 = divfactor;
+						lcd0.string_size(function.ui16toa(divfactor),6);
+						break;
+					default:
+						choice = 3;
+						break;
+				};
+				// Exit and store value
+				if((F.ll(&F) & IMASK) == (ONE << 5)){ // Button 6
+					HX711_data.status = ONE;
+					eprom.update_block(HX711_ptr, (void*) ZERO, sizeblock);
+					hx.get_cal(&hx)->divfactor_32=divfactor;
+					hx.get_cal(&hx)->divfactor_64=divfactor;
+					hx.get_cal(&hx)->divfactor_128=divfactor;
+					hx.get_cal(&hx)->status=ZERO;
+					PORTC &= ~(ONE << 5); // troubleshooting
+					PORTC |= (ONE << 7); // troubleshooting
+					counter_2 = ZERO;
+					Menu = '1';
+					lcd0.clear();
+				}
+				/**/
+				break;
+				/********************************************************************/
+			default:
 				Menu = '1';
-				lcd0.clear();
-			}
-			/**/
-			break;
-			/********************************************************************/
-		default:
-			Menu = '1';
-			break;
-	};
-}
+				break;
+		};
+	}
 }
 /*
 ** procedure and function
